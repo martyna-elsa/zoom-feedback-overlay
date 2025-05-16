@@ -183,7 +183,8 @@ const ChatPanel: React.FC = () => {
               <AlertTriangle className="h-5 w-5 text-amber-600" />
               <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
               <AlertDescription className="text-amber-700">
-                Sarah did not understand Michael's question. Michael, please formulate it in a clearer way.
+                Sarah did not understand your question. Rephrase it as-
+                What goals are you trying to achieve this quarter?
               </AlertDescription>
               <Button 
                 variant="ghost" 
