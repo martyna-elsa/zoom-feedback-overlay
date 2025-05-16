@@ -144,7 +144,7 @@ const ChatPanel: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4">
             <Card className="p-4">
               <h3 className="font-medium mb-2 flex items-center gap-2">
                 <MessageSquare className="h-4 w-4 text-blue-600" />
@@ -159,83 +159,118 @@ const ChatPanel: React.FC = () => {
               </ul>
             </Card>
 
-            <div className="grid gap-4">
-              <Card className="p-4">
-                <h3 className="font-medium mb-3 text-blue-700">Language Proficiency Assessment</h3>
-                
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Pronunciation</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "85%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">85%</span>
+            <Card className="p-4">
+              <h3 className="font-medium mb-3 text-blue-700">Language Proficiency Assessment</h3>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Pronunciation</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "85%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".</p>
+                  <span className="ml-2 text-sm font-medium">85%</span>
                 </div>
-                
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Grammar & Vocabulary</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "90%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">90%</span>
+                <p className="text-xs text-gray-600">Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".</p>
+              </div>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Grammar & Vocabulary</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "90%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Strong command of technical vocabulary. Correctly used conditional structures: "That would bring it down to $12/user/month."</p>
+                  <span className="ml-2 text-sm font-medium">90%</span>
                 </div>
+                <p className="text-xs text-gray-600">Strong command of technical vocabulary. Correctly used conditional structures: "That would bring it down to $12/user/month."</p>
+              </div>
 
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Confidence & Fluency</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "88%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">88%</span>
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Confidence & Fluency</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "88%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Spoke without hesitation. Maintained conversational flow even when discussing technical features.</p>
+                  <span className="ml-2 text-sm font-medium">88%</span>
                 </div>
-              </Card>
+                <p className="text-xs text-gray-600">Spoke without hesitation. Maintained conversational flow even when discussing technical features.</p>
+              </div>
+            </Card>
 
-              <Card className="p-4">
-                <h3 className="font-medium mb-3 text-blue-700">Communication Skills</h3>
-                
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Negotiation Skills</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "82%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">82%</span>
+            <Card className="p-4">
+              <h3 className="font-medium mb-3 text-blue-700">Communication Skills</h3>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Negotiation Skills</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "82%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Effectively presented value proposition. Could improve by proactively addressing potential objections before they arise.</p>
+                  <span className="ml-2 text-sm font-medium">82%</span>
                 </div>
+                <p className="text-xs text-gray-600">Effectively presented value proposition. Could improve by proactively addressing potential objections before they arise.</p>
+              </div>
 
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Persuasion Effectiveness</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "78%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">78%</span>
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Persuasion Effectiveness</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "78%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Good use of social proof and value-based selling. Example: "For a team your size, our Business plan would be ideal."</p>
+                  <span className="ml-2 text-sm font-medium">78%</span>
                 </div>
+                <p className="text-xs text-gray-600">Good use of social proof and value-based selling. Example: "For a team your size, our Business plan would be ideal."</p>
+              </div>
 
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Customer Understanding</h4>
-                  <div className="flex items-center mb-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "95%" }}></div>
-                    </div>
-                    <span className="ml-2 text-sm font-medium">95%</span>
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Customer Understanding</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "95%" }}></div>
                   </div>
-                  <p className="text-xs text-gray-600">Excellent at identifying customer needs and matching solutions. Quickly recognized security as a key priority.</p>
+                  <span className="ml-2 text-sm font-medium">95%</span>
                 </div>
-              </Card>
-            </div>
+                <p className="text-xs text-gray-600">Excellent at identifying customer needs and matching solutions. Quickly recognized security as a key priority.</p>
+              </div>
+            </Card>
 
-            <Card className="p-4 md:col-span-2">
+            <Card className="p-4">
+              <h3 className="font-medium mb-3 text-blue-700">Soft Skills</h3>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Active Listening</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "88%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">88%</span>
+                </div>
+                <p className="text-xs text-gray-600">Demonstrated excellent comprehension by addressing the specific team size and security concerns mentioned by the customer.</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Empathy</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "82%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">82%</span>
+                </div>
+                <p className="text-xs text-gray-600">Showed understanding of customer's budget concerns by proactively offering the annual discount option.</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Problem Solving</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "90%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">90%</span>
+                </div>
+                <p className="text-xs text-gray-600">Quickly identified the appropriate plan based on team size and security requirements without unnecessary upselling.</p>
+              </div>
+            </Card>
+
+            <Card className="p-4">
               <h3 className="font-medium mb-2 text-blue-700">Measurable Results</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-3 rounded-lg text-center">
