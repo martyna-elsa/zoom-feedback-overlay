@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -268,34 +269,34 @@ const SkillsProgress: React.FC = () => {
           </div>
         )}
 
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2">
-            <Filter className="h-4 w-4" />
-            <span className="text-sm font-medium">Filter by Category:</span>
-          </div>
-          <ToggleGroup 
-            type="multiple" 
-            value={selectedCategories}
-            onValueChange={setSelectedCategories}
-            className="flex flex-wrap gap-2"
-          >
-            {Object.entries(categoryLabels).map(([category, label]) => (
-              <ToggleGroupItem 
-                key={category} 
-                value={category}
-                className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-              >
-                {label}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </div>
-
         <Tabs value={currentTab} onValueChange={setCurrentTab}>
           <TabsList className="mb-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="details">Details</TabsTrigger>
           </TabsList>
+
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Filter className="h-4 w-4" />
+              <span className="text-sm font-medium">Filter by Category:</span>
+            </div>
+            <ToggleGroup 
+              type="multiple" 
+              value={selectedCategories}
+              onValueChange={setSelectedCategories}
+              className="flex flex-wrap gap-2"
+            >
+              {Object.entries(categoryLabels).map(([category, label]) => (
+                <ToggleGroupItem 
+                  key={category} 
+                  value={category}
+                  className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+                >
+                  {label}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </div>
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid gap-6 md:grid-cols-3">
