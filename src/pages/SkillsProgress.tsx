@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -276,10 +275,6 @@ const SkillsProgress: React.FC = () => {
           </TabsList>
 
           <div className="mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <Filter className="h-4 w-4" />
-              <span className="text-sm font-medium">Filter by Category:</span>
-            </div>
             <ToggleGroup 
               type="multiple" 
               value={selectedCategories}
