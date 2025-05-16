@@ -625,7 +625,17 @@ const SkillsProgress = () => {
                             <span className="text-sm font-medium text-green-600">{skill.improvement}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Progress value={skill.value} className={`h-2 ${skill.color}`} />
+                            <Progress 
+                              value={skill.value} 
+                              className={`h-2 ${
+                                skill.color || 
+                                (skill.category === 'English Proficiency' 
+                                  ? 'bg-blue-600' 
+                                  : skill.category === 'Soft Skills' 
+                                    ? 'bg-amber-600' 
+                                    : 'bg-indigo-600')
+                              }`} 
+                            />
                             <span className="text-sm font-semibold">{skill.value}%</span>
                           </div>
                         </div>
