@@ -179,7 +179,7 @@ const ChatPanel: React.FC = () => {
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           {showMisunderstandingAlert && (
-            <Alert variant="destructive" className="mx-3 mt-3 bg-amber-50 border-amber-200">
+            <Alert variant="destructive" className="mx-1 mt-1 bg-amber-50 border-amber-200">
               <AlertTriangle className="h-5 w-5 text-amber-600" />
               <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
               <AlertDescription className="text-amber-700">
@@ -195,15 +195,15 @@ const ChatPanel: React.FC = () => {
               </Button>
             </Alert>
           )}
-          <ScrollArea className="flex-grow p-3">
-            <div className="space-y-3">
+          <ScrollArea className="flex-grow p-1">
+            <div className="space-y-2">
               {messages.map((msg) => (
                 <div 
                   key={msg.id} 
-                  className={`p-3 rounded-lg ${
+                  className={`p-2 rounded-lg ${
                     msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                      ? 'bg-blue-50 ml-6' 
-                      : 'bg-gray-100 mr-6'
+                      ? 'bg-blue-50 ml-4' 
+                      : 'bg-gray-100 mr-4'
                   }`}
                 >
                   <div className="flex justify-between text-xs text-gray-500 mb-1">
@@ -215,8 +215,8 @@ const ChatPanel: React.FC = () => {
               ))}
             </div>
           </ScrollArea>
-          <div className="p-3 border-t border-gray-200">
-            <div className="flex gap-2">
+          <div className="p-1 border-t border-gray-200">
+            <div className="flex gap-1">
               <Input 
                 placeholder="Ask about this conversation..." 
                 value={question} 
