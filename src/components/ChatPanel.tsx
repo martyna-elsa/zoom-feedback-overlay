@@ -15,19 +15,19 @@ const sampleConversation = [
   { id: 4, sender: 'Sales Rep', message: "Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.", time: '10:07 AM' },
   { id: 5, sender: 'Customer', message: "That sounds promising. Do you offer any discounts for annual payments?", time: '10:08 AM' },
   { id: 6, sender: 'Sales Rep', message: "Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.", time: '10:10 AM' },
+];
+
+// Feedback and communication issues
+const feedbackAndIssues = [
   { 
-    id: 7, 
-    sender: 'Feedback', 
+    id: 1, 
+    type: 'recommendedReply', 
     message: "Our pricing is designed to scale with your needs—can I ask a few questions to recommend the best option for you?",
-    time: '10:11 AM',
-    type: 'feedback'
   },
   {
-    id: 8,
-    sender: 'Communication Issue',
+    id: 2,
+    type: 'issue',
     message: "Sarah did not understand your question. Rephrase it as: What goals are you trying to achieve this quarter?",
-    time: '10:12 AM',
-    type: 'issue'
   }
 ];
 
@@ -62,7 +62,7 @@ const ChatPanel: React.FC = () => {
   };
 
   const getMessageStyle = (message) => {
-    if (message.type === 'feedback') {
+    if (message.type === 'recommendedReply') {
       return 'bg-purple-50 border-l-4 border-purple-400 px-3';
     } else if (message.type === 'issue') {
       return 'bg-amber-50 border-l-4 border-amber-400 px-3';
@@ -74,7 +74,7 @@ const ChatPanel: React.FC = () => {
   };
 
   const getMessageIcon = (message) => {
-    if (message.type === 'feedback') {
+    if (message.type === 'recommendedReply') {
       return <MessageCircle className="h-4 w-4 text-purple-600" />;
     } else if (message.type === 'issue') {
       return <AlertTriangle className="h-4 w-4 text-amber-600" />;
@@ -93,6 +93,22 @@ const ChatPanel: React.FC = () => {
         </div>
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
+          {/* Feedback and Communication Issues Section at the top */}
+          <div className="border-b border-gray-200 p-3 space-y-2">
+            {feedbackAndIssues.map((item) => (
+              <div 
+                key={item.id} 
+                className={`p-2 rounded-lg ${getMessageStyle(item)}`}
+              >
+                <div className="flex items-center gap-1 text-xs font-medium mb-1">
+                  {getMessageIcon(item)}
+                  {item.type === 'recommendedReply' ? 'Recommended Reply' : 'Communication Issue'}
+                </div>
+                <p className="text-sm">{item.message}</p>
+              </div>
+            ))}
+          </div>
+
           <ScrollArea className="flex-grow p-1">
             <div className="space-y-2">
               {messages.map((msg) => (
@@ -112,6 +128,7 @@ const ChatPanel: React.FC = () => {
               ))}
             </div>
           </ScrollArea>
+
           <div className="p-1 border-t border-gray-200">
             <div className="flex gap-1">
               <Input 
