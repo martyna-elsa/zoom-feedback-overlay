@@ -63,7 +63,7 @@ const ChatPanel: React.FC = () => {
           </TabsList>
         </div>
 
-        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full">
+        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           {showMisunderstandingAlert && (
             <Alert variant="destructive" className="mx-3 mt-3 bg-amber-50 border-amber-200">
               <AlertTriangle className="h-5 w-5 text-amber-600" />
@@ -82,22 +82,24 @@ const ChatPanel: React.FC = () => {
             </Alert>
           )}
           <ScrollArea className="flex-grow p-3">
-            {messages.map((msg) => (
-              <div 
-                key={msg.id} 
-                className={`mb-3 p-3 rounded-lg ${
-                  msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                    ? 'bg-blue-50 ml-6' 
-                    : 'bg-gray-100 mr-6'
-                }`}
-              >
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
-                  <span className="font-medium">{msg.sender}</span>
-                  <span>{msg.time}</span>
+            <div className="space-y-3">
+              {messages.map((msg) => (
+                <div 
+                  key={msg.id} 
+                  className={`p-3 rounded-lg ${
+                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
+                      ? 'bg-blue-50 ml-6' 
+                      : 'bg-gray-100 mr-6'
+                  }`}
+                >
+                  <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <span className="font-medium">{msg.sender}</span>
+                    <span>{msg.time}</span>
+                  </div>
+                  <p className="text-sm">{msg.message}</p>
                 </div>
-                <p className="text-sm">{msg.message}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </ScrollArea>
           <div className="p-3 border-t border-gray-200">
             <div className="flex gap-2">
@@ -114,7 +116,7 @@ const ChatPanel: React.FC = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto">
+        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
           <div className="space-y-4">
             <Card className="p-4">
               <h3 className="font-medium mb-2 flex items-center gap-2">
