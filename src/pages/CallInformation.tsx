@@ -1,36 +1,34 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChevronLeft } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChevronLeft, Upload, FileText, Link as LinkIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
 
 const CallInformation: React.FC = () => {
   const { toast } = useToast();
-  const form = useForm({
-    defaultValues: {
-      companyName: 'Acme Corporation',
-      industry: 'Technology',
-      callObjective: 'Product demo and pricing discussion',
-      companySize: '50-100 employees',
-      painPoints: 'Current solution lacks scalability and integration capabilities',
-      previousInteractions: 'Initial discovery call on May 5th',
-      additionalNotes: ''
-    }
-  });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleUpload = (type: string) => {
     toast({
-      title: "Call information updated",
-      description: "You'll now receive contextual feedback based on this information."
+      title: "Upload initiated",
+      description: `You'll soon be able to upload documents for ${type}.`
     });
+  };
+
+  const handleUrlSubmit = (type: string, event: React.FormEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const url = new FormData(form).get('url') as string;
+    
+    if (url) {
+      toast({
+        title: "URL received",
+        description: `We'll analyze this URL for ${type}.`
+      });
+      form.reset();
+    }
   };
 
   return (
@@ -45,131 +43,103 @@ const CallInformation: React.FC = () => {
           </Link>
         </div>
         
-        <Card>
-          <CardHeader>
-            <CardTitle>Update Call & Company Information</CardTitle>
-            <CardDescription>
-              Provide details about the current call to receive more accurate contextual feedback
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="companyName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Company Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Company name" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="industry"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Industry</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Industry" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Company Information Card */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Update Your Company Information</CardTitle>
+              <CardDescription>
+                Add details about your company to improve contextual feedback
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer" 
+                   onClick={() => handleUpload('your company')}>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <Upload className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Upload Document</h3>
+                    <p className="text-sm text-gray-500">Upload company brochures, presentations or other documents</p>
+                  </div>
                 </div>
-
-                <FormField
-                  control={form.control}
-                  name="callObjective"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Call Objective</FormLabel>
-                      <FormControl>
-                        <Input placeholder="What's the main goal of this call?" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        Clearly defined objectives help receive more relevant feedback
-                      </FormDescription>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="companySize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Company Size</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Company size" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="painPoints"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Known Pain Points</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="What challenges is the customer facing?" 
-                          className="min-h-24"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="previousInteractions"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Previous Interactions</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Summary of previous calls or meetings" 
-                          className="min-h-24"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="additionalNotes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Additional Notes</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Any other relevant information" 
-                          className="min-h-24"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <div className="pt-4">
-                  <Button type="submit">Update Information</Button>
+              </div>
+              
+              <form onSubmit={(e) => handleUrlSubmit('your company', e)}>
+                <div className="border rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                      <LinkIcon className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Paste Company URL</h3>
+                      <p className="text-sm text-gray-500">Add your company website or LinkedIn page</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input 
+                      name="url"
+                      placeholder="https://yourcompany.com" 
+                      type="url" 
+                      className="flex-1"
+                      required
+                    />
+                    <Button type="submit">Analyze</Button>
+                  </div>
                 </div>
               </form>
-            </Form>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+          
+          {/* Participant's Company Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Participant's Company Information</CardTitle>
+              <CardDescription>
+                Add details about the participant's company to receive more relevant insights
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer"
+                   onClick={() => handleUpload('participant company')}>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Upload Document</h3>
+                    <p className="text-sm text-gray-500">Upload materials about the participant's company</p>
+                  </div>
+                </div>
+              </div>
+              
+              <form onSubmit={(e) => handleUrlSubmit('participant company', e)}>
+                <div className="border rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                      <LinkIcon className="h-5 w-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">Paste Company URL</h3>
+                      <p className="text-sm text-gray-500">Add their company website or LinkedIn page</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input 
+                      name="url"
+                      placeholder="https://theircompany.com" 
+                      type="url" 
+                      className="flex-1"
+                      required
+                    />
+                    <Button type="submit">Analyze</Button>
+                  </div>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
