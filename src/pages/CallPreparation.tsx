@@ -6,10 +6,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
-import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { useForm } from 'react-hook-form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Sample participants data
 const participants = [
@@ -59,9 +63,165 @@ const participants = [
   }
 ];
 
+// Sample call objective templates
+const callObjectiveTemplates = [
+  {
+    id: "discovery",
+    name: "Discovery Call",
+    description: "First call to understand prospect's needs",
+    agendaItems: [
+      "Introduction and rapport building (5 min)",
+      "Overview of their business challenges (10 min)",
+      "Discussion of pain points and needs (15 min)",
+      "Brief introduction to your solution (10 min)",
+      "Next steps and scheduling follow-up (5 min)"
+    ],
+    keyPhrases: [
+      {
+        category: "Opening",
+        phrases: [
+          "I appreciate you taking the time to meet with us today.",
+          "I'm looking forward to learning more about your business needs.",
+          "Before we dive in, could you share a bit about your role at [Company]?"
+        ]
+      },
+      {
+        category: "Probing Questions",
+        phrases: [
+          "Could you walk me through your current process?",
+          "What challenges are you facing with your existing solution?",
+          "How is this issue impacting your team's productivity?"
+        ]
+      },
+      {
+        category: "Active Listening",
+        phrases: [
+          "If I understand correctly, your main concern is...",
+          "Let me make sure I've got this right...",
+          "That's interesting, could you elaborate on that point?"
+        ]
+      },
+      {
+        category: "Closing",
+        phrases: [
+          "Based on what we've discussed, I think we should schedule a follow-up to...",
+          "Would it make sense to arrange a technical demonstration next week?",
+          "What would be the next logical step from your perspective?"
+        ]
+      }
+    ]
+  },
+  {
+    id: "demo",
+    name: "Product Demonstration",
+    description: "Showcase solution features and benefits",
+    agendaItems: [
+      "Brief recap of previous conversations (5 min)",
+      "Confirmation of key requirements (5 min)",
+      "Product demonstration focused on their needs (30 min)",
+      "Q&A session (10 min)",
+      "Discussion of implementation steps (10 min)"
+    ],
+    keyPhrases: [
+      {
+        category: "Setting Context",
+        phrases: [
+          "Based on our previous conversation, I've prepared a demonstration focusing on [specific needs].",
+          "Today I'd like to show you how our solution addresses the challenges we discussed.",
+          "I'll tailor this demonstration to the priorities you mentioned: [list priorities]."
+        ]
+      },
+      {
+        category: "Feature Presentation",
+        phrases: [
+          "This feature specifically addresses your need for...",
+          "As you can see, this would streamline your process of...",
+          "Unlike your current solution, our platform enables you to..."
+        ]
+      },
+      {
+        category: "Handling Objections",
+        phrases: [
+          "That's a great question. Let me address that by showing you...",
+          "I understand your concern about [objection]. Here's how we typically address that...",
+          "Other clients had similar concerns before implementing, and they found that..."
+        ]
+      },
+      {
+        category: "Next Steps",
+        phrases: [
+          "Based on what you've seen today, what aspects would you like to explore further?",
+          "Would it be helpful to involve your [IT/finance/operations] team in our next discussion?",
+          "What timeline are you considering for implementation if you decide to move forward?"
+        ]
+      }
+    ]
+  },
+  {
+    id: "negotiation",
+    name: "Negotiation/Closing",
+    description: "Discuss terms and close the deal",
+    agendaItems: [
+      "Recap of solution value and fit (10 min)",
+      "Review of proposal and pricing structure (15 min)",
+      "Discussion of implementation timeline (10 min)",
+      "Addressing final questions and concerns (15 min)",
+      "Agreement on next steps toward contract (10 min)"
+    ],
+    keyPhrases: [
+      {
+        category: "Value Reinforcement",
+        phrases: [
+          "As we've discussed, the key benefits for your team would be [benefits].",
+          "Based on the figures we reviewed, you could expect an ROI of approximately [X]% within [timeframe].",
+          "Other clients in your industry have seen [specific results] after implementation."
+        ]
+      },
+      {
+        category: "Negotiation",
+        phrases: [
+          "We have some flexibility on [terms/timeline/features], but [other aspect] is a fixed requirement.",
+          "If we can agree on a [longer contract/larger volume], we could adjust the [pricing/terms] to...",
+          "What aspects of the proposal are most important to you? Maybe we can find a middle ground."
+        ]
+      },
+      {
+        category: "Overcoming Hesitation",
+        phrases: [
+          "I understand your concern about [objection]. Let me address that specifically...",
+          "Many clients initially worry about [concern], but in practice they find that...",
+          "Would it help if we [proposed solution to objection]?"
+        ]
+      },
+      {
+        category: "Closing",
+        phrases: [
+          "Given what we've discussed today, what do you see as the next steps?",
+          "If we can address [remaining concern], are you ready to move forward with the agreement?",
+          "Would you like me to draft a revised proposal that incorporates the changes we discussed today?"
+        ]
+      }
+    ]
+  }
+];
+
+type FormValues = {
+  objective: string;
+  customObjective?: string;
+  audienceLevel?: string;
+};
+
 const CallPreparation: React.FC = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("company-info");
+  const [selectedObjective, setSelectedObjective] = useState(callObjectiveTemplates[0]);
+  
+  const form = useForm<FormValues>({
+    defaultValues: {
+      objective: "discovery",
+      audienceLevel: "intermediate"
+    }
+  });
 
   const handleUpload = (type: string) => {
     toast({
@@ -83,6 +243,14 @@ const CallPreparation: React.FC = () => {
       form.reset();
     }
   };
+  
+  const handleObjectiveChange = (value: string) => {
+    const objective = callObjectiveTemplates.find(o => o.id === value);
+    if (objective) {
+      setSelectedObjective(objective);
+    }
+    form.setValue("objective", value);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -100,6 +268,10 @@ const CallPreparation: React.FC = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-6 w-full justify-start">
+            <TabsTrigger value="call-objective" className="flex items-center gap-1">
+              <TargetIcon className="h-4 w-4" />
+              Call Objective
+            </TabsTrigger>
             <TabsTrigger value="company-info" className="flex items-center gap-1">
               <FileText className="h-4 w-4" />
               Company Information
@@ -109,6 +281,139 @@ const CallPreparation: React.FC = () => {
               Participant Profiles
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="call-objective" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Call Objective</CardTitle>
+                <CardDescription>
+                  Define your call objective and get a suggested agenda and key phrases
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <Form {...form}>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="objective"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Call Objective</FormLabel>
+                          <Select 
+                            onValueChange={value => handleObjectiveChange(value)} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a call objective" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {callObjectiveTemplates.map((objective) => (
+                                <SelectItem key={objective.id} value={objective.id}>
+                                  {objective.name}
+                                </SelectItem>
+                              ))}
+                              <SelectItem value="custom">Custom Objective</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="audienceLevel"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>English Proficiency Level</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select audience level" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="beginner">Beginner</SelectItem>
+                              <SelectItem value="intermediate">Intermediate</SelectItem>
+                              <SelectItem value="advanced">Advanced</SelectItem>
+                              <SelectItem value="fluent">Fluent</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {form.watch("objective") === "custom" && (
+                      <div className="sm:col-span-2">
+                        <FormField
+                          control={form.control}
+                          name="customObjective"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Custom Objective Description</FormLabel>
+                              <FormControl>
+                                <Textarea 
+                                  placeholder="Describe your call objective..."
+                                  className="min-h-[100px]"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </Form>
+                
+                <div className="border-t pt-6 mt-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <Calendar className="h-4 w-4 text-blue-600" />
+                        Suggested Agenda
+                      </h3>
+                      <ol className="list-decimal list-inside space-y-2 pl-1 text-sm">
+                        {selectedObjective.agendaItems.map((item, idx) => (
+                          <li key={idx} className="text-gray-700">
+                            {item}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <MessageSquareText className="h-4 w-4 text-green-600" />
+                        Key English Phrases
+                      </h3>
+                      <div className="space-y-4">
+                        {selectedObjective.keyPhrases.map((section, idx) => (
+                          <div key={idx} className="space-y-2">
+                            <h4 className="text-sm font-medium text-gray-900">{section.category}</h4>
+                            <ul className="list-disc list-inside space-y-1 pl-1 text-sm">
+                              {section.phrases.map((phrase, i) => (
+                                <li key={i} className="text-gray-700">
+                                  {phrase}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save Call Objective</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
           
           <TabsContent value="company-info" className="space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
