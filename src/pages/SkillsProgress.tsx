@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -43,14 +42,14 @@ import { ChevronLeft, TrendingUp, Calendar } from 'lucide-react';
 
 // Sample data for the skills progress over time
 const skillsProgressData = [
-  { date: 'Jan 10', pronunciation: 65, grammar: 70, negotiation: 60, persuasion: 55, understanding: 72, confidence: 58, fluency: 55 },
-  { date: 'Jan 24', pronunciation: 68, grammar: 73, negotiation: 65, persuasion: 60, understanding: 75, confidence: 63, fluency: 60 },
-  { date: 'Feb 7', pronunciation: 72, grammar: 78, negotiation: 68, persuasion: 65, understanding: 80, confidence: 70, fluency: 67 },
-  { date: 'Feb 21', pronunciation: 75, grammar: 80, negotiation: 70, persuasion: 68, understanding: 83, confidence: 75, fluency: 72 },
-  { date: 'Mar 7', pronunciation: 78, grammar: 82, negotiation: 74, persuasion: 70, understanding: 85, confidence: 80, fluency: 78 },
-  { date: 'Mar 21', pronunciation: 80, grammar: 85, negotiation: 76, persuasion: 72, understanding: 88, confidence: 83, fluency: 81 },
-  { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86, fluency: 84 },
-  { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88, fluency: 87 },
+  { date: 'Jan 10', pronunciation: 65, grammar: 70, negotiation: 60, persuasion: 55, understanding: 72, confidence: 58, fluency: 55, coherence: 68 },
+  { date: 'Jan 24', pronunciation: 68, grammar: 73, negotiation: 65, persuasion: 60, understanding: 75, confidence: 63, fluency: 60, coherence: 70 },
+  { date: 'Feb 7', pronunciation: 72, grammar: 78, negotiation: 68, persuasion: 65, understanding: 80, confidence: 70, fluency: 67, coherence: 73 },
+  { date: 'Feb 21', pronunciation: 75, grammar: 80, negotiation: 70, persuasion: 68, understanding: 83, confidence: 75, fluency: 72, coherence: 76 },
+  { date: 'Mar 7', pronunciation: 78, grammar: 82, negotiation: 74, persuasion: 70, understanding: 85, confidence: 80, fluency: 78, coherence: 79 },
+  { date: 'Mar 21', pronunciation: 80, grammar: 85, negotiation: 76, persuasion: 72, understanding: 88, confidence: 83, fluency: 81, coherence: 82 },
+  { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86, fluency: 84, coherence: 84 },
+  { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88, fluency: 87, coherence: 88 },
 ];
 
 // Sample historical call data with performance
@@ -61,17 +60,18 @@ const historicalCalls = [
     topic: 'Product Demo - Enterprise Plan',
     skills: [
       { name: 'Pronunciation', value: 85, improvement: '+3%' },
-      { name: 'Grammar & Vocabulary', value: 90, improvement: '+3%' },
+      { name: 'Grammar', value: 90, improvement: '+3%' },
       { name: 'Confidence', value: 88, improvement: '+2%' },
       { name: 'Fluency', value: 87, improvement: '+3%' },
       { name: 'Negotiation Skills', value: 82, improvement: '+4%' },
-      { name: 'Persuasion Effectiveness', value: 78, improvement: '+3%' },
-      { name: 'Customer Understanding', value: 95, improvement: '+5%' },
+      { name: 'Persuasion', value: 78, improvement: '+3%' },
+      { name: 'Understanding', value: 95, improvement: '+5%' },
+      { name: 'Coherence', value: 88, improvement: '+4%' },
     ],
     progressData: [
-      { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86, fluency: 84 },
-      { date: 'Apr 11', pronunciation: 83, grammar: 88, negotiation: 79, persuasion: 76, understanding: 92, confidence: 87, fluency: 85 },
-      { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88, fluency: 87 },
+      { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86, fluency: 84, coherence: 84 },
+      { date: 'Apr 11', pronunciation: 83, grammar: 88, negotiation: 79, persuasion: 76, understanding: 92, confidence: 87, fluency: 85, coherence: 86 },
+      { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88, fluency: 87, coherence: 88 },
     ]
   },
   {
@@ -80,17 +80,18 @@ const historicalCalls = [
     topic: 'Pricing Negotiation - Mid-Market Segment',
     skills: [
       { name: 'Pronunciation', value: 82, improvement: '+2%' },
-      { name: 'Grammar & Vocabulary', value: 85, improvement: '+3%' },
+      { name: 'Grammar', value: 85, improvement: '+3%' },
       { name: 'Confidence', value: 83, improvement: '+5%' },
       { name: 'Fluency', value: 80, improvement: '+6%' },
       { name: 'Negotiation Skills', value: 87, improvement: '+9%' },
-      { name: 'Persuasion Effectiveness', value: 80, improvement: '+5%' },
-      { name: 'Customer Understanding', value: 88, improvement: '+3%' },
+      { name: 'Persuasion', value: 80, improvement: '+5%' },
+      { name: 'Understanding', value: 88, improvement: '+3%' },
+      { name: 'Coherence', value: 82, improvement: '+4%' },
     ],
     progressData: [
-      { date: 'Mar 21', pronunciation: 80, grammar: 83, negotiation: 78, persuasion: 75, understanding: 85, confidence: 78, fluency: 74 },
-      { date: 'Apr 4', pronunciation: 81, grammar: 84, negotiation: 82, persuasion: 77, understanding: 86, confidence: 80, fluency: 77 },
-      { date: 'Apr 18', pronunciation: 82, grammar: 85, negotiation: 87, persuasion: 80, understanding: 88, confidence: 83, fluency: 80 },
+      { date: 'Mar 21', pronunciation: 80, grammar: 83, negotiation: 78, persuasion: 75, understanding: 85, confidence: 78, fluency: 74, coherence: 78 },
+      { date: 'Apr 4', pronunciation: 81, grammar: 84, negotiation: 82, persuasion: 77, understanding: 86, confidence: 80, fluency: 77, coherence: 80 },
+      { date: 'Apr 18', pronunciation: 82, grammar: 85, negotiation: 87, persuasion: 80, understanding: 88, confidence: 83, fluency: 80, coherence: 82 },
     ]
   },
   {
@@ -99,17 +100,18 @@ const historicalCalls = [
     topic: 'Feature Walkthrough - Small Business',
     skills: [
       { name: 'Pronunciation', value: 80, improvement: '+2%' },
-      { name: 'Grammar & Vocabulary', value: 82, improvement: '+3%' },
+      { name: 'Grammar', value: 82, improvement: '+3%' },
       { name: 'Confidence', value: 84, improvement: '+6%' },
       { name: 'Fluency', value: 83, improvement: '+5%' },
       { name: 'Negotiation Skills', value: 74, improvement: '+4%' },
-      { name: 'Persuasion Effectiveness', value: 72, improvement: '+2%' },
-      { name: 'Customer Understanding', value: 90, improvement: '+5%' },
+      { name: 'Persuasion', value: 72, improvement: '+2%' },
+      { name: 'Understanding', value: 90, improvement: '+5%' },
+      { name: 'Coherence', value: 80, improvement: '+4%' },
     ],
     progressData: [
-      { date: 'Feb 21', pronunciation: 78, grammar: 79, negotiation: 70, persuasion: 70, understanding: 85, confidence: 78, fluency: 78 },
-      { date: 'Mar 7', pronunciation: 79, grammar: 80, negotiation: 72, persuasion: 70, understanding: 87, confidence: 81, fluency: 80 },
-      { date: 'Mar 21', pronunciation: 80, grammar: 82, negotiation: 74, persuasion: 72, understanding: 90, confidence: 84, fluency: 83 },
+      { date: 'Feb 21', pronunciation: 78, grammar: 79, negotiation: 70, persuasion: 70, understanding: 85, confidence: 78, fluency: 78, coherence: 76 },
+      { date: 'Mar 7', pronunciation: 79, grammar: 80, negotiation: 72, persuasion: 70, understanding: 87, confidence: 81, fluency: 80, coherence: 78 },
+      { date: 'Mar 21', pronunciation: 80, grammar: 82, negotiation: 74, persuasion: 72, understanding: 90, confidence: 84, fluency: 83, coherence: 80 },
     ]
   }
 ];
@@ -117,12 +119,13 @@ const historicalCalls = [
 // Current skills assessment
 const currentSkills = [
   { name: 'Pronunciation', value: 85, improvement: '+20%', color: 'bg-blue-600' },
-  { name: 'Grammar & Vocabulary', value: 90, improvement: '+20%', color: 'bg-green-600' },
+  { name: 'Grammar', value: 90, improvement: '+20%', color: 'bg-green-600' },
   { name: 'Confidence', value: 88, improvement: '+30%', color: 'bg-purple-600' },
   { name: 'Fluency', value: 87, improvement: '+32%', color: 'bg-violet-600' },
   { name: 'Negotiation Skills', value: 82, improvement: '+22%', color: 'bg-amber-600' },
-  { name: 'Persuasion Effectiveness', value: 78, improvement: '+23%', color: 'bg-pink-600' },
-  { name: 'Customer Understanding', value: 95, improvement: '+23%', color: 'bg-indigo-600' },
+  { name: 'Persuasion', value: 78, improvement: '+23%', color: 'bg-pink-600' },
+  { name: 'Understanding', value: 95, improvement: '+23%', color: 'bg-indigo-600' },
+  { name: 'Coherence', value: 88, improvement: '+18%', color: 'bg-cyan-600' },
 ];
 
 const chartConfig = {
@@ -153,6 +156,10 @@ const chartConfig = {
   fluency: {
     label: 'Fluency',
     color: '#7c3aed' // violet-600
+  },
+  coherence: {
+    label: 'Coherence',
+    color: '#06b6d4' // cyan-500
   }
 };
 
@@ -327,6 +334,14 @@ const SkillsProgress = () => {
                     dot={{ r: 4 }} 
                     activeDot={{ r: 6 }} 
                   />
+                  <Line 
+                    type="monotone" 
+                    dataKey="coherence" 
+                    stroke={chartConfig.coherence.color} 
+                    strokeWidth={2} 
+                    dot={{ r: 4 }} 
+                    activeDot={{ r: 6 }} 
+                  />
                 </LineChart>
               </ChartContainer>
             </CardContent>
@@ -389,7 +404,7 @@ const SkillsProgress = () => {
               <div className="text-3xl font-bold text-indigo-600">
                 {viewingHistorical && selectedCall 
                   ? selectedCall.skills.reduce((max, skill) => max.value > skill.value ? max : skill, selectedCall.skills[0]).name
-                  : 'Customer Understanding'}
+                  : 'Understanding'}
               </div>
               <p className="text-sm text-gray-500">
                 {viewingHistorical && selectedCall 
