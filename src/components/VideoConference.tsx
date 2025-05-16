@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Monitor, MessageSquare, Mic, MicOff, Video, Bell } from 'lucide-react';
+import { Monitor, MessageSquare, Mic, Video, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VideoParticipant from '@/components/VideoParticipant';
 
@@ -10,7 +10,7 @@ interface VideoConferenceProps {
 
 const VideoConference: React.FC<VideoConferenceProps> = ({ onFeedbackClick }) => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-full">
       {/* Top navigation bar */}
       <div className="bg-white shadow-sm py-2 px-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
@@ -31,7 +31,7 @@ const VideoConference: React.FC<VideoConferenceProps> = ({ onFeedbackClick }) =>
       </div>
       
       {/* Main video grid */}
-      <div className="flex-grow p-4 grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100">
+      <div className="flex-grow p-4 grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100 overflow-y-auto">
         <VideoParticipant name="You (Host)" isCurrentUser={true} />
         <VideoParticipant name="Sarah Johnson" />
         <VideoParticipant name="Michael Chen" />
