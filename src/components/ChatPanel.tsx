@@ -91,20 +91,118 @@ const ChatPanel: React.FC = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="summary" className="flex-grow mt-0 p-4">
-          <Card className="p-4">
-            <h3 className="font-medium mb-2 flex items-center gap-2">
-              <MessageSquare className="h-4 w-4 text-blue-600" />
-              Conversation Summary
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li><strong>Customer Need:</strong> Video conferencing for 25-person team with security features</li>
-              <li><strong>Solution Offered:</strong> Business plan ($15/user/month)</li>
-              <li><strong>Key Features Highlighted:</strong> End-to-end encryption, SSO, 24/7 support</li>
-              <li><strong>Special Offer:</strong> 20% discount for annual payment ($12/user/month)</li>
-              <li><strong>Next Steps:</strong> Schedule product demo, send formal quote</li>
-            </ul>
-          </Card>
+        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto">
+          <div className="space-y-4">
+            <Card className="p-4">
+              <h3 className="font-medium mb-2 flex items-center gap-2">
+                <MessageSquare className="h-4 w-4 text-blue-600" />
+                Conversation Summary
+              </h3>
+              <ul className="space-y-2 text-sm">
+                <li><strong>Customer Need:</strong> Video conferencing for 25-person team with security features</li>
+                <li><strong>Solution Offered:</strong> Business plan ($15/user/month)</li>
+                <li><strong>Key Features Highlighted:</strong> End-to-end encryption, SSO, 24/7 support</li>
+                <li><strong>Special Offer:</strong> 20% discount for annual payment ($12/user/month)</li>
+                <li><strong>Next Steps:</strong> Schedule product demo, send formal quote</li>
+              </ul>
+            </Card>
+
+            <Card className="p-4">
+              <h3 className="font-medium mb-3 text-blue-700">Language Proficiency Assessment</h3>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Pronunciation</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "85%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">85%</span>
+                </div>
+                <p className="text-xs text-gray-600">Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Grammar & Vocabulary</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "90%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">90%</span>
+                </div>
+                <p className="text-xs text-gray-600">Strong command of technical vocabulary. Correctly used conditional structures: "That would bring it down to $12/user/month."</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Confidence & Fluency</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "88%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">88%</span>
+                </div>
+                <p className="text-xs text-gray-600">Spoke without hesitation. Maintained conversational flow even when discussing technical features.</p>
+              </div>
+            </Card>
+
+            <Card className="p-4">
+              <h3 className="font-medium mb-3 text-blue-700">Communication Skills</h3>
+              
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Negotiation Skills</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "82%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">82%</span>
+                </div>
+                <p className="text-xs text-gray-600">Effectively presented value proposition. Could improve by proactively addressing potential objections before they arise.</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Persuasion Effectiveness</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "78%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">78%</span>
+                </div>
+                <p className="text-xs text-gray-600">Good use of social proof and value-based selling. Example: "For a team your size, our Business plan would be ideal."</p>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold mb-2">Customer Understanding</h4>
+                <div className="flex items-center mb-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "95%" }}></div>
+                  </div>
+                  <span className="ml-2 text-sm font-medium">95%</span>
+                </div>
+                <p className="text-xs text-gray-600">Excellent at identifying customer needs and matching solutions. Quickly recognized security as a key priority.</p>
+              </div>
+            </Card>
+
+            <Card className="p-4">
+              <h3 className="font-medium mb-2 text-blue-700">Measurable Results</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-blue-50 p-3 rounded-lg text-center">
+                  <p className="text-blue-800 text-xl font-semibold">87%</p>
+                  <p className="text-xs text-gray-600">Overall Effectiveness</p>
+                </div>
+                <div className="bg-green-50 p-3 rounded-lg text-center">
+                  <p className="text-green-800 text-xl font-semibold">+20%</p>
+                  <p className="text-xs text-gray-600">Value Added (Annual Discount)</p>
+                </div>
+                <div className="bg-purple-50 p-3 rounded-lg text-center">
+                  <p className="text-purple-800 text-xl font-semibold">3/4</p>
+                  <p className="text-xs text-gray-600">Key Points Addressed</p>
+                </div>
+                <div className="bg-amber-50 p-3 rounded-lg text-center">
+                  <p className="text-amber-800 text-xl font-semibold">100%</p>
+                  <p className="text-xs text-gray-600">Customer Questions Answered</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
