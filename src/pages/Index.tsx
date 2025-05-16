@@ -5,7 +5,7 @@ import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { ChartBar, Bell } from 'lucide-react';
+import { ChartBar, Bell, FileText, Users } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -55,12 +55,26 @@ const Index: React.FC = () => {
             </Toggle>
           </div>
         </div>
-        <Link to="/skills-progress">
-          <Button variant="outline" className="flex items-center gap-2">
-            <ChartBar className="h-4 w-4" />
-            View Skills Progress
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/call-information">
+            <Button variant="outline" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Update Call Info
+            </Button>
+          </Link>
+          <Link to="/participant-profiles">
+            <Button variant="outline" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Participant Profiles
+            </Button>
+          </Link>
+          <Link to="/skills-progress">
+            <Button variant="outline" className="flex items-center gap-2">
+              <ChartBar className="h-4 w-4" />
+              View Skills Progress
+            </Button>
+          </Link>
+        </div>
       </div>
       
       {showNotification && (
