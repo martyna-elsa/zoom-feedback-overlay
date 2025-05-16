@@ -9,12 +9,12 @@ import { MessageSquare, Send } from 'lucide-react';
 
 // Sample conversation data
 const sampleConversation = [
-  { id: 1, sender: 'Customer', message: 'Hi, I'm interested in your product, but I need to understand your pricing options.', time: '10:02 AM' },
-  { id: 2, sender: 'Sales Rep', message: 'Hello! Thanks for your interest. Our pricing is designed to scale with your needs. Can I ask about your use case to recommend the best option?', time: '10:03 AM' },
-  { id: 3, sender: 'Customer', message: 'We're a team of 25 people looking for a video conferencing solution with good security features.', time: '10:05 AM' },
-  { id: 4, sender: 'Sales Rep', message: 'Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.', time: '10:07 AM' },
-  { id: 5, sender: 'Customer', message: 'That sounds promising. Do you offer any discounts for annual payments?', time: '10:08 AM' },
-  { id: 6, sender: 'Sales Rep', message: 'Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.', time: '10:10 AM' },
+  { id: 1, sender: 'Customer', message: "Hi, I'm interested in your product, but I need to understand your pricing options.", time: '10:02 AM' },
+  { id: 2, sender: 'Sales Rep', message: "Hello! Thanks for your interest. Our pricing is designed to scale with your needs. Can I ask about your use case to recommend the best option?", time: '10:03 AM' },
+  { id: 3, sender: 'Customer', message: "We're a team of 25 people looking for a video conferencing solution with good security features.", time: '10:05 AM' },
+  { id: 4, sender: 'Sales Rep', message: "Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.", time: '10:07 AM' },
+  { id: 5, sender: 'Customer', message: "That sounds promising. Do you offer any discounts for annual payments?", time: '10:08 AM' },
+  { id: 6, sender: 'Sales Rep', message: "Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.", time: '10:10 AM' },
 ];
 
 const ChatPanel: React.FC = () => {
@@ -38,7 +38,7 @@ const ChatPanel: React.FC = () => {
         { 
           id: prev.length + 1, 
           sender: 'AI Assistant', 
-          message: 'Based on this conversation, I recommend emphasizing the annual discount and security features. This aligns with the customer\'s priorities.', 
+          message: "Based on this conversation, I recommend emphasizing the annual discount and security features. This aligns with the customer's priorities.", 
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
         }
       ]);
