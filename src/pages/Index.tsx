@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { ChartBar, Bell, FileText, Users } from 'lucide-react';
+import { ChartBar, Bell, FileText, Users, History } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -56,6 +55,12 @@ const Index: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Link to="/call-history">
+            <Button variant="outline" className="flex items-center gap-2">
+              <History className="h-4 w-4" />
+              Call History
+            </Button>
+          </Link>
           <Link to="/call-information">
             <Button variant="outline" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />

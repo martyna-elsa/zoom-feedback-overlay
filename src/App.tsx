@@ -9,6 +9,7 @@ import SkillsProgress from "./pages/SkillsProgress";
 import NotFound from "./pages/NotFound";
 import CallInformation from "./pages/CallInformation";
 import ParticipantProfiles from "./pages/ParticipantProfiles";
+import CallHistory from "./pages/CallHistory";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/skills-progress" element={<SkillsProgress />} />
           <Route path="/call-information" element={<CallInformation />} />
           <Route path="/participant-profiles" element={<ParticipantProfiles />} />
+          <Route path="/call-history" element={<CallHistory />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
