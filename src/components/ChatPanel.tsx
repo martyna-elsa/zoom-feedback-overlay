@@ -5,8 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send, AlertTriangle } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { MessageSquare, Send, AlertTriangle, MessageCircle } from 'lucide-react';
 
 // Sample conversation data
 const sampleConversation = [
@@ -16,13 +15,26 @@ const sampleConversation = [
   { id: 4, sender: 'Sales Rep', message: "Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.", time: '10:07 AM' },
   { id: 5, sender: 'Customer', message: "That sounds promising. Do you offer any discounts for annual payments?", time: '10:08 AM' },
   { id: 6, sender: 'Sales Rep', message: "Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.", time: '10:10 AM' },
+  { 
+    id: 7, 
+    sender: 'Feedback', 
+    message: "Our pricing is designed to scale with your needs—can I ask a few questions to recommend the best option for you?",
+    time: '10:11 AM',
+    type: 'feedback'
+  },
+  {
+    id: 8,
+    sender: 'Communication Issue',
+    message: "Sarah did not understand your question. Rephrase it as: What goals are you trying to achieve this quarter?",
+    time: '10:12 AM',
+    type: 'issue'
+  }
 ];
 
 const ChatPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState('conversation');
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState(sampleConversation);
-  const [showMisunderstandingAlert, setShowMisunderstandingAlert] = useState(true);
 
   const handleSendQuestion = () => {
     if (!question.trim()) return;
@@ -49,8 +61,25 @@ const ChatPanel: React.FC = () => {
     setQuestion('');
   };
 
-  const dismissAlert = () => {
-    setShowMisunderstandingAlert(false);
+  const getMessageStyle = (message) => {
+    if (message.type === 'feedback') {
+      return 'bg-purple-50 border-l-4 border-purple-400 px-3';
+    } else if (message.type === 'issue') {
+      return 'bg-amber-50 border-l-4 border-amber-400 px-3';
+    } else if (message.sender === 'Sales Rep' || message.sender === 'You' || message.sender === 'AI Assistant') {
+      return 'bg-blue-50 ml-4';
+    } else {
+      return 'bg-gray-100 mr-4';
+    }
+  };
+
+  const getMessageIcon = (message) => {
+    if (message.type === 'feedback') {
+      return <MessageCircle className="h-4 w-4 text-purple-600" />;
+    } else if (message.type === 'issue') {
+      return <AlertTriangle className="h-4 w-4 text-amber-600" />;
+    }
+    return null;
   };
 
   return (
@@ -64,37 +93,18 @@ const ChatPanel: React.FC = () => {
         </div>
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
-          {showMisunderstandingAlert && (
-            <Alert variant="destructive" className="mx-1 mt-1 bg-amber-50 border-amber-200">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
-              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
-              <AlertDescription className="text-amber-700">
-                Sarah did not understand your question. Rephrase it as-
-                What goals are you trying to achieve this quarter?
-              </AlertDescription>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="absolute top-2 right-2 h-6 w-6 p-0" 
-                onClick={dismissAlert}
-              >
-                ×
-              </Button>
-            </Alert>
-          )}
           <ScrollArea className="flex-grow p-1">
             <div className="space-y-2">
               {messages.map((msg) => (
                 <div 
                   key={msg.id} 
-                  className={`p-2 rounded-lg ${
-                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                      ? 'bg-blue-50 ml-4' 
-                      : 'bg-gray-100 mr-4'
-                  }`}
+                  className={`p-2 rounded-lg ${getMessageStyle(msg)}`}
                 >
                   <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span className="font-medium">{msg.sender}</span>
+                    <span className="font-medium flex items-center gap-1">
+                      {getMessageIcon(msg)}
+                      {msg.sender}
+                    </span>
                     <span>{msg.time}</span>
                   </div>
                   <p className="text-sm">{msg.message}</p>

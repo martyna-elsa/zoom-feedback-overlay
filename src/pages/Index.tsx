@@ -2,25 +2,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
-import FeedbackGuidance from '@/components/FeedbackGuidance';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { ChartBar, Bell, MessageSquare } from 'lucide-react';
+import { ChartBar, Bell } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
 
 const Index: React.FC = () => {
-  const [showFeedback, setShowFeedback] = useState(false);
   const [facilitatorMode, setFacilitatorMode] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const { toast } = useToast();
   
-  const toggleFeedback = () => {
-    setShowFeedback(!showFeedback);
-  };
-
   const toggleFacilitatorMode = () => {
     const newMode = !facilitatorMode;
     setFacilitatorMode(newMode);
@@ -59,15 +53,6 @@ const Index: React.FC = () => {
               <Bell className="h-4 w-4 mr-1" />
               Facilitator Mode
             </Toggle>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={toggleFeedback} 
-              className={`flex items-center gap-1 ${showFeedback ? 'bg-blue-100 border-blue-200 text-blue-700' : ''}`}
-            >
-              <MessageSquare className="h-4 w-4" />
-              Feedback
-            </Button>
           </div>
         </div>
         <Link to="/skills-progress">
@@ -90,10 +75,9 @@ const Index: React.FC = () => {
         </div>
       )}
       
-      <FeedbackGuidance isVisible={showFeedback} />
       <ResizablePanelGroup direction="horizontal" className="flex-grow">
         <ResizablePanel defaultSize={70} minSize={40}>
-          <VideoConference onFeedbackClick={toggleFeedback} />
+          <VideoConference />
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={30} minSize={20}>

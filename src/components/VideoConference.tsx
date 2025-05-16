@@ -4,11 +4,7 @@ import { Monitor, Mic, Video, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VideoParticipant from '@/components/VideoParticipant';
 
-interface VideoConferenceProps {
-  onFeedbackClick: () => void;
-}
-
-const VideoConference: React.FC<VideoConferenceProps> = ({ onFeedbackClick }) => {
+const VideoConference: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Top navigation bar */}
