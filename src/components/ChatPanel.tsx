@@ -49,64 +49,64 @@ const ChatPanel: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col bg-white border-l border-gray-200">
-      <div className="p-3 border-b border-gray-200">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
+        <div className="p-3 border-b border-gray-200">
           <TabsList className="w-full">
             <TabsTrigger value="conversation" className="flex-1">Conversation</TabsTrigger>
             <TabsTrigger value="summary" className="flex-1">Summary</TabsTrigger>
           </TabsList>
-        </Tabs>
-      </div>
-
-      <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0">
-        <ScrollArea className="flex-grow p-3">
-          {messages.map((msg) => (
-            <div 
-              key={msg.id} 
-              className={`mb-3 p-3 rounded-lg ${
-                msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                  ? 'bg-blue-50 ml-6' 
-                  : 'bg-gray-100 mr-6'
-              }`}
-            >
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
-                <span className="font-medium">{msg.sender}</span>
-                <span>{msg.time}</span>
-              </div>
-              <p className="text-sm">{msg.message}</p>
-            </div>
-          ))}
-        </ScrollArea>
-        <div className="p-3 border-t border-gray-200">
-          <div className="flex gap-2">
-            <Input 
-              placeholder="Ask about this conversation..." 
-              value={question} 
-              onChange={(e) => setQuestion(e.target.value)} 
-              onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
-            />
-            <Button size="icon" onClick={handleSendQuestion}>
-              <Send className="h-4 w-4" />
-            </Button>
-          </div>
         </div>
-      </TabsContent>
 
-      <TabsContent value="summary" className="flex-grow mt-0 p-4">
-        <Card className="p-4">
-          <h3 className="font-medium mb-2 flex items-center gap-2">
-            <MessageSquare className="h-4 w-4 text-blue-600" />
-            Conversation Summary
-          </h3>
-          <ul className="space-y-2 text-sm">
-            <li><strong>Customer Need:</strong> Video conferencing for 25-person team with security features</li>
-            <li><strong>Solution Offered:</strong> Business plan ($15/user/month)</li>
-            <li><strong>Key Features Highlighted:</strong> End-to-end encryption, SSO, 24/7 support</li>
-            <li><strong>Special Offer:</strong> 20% discount for annual payment ($12/user/month)</li>
-            <li><strong>Next Steps:</strong> Schedule product demo, send formal quote</li>
-          </ul>
-        </Card>
-      </TabsContent>
+        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full">
+          <ScrollArea className="flex-grow p-3">
+            {messages.map((msg) => (
+              <div 
+                key={msg.id} 
+                className={`mb-3 p-3 rounded-lg ${
+                  msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
+                    ? 'bg-blue-50 ml-6' 
+                    : 'bg-gray-100 mr-6'
+                }`}
+              >
+                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                  <span className="font-medium">{msg.sender}</span>
+                  <span>{msg.time}</span>
+                </div>
+                <p className="text-sm">{msg.message}</p>
+              </div>
+            ))}
+          </ScrollArea>
+          <div className="p-3 border-t border-gray-200">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Ask about this conversation..." 
+                value={question} 
+                onChange={(e) => setQuestion(e.target.value)} 
+                onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
+              />
+              <Button size="icon" onClick={handleSendQuestion}>
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="summary" className="flex-grow mt-0 p-4">
+          <Card className="p-4">
+            <h3 className="font-medium mb-2 flex items-center gap-2">
+              <MessageSquare className="h-4 w-4 text-blue-600" />
+              Conversation Summary
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li><strong>Customer Need:</strong> Video conferencing for 25-person team with security features</li>
+              <li><strong>Solution Offered:</strong> Business plan ($15/user/month)</li>
+              <li><strong>Key Features Highlighted:</strong> End-to-end encryption, SSO, 24/7 support</li>
+              <li><strong>Special Offer:</strong> 20% discount for annual payment ($12/user/month)</li>
+              <li><strong>Next Steps:</strong> Schedule product demo, send formal quote</li>
+            </ul>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
