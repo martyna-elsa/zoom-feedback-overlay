@@ -115,7 +115,7 @@ const CallHistory: React.FC = () => {
                     Listen to Recording
                   </Button>
                   <Button variant="default" className="ml-auto">
-                    Analyze Call
+                    Skill Assessment
                   </Button>
                 </div>
               </CardContent>
