@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import VideoConference from '@/components/VideoConference';
-import FeedbackWidget from '@/components/FeedbackWidget';
 import FeedbackGuidance from '@/components/FeedbackGuidance';
 
 const Index: React.FC = () => {
@@ -14,7 +13,6 @@ const Index: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <FeedbackGuidance isVisible={showFeedback} />
-      {showFeedback && <FeedbackWidget onClose={() => setShowFeedback(false)} />}
       <VideoConference onFeedbackClick={toggleFeedback} />
     </div>
   );
