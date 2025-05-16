@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -296,7 +295,6 @@ const SkillsProgress: React.FC = () => {
           <TabsList className="mb-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="history">History</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -489,48 +487,6 @@ const SkillsProgress: React.FC = () => {
                     </Card>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="history">
-            <Card>
-              <CardHeader>
-                <CardTitle>Skills History</CardTitle>
-                <CardDescription>
-                  Track your improvement over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {viewMode === "timeframe" ? (
-                  <p className="text-muted-foreground text-center py-10">
-                    Historical data visualization will be available after multiple assessments.
-                  </p>
-                ) : (
-                  <div className="grid gap-4">
-                    {callsData.map(call => (
-                      <Card 
-                        key={call.id} 
-                        className={`overflow-hidden transition-colors ${parseInt(selectedCallId || '0') === call.id ? 'border-primary' : ''}`}
-                        onClick={() => setSelectedCallId(call.id.toString())}
-                      >
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-base">{call.date} - {call.title}</CardTitle>
-                          <CardDescription>{call.participants.join(', ')}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <Button 
-                            variant={parseInt(selectedCallId || '0') === call.id ? "default" : "outline"} 
-                            onClick={() => setSelectedCallId(call.id.toString())}
-                            className="w-full"
-                          >
-                            {parseInt(selectedCallId || '0') === call.id ? 'Currently Selected' : 'View Assessment'}
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
               </CardContent>
             </Card>
           </TabsContent>
