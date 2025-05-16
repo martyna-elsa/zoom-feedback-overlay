@@ -30,8 +30,8 @@ const VideoConference: React.FC<VideoConferenceProps> = ({ onFeedbackClick }) =>
         </div>
       </div>
       
-      {/* Main video grid */}
-      <div className="flex-grow p-4 grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100 overflow-y-auto">
+      {/* Main video grid - adjusted grid gap and padding */}
+      <div className="flex-grow p-3 grid grid-cols-1 md:grid-cols-2 gap-2 bg-gray-100 overflow-y-auto">
         <VideoParticipant name="You (Host)" isCurrentUser={true} />
         <VideoParticipant name="Sarah Johnson" />
         <VideoParticipant name="Michael Chen" />
