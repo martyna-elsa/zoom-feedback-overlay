@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Monitor, MessageSquare, Mic, Video, Bell } from 'lucide-react';
+import { Monitor, Mic, Video, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VideoParticipant from '@/components/VideoParticipant';
 
@@ -18,14 +18,6 @@ const VideoConference: React.FC<VideoConferenceProps> = ({ onFeedbackClick }) =>
           <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Live</span>
         </div>
         <div className="flex items-center gap-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={onFeedbackClick} 
-            className="bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700"
-          >
-            <MessageSquare className="w-4 h-4 mr-1" /> Feedback
-          </Button>
           <span className="text-gray-500 text-sm">01:23:45</span>
         </div>
       </div>
