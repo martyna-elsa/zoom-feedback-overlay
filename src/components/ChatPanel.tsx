@@ -19,7 +19,7 @@ const sampleConversation = [
 ];
 
 const ChatPanel: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('summary');
+  const [activeTab, setActiveTab] = useState('conversation');
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState(sampleConversation);
   const [showMisunderstandingAlert, setShowMisunderstandingAlert] = useState(true);
@@ -58,10 +58,64 @@ const ChatPanel: React.FC = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
         <div className="p-3 border-b border-gray-200">
           <TabsList className="w-full">
-            <TabsTrigger value="summary" className="flex-1">Summary</TabsTrigger>
             <TabsTrigger value="conversation" className="flex-1">Conversation</TabsTrigger>
+            <TabsTrigger value="summary" className="flex-1">Summary</TabsTrigger>
           </TabsList>
         </div>
+
+        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
+          {showMisunderstandingAlert && (
+            <Alert variant="destructive" className="mx-1 mt-1 bg-amber-50 border-amber-200">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
+              <AlertDescription className="text-amber-700">
+                Sarah did not understand your question. Rephrase it as-
+                What goals are you trying to achieve this quarter?
+              </AlertDescription>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="absolute top-2 right-2 h-6 w-6 p-0" 
+                onClick={dismissAlert}
+              >
+                ×
+              </Button>
+            </Alert>
+          )}
+          <ScrollArea className="flex-grow p-1">
+            <div className="space-y-2">
+              {messages.map((msg) => (
+                <div 
+                  key={msg.id} 
+                  className={`p-2 rounded-lg ${
+                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
+                      ? 'bg-blue-50 ml-4' 
+                      : 'bg-gray-100 mr-4'
+                  }`}
+                >
+                  <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <span className="font-medium">{msg.sender}</span>
+                    <span>{msg.time}</span>
+                  </div>
+                  <p className="text-sm">{msg.message}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+          <div className="p-1 border-t border-gray-200">
+            <div className="flex gap-1">
+              <Input 
+                placeholder="Ask about this conversation..." 
+                value={question} 
+                onChange={(e) => setQuestion(e.target.value)} 
+                onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
+              />
+              <Button size="icon" onClick={handleSendQuestion}>
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </TabsContent>
 
         <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
           <div className="space-y-4">
@@ -92,7 +146,7 @@ const ChatPanel: React.FC = () => {
                 </div>
                 <p className="text-xs text-gray-600">Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".</p>
               </div>
-
+              
               <div className="mb-4">
                 <h4 className="text-sm font-semibold mb-2">Grammar & Vocabulary</h4>
                 <div className="flex items-center mb-2">
@@ -174,60 +228,6 @@ const ChatPanel: React.FC = () => {
                 </div>
               </div>
             </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
-          {showMisunderstandingAlert && (
-            <Alert variant="destructive" className="mx-1 mt-1 bg-amber-50 border-amber-200">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
-              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
-              <AlertDescription className="text-amber-700">
-                Sarah did not understand your question. Rephrase it as-
-                What goals are you trying to achieve this quarter?
-              </AlertDescription>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="absolute top-2 right-2 h-6 w-6 p-0" 
-                onClick={dismissAlert}
-              >
-                ×
-              </Button>
-            </Alert>
-          )}
-          <ScrollArea className="flex-grow p-1">
-            <div className="space-y-2">
-              {messages.map((msg) => (
-                <div 
-                  key={msg.id} 
-                  className={`p-2 rounded-lg ${
-                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                      ? 'bg-blue-50 ml-4' 
-                      : 'bg-gray-100 mr-4'
-                  }`}
-                >
-                  <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span className="font-medium">{msg.sender}</span>
-                    <span>{msg.time}</span>
-                  </div>
-                  <p className="text-sm">{msg.message}</p>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          <div className="p-1 border-t border-gray-200">
-            <div className="flex gap-1">
-              <Input 
-                placeholder="Ask about this conversation..." 
-                value={question} 
-                onChange={(e) => setQuestion(e.target.value)} 
-                onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
-              />
-              <Button size="icon" onClick={handleSendQuestion}>
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
         </TabsContent>
       </Tabs>
