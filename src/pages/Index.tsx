@@ -21,7 +21,7 @@ const Index: React.FC = () => {
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={30} minSize={20}>
-          <ChatPanel initialTabValue="summary" />
+          <ChatPanel />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

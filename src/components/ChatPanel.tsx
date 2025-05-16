@@ -19,7 +19,7 @@ const sampleConversation = [
 ];
 
 const ChatPanel: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('conversation');
+  const [activeTab, setActiveTab] = useState('summary');
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState(sampleConversation);
   const [showMisunderstandingAlert, setShowMisunderstandingAlert] = useState(true);
@@ -58,63 +58,10 @@ const ChatPanel: React.FC = () => {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
         <div className="p-3 border-b border-gray-200">
           <TabsList className="w-full">
-            <TabsTrigger value="conversation" className="flex-1">Conversation</TabsTrigger>
             <TabsTrigger value="summary" className="flex-1">Summary</TabsTrigger>
+            <TabsTrigger value="conversation" className="flex-1">Conversation</TabsTrigger>
           </TabsList>
         </div>
-
-        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
-          {showMisunderstandingAlert && (
-            <Alert variant="destructive" className="mx-3 mt-3 bg-amber-50 border-amber-200">
-              <AlertTriangle className="h-5 w-5 text-amber-600" />
-              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
-              <AlertDescription className="text-amber-700">
-                Sarah did not understand Michael's question. Michael, please formulate it in a clearer way.
-              </AlertDescription>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="absolute top-2 right-2 h-6 w-6 p-0" 
-                onClick={dismissAlert}
-              >
-                ×
-              </Button>
-            </Alert>
-          )}
-          <ScrollArea className="flex-grow p-3">
-            <div className="space-y-3">
-              {messages.map((msg) => (
-                <div 
-                  key={msg.id} 
-                  className={`p-3 rounded-lg ${
-                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
-                      ? 'bg-blue-50 ml-6' 
-                      : 'bg-gray-100 mr-6'
-                  }`}
-                >
-                  <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span className="font-medium">{msg.sender}</span>
-                    <span>{msg.time}</span>
-                  </div>
-                  <p className="text-sm">{msg.message}</p>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          <div className="p-3 border-t border-gray-200">
-            <div className="flex gap-2">
-              <Input 
-                placeholder="Ask about this conversation..." 
-                value={question} 
-                onChange={(e) => setQuestion(e.target.value)} 
-                onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
-              />
-              <Button size="icon" onClick={handleSendQuestion}>
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </TabsContent>
 
         <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
           <div className="space-y-4">
@@ -227,6 +174,59 @@ const ChatPanel: React.FC = () => {
                 </div>
               </div>
             </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
+          {showMisunderstandingAlert && (
+            <Alert variant="destructive" className="mx-3 mt-3 bg-amber-50 border-amber-200">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
+              <AlertDescription className="text-amber-700">
+                Sarah did not understand Michael's question. Michael, please formulate it in a clearer way.
+              </AlertDescription>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="absolute top-2 right-2 h-6 w-6 p-0" 
+                onClick={dismissAlert}
+              >
+                ×
+              </Button>
+            </Alert>
+          )}
+          <ScrollArea className="flex-grow p-3">
+            <div className="space-y-3">
+              {messages.map((msg) => (
+                <div 
+                  key={msg.id} 
+                  className={`p-3 rounded-lg ${
+                    msg.sender === 'Sales Rep' || msg.sender === 'You' || msg.sender === 'AI Assistant' 
+                      ? 'bg-blue-50 ml-6' 
+                      : 'bg-gray-100 mr-6'
+                  }`}
+                >
+                  <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <span className="font-medium">{msg.sender}</span>
+                    <span>{msg.time}</span>
+                  </div>
+                  <p className="text-sm">{msg.message}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+          <div className="p-3 border-t border-gray-200">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Ask about this conversation..." 
+                value={question} 
+                onChange={(e) => setQuestion(e.target.value)} 
+                onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
+              />
+              <Button size="icon" onClick={handleSendQuestion}>
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
