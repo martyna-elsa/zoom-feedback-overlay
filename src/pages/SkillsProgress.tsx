@@ -28,21 +28,22 @@ import { ChevronLeft, TrendingUp } from 'lucide-react';
 
 // Sample data for the skills progress over time
 const skillsProgressData = [
-  { date: 'Jan 10', pronunciation: 65, grammar: 70, negotiation: 60, persuasion: 55, understanding: 72, confidence: 58 },
-  { date: 'Jan 24', pronunciation: 68, grammar: 73, negotiation: 65, persuasion: 60, understanding: 75, confidence: 63 },
-  { date: 'Feb 7', pronunciation: 72, grammar: 78, negotiation: 68, persuasion: 65, understanding: 80, confidence: 70 },
-  { date: 'Feb 21', pronunciation: 75, grammar: 80, negotiation: 70, persuasion: 68, understanding: 83, confidence: 75 },
-  { date: 'Mar 7', pronunciation: 78, grammar: 82, negotiation: 74, persuasion: 70, understanding: 85, confidence: 80 },
-  { date: 'Mar 21', pronunciation: 80, grammar: 85, negotiation: 76, persuasion: 72, understanding: 88, confidence: 83 },
-  { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86 },
-  { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88 },
+  { date: 'Jan 10', pronunciation: 65, grammar: 70, negotiation: 60, persuasion: 55, understanding: 72, confidence: 58, fluency: 55 },
+  { date: 'Jan 24', pronunciation: 68, grammar: 73, negotiation: 65, persuasion: 60, understanding: 75, confidence: 63, fluency: 60 },
+  { date: 'Feb 7', pronunciation: 72, grammar: 78, negotiation: 68, persuasion: 65, understanding: 80, confidence: 70, fluency: 67 },
+  { date: 'Feb 21', pronunciation: 75, grammar: 80, negotiation: 70, persuasion: 68, understanding: 83, confidence: 75, fluency: 72 },
+  { date: 'Mar 7', pronunciation: 78, grammar: 82, negotiation: 74, persuasion: 70, understanding: 85, confidence: 80, fluency: 78 },
+  { date: 'Mar 21', pronunciation: 80, grammar: 85, negotiation: 76, persuasion: 72, understanding: 88, confidence: 83, fluency: 81 },
+  { date: 'Apr 4', pronunciation: 82, grammar: 87, negotiation: 78, persuasion: 75, understanding: 90, confidence: 86, fluency: 84 },
+  { date: 'Apr 18', pronunciation: 85, grammar: 90, negotiation: 82, persuasion: 78, understanding: 95, confidence: 88, fluency: 87 },
 ];
 
 // Sample data for the current skills assessment
 const currentSkills = [
   { name: 'Pronunciation', value: 85, improvement: '+20%', color: 'bg-blue-600' },
   { name: 'Grammar & Vocabulary', value: 90, improvement: '+20%', color: 'bg-green-600' },
-  { name: 'Confidence & Fluency', value: 88, improvement: '+30%', color: 'bg-purple-600' },
+  { name: 'Confidence', value: 88, improvement: '+30%', color: 'bg-purple-600' },
+  { name: 'Fluency', value: 87, improvement: '+32%', color: 'bg-violet-600' },
   { name: 'Negotiation Skills', value: 82, improvement: '+22%', color: 'bg-amber-600' },
   { name: 'Persuasion Effectiveness', value: 78, improvement: '+23%', color: 'bg-pink-600' },
   { name: 'Customer Understanding', value: 95, improvement: '+23%', color: 'bg-indigo-600' },
@@ -72,6 +73,10 @@ const chartConfig = {
   confidence: {
     label: 'Confidence',
     color: '#8b5cf6' // purple-500
+  },
+  fluency: {
+    label: 'Fluency',
+    color: '#7c3aed' // violet-600
   }
 };
 
@@ -156,6 +161,14 @@ const SkillsProgress = () => {
                     dot={{ r: 4 }} 
                     activeDot={{ r: 6 }} 
                   />
+                  <Line 
+                    type="monotone" 
+                    dataKey="fluency" 
+                    stroke={chartConfig.fluency.color} 
+                    strokeWidth={2} 
+                    dot={{ r: 4 }} 
+                    activeDot={{ r: 6 }} 
+                  />
                 </LineChart>
               </ChartContainer>
             </CardContent>
@@ -177,7 +190,7 @@ const SkillsProgress = () => {
                       <span className="text-sm font-medium text-green-600">{skill.improvement}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Progress value={skill.value} className={`h-2 ${skill.name === 'Confidence & Fluency' ? 'bg-purple-200' : ''}`} />
+                      <Progress value={skill.value} className={`h-2 ${skill.name === 'Confidence' ? 'bg-purple-200' : skill.name === 'Fluency' ? 'bg-violet-200' : ''}`} />
                       <span className="text-sm font-semibold">{skill.value}%</span>
                     </div>
                   </div>
@@ -213,8 +226,8 @@ const SkillsProgress = () => {
               <CardTitle className="text-lg">Most Improved</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-purple-600">Confidence & Fluency</div>
-              <p className="text-sm text-gray-500">+30% improvement</p>
+              <div className="text-3xl font-bold text-violet-600">Fluency</div>
+              <p className="text-sm text-gray-500">+32% improvement</p>
             </CardContent>
           </Card>
 
