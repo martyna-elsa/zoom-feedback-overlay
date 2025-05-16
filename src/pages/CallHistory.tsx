@@ -9,7 +9,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, History, FileText, Headphones } from 'lucide-react';
+import { ChevronLeft, History, FileText, Headphones, TrendingUp } from 'lucide-react';
 
 // Sample call history data
 const callHistoryData = [
@@ -74,12 +74,20 @@ const CallHistory: React.FC = () => {
             <History className="mr-2 h-6 w-6 text-blue-600" />
             Call History
           </h1>
-          <Link to="/">
-            <Button variant="outline" className="flex items-center gap-2">
-              <ChevronLeft className="h-4 w-4" />
-              Back to Call
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/skills-progress">
+              <Button variant="outline" className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4" />
+                View Skills Progress
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="outline" className="flex items-center gap-2">
+                <ChevronLeft className="h-4 w-4" />
+                Back to Call
+              </Button>
+            </Link>
+          </div>
         </div>
         
         <div className="grid gap-4">
@@ -97,7 +105,7 @@ const CallHistory: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex space-x-2">
+                <div className="flex flex-wrap gap-2">
                   <Button 
                     variant={call.hasTranscript ? "outline" : "ghost"} 
                     className="flex items-center gap-2"
@@ -114,9 +122,12 @@ const CallHistory: React.FC = () => {
                     <Headphones className="h-4 w-4" />
                     Listen to Recording
                   </Button>
-                  <Button variant="default" className="ml-auto">
-                    Skill Assessment
-                  </Button>
+                  <Link to="/skills-progress" className="ml-auto">
+                    <Button variant="default" className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4" />
+                      Skill Assessment
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
