@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send } from 'lucide-react';
+import { MessageSquare, Send, AlertTriangle } from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 // Sample conversation data
 const sampleConversation = [
@@ -21,6 +22,7 @@ const ChatPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState('conversation');
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState(sampleConversation);
+  const [showMisunderstandingAlert, setShowMisunderstandingAlert] = useState(true);
 
   const handleSendQuestion = () => {
     if (!question.trim()) return;
@@ -47,6 +49,10 @@ const ChatPanel: React.FC = () => {
     setQuestion('');
   };
 
+  const dismissAlert = () => {
+    setShowMisunderstandingAlert(false);
+  };
+
   return (
     <div className="h-full flex flex-col bg-white border-l border-gray-200">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
@@ -58,6 +64,23 @@ const ChatPanel: React.FC = () => {
         </div>
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full">
+          {showMisunderstandingAlert && (
+            <Alert variant="destructive" className="mx-3 mt-3 bg-amber-50 border-amber-200">
+              <AlertTriangle className="h-5 w-5 text-amber-600" />
+              <AlertTitle className="text-amber-800">Communication Issue</AlertTitle>
+              <AlertDescription className="text-amber-700">
+                Sarah did not understand Michael's question. Michael, please formulate it in a clearer way.
+              </AlertDescription>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="absolute top-2 right-2 h-6 w-6 p-0" 
+                onClick={dismissAlert}
+              >
+                ×
+              </Button>
+            </Alert>
+          )}
           <ScrollArea className="flex-grow p-3">
             {messages.map((msg) => (
               <div 
