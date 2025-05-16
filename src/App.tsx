@@ -7,8 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import SkillsProgress from "./pages/SkillsProgress";
 import NotFound from "./pages/NotFound";
-import CallInformation from "./pages/CallInformation";
-import ParticipantProfiles from "./pages/ParticipantProfiles";
+import CallPreparation from "./pages/CallPreparation";
 import CallHistory from "./pages/CallHistory";
 
 const queryClient = new QueryClient();
@@ -22,8 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/skills-progress" element={<SkillsProgress />} />
-          <Route path="/call-information" element={<CallInformation />} />
-          <Route path="/participant-profiles" element={<ParticipantProfiles />} />
+          <Route path="/call-preparation" element={<CallPreparation />} />
           <Route path="/call-history" element={<CallHistory />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

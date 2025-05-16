@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -61,16 +62,10 @@ const Index: React.FC = () => {
               Call History
             </Button>
           </Link>
-          <Link to="/call-information">
+          <Link to="/call-preparation">
             <Button variant="outline" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Update Call Info
-            </Button>
-          </Link>
-          <Link to="/participant-profiles">
-            <Button variant="outline" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Participant Profiles
+              Call Preparation
             </Button>
           </Link>
           <Link to="/skills-progress">
