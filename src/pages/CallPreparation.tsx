@@ -281,7 +281,7 @@ type FormValues = {
 
 const CallPreparation: React.FC = () => {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState("call-objective");
+  const [activeTab, setActiveTab] = useState("company-info");
   const [selectedObjective, setSelectedObjective] = useState(callObjectiveTemplates[0]);
   const [selectedScenario, setSelectedScenario] = useState(practiceCallScenarios[0]);
   
@@ -353,10 +353,10 @@ const CallPreparation: React.FC = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-5xl mx-auto">
         <div className="mb-4">
-          <Link to="/">
+          <Link to="/web-platform">
             <Button variant="ghost" className="flex items-center gap-2">
               <ChevronLeft className="h-4 w-4" />
-              Back to Call
+              Back to Dashboard
             </Button>
           </Link>
         </div>
@@ -365,10 +365,6 @@ const CallPreparation: React.FC = () => {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-6 w-full justify-start">
-            <TabsTrigger value="call-objective" className="flex items-center gap-1">
-              <TargetIcon className="h-4 w-4" />
-              Call Objective
-            </TabsTrigger>
             <TabsTrigger value="company-info" className="flex items-center gap-1">
               <FileText className="h-4 w-4" />
               Company Information
@@ -377,144 +373,15 @@ const CallPreparation: React.FC = () => {
               <BookUser className="h-4 w-4" />
               Participant Profiles
             </TabsTrigger>
+            <TabsTrigger value="call-objective" className="flex items-center gap-1">
+              <TargetIcon className="h-4 w-4" />
+              Call Objective
+            </TabsTrigger>
             <TabsTrigger value="practice-calls" className="flex items-center gap-1">
               <PhoneCall className="h-4 w-4" />
               Practice Calls
             </TabsTrigger>
           </TabsList>
-          
-          <TabsContent value="call-objective" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Call Objective</CardTitle>
-                <CardDescription>
-                  Define your call objective and get a suggested agenda and key phrases
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <Form {...form}>
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <FormField
-                      control={form.control}
-                      name="objective"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Call Objective</FormLabel>
-                          <Select 
-                            onValueChange={value => handleObjectiveChange(value)} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a call objective" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {callObjectiveTemplates.map((objective) => (
-                                <SelectItem key={objective.id} value={objective.id}>
-                                  {objective.name}
-                                </SelectItem>
-                              ))}
-                              <SelectItem value="custom">Custom Objective</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="audienceLevel"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>English Proficiency Level</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select audience level" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="beginner">Beginner</SelectItem>
-                              <SelectItem value="intermediate">Intermediate</SelectItem>
-                              <SelectItem value="advanced">Advanced</SelectItem>
-                              <SelectItem value="fluent">Fluent</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
-                    
-                    {form.watch("objective") === "custom" && (
-                      <div className="sm:col-span-2">
-                        <FormField
-                          control={form.control}
-                          name="customObjective"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Custom Objective Description</FormLabel>
-                              <FormControl>
-                                <Textarea 
-                                  placeholder="Describe your call objective..."
-                                  className="min-h-[100px]"
-                                  {...field}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </Form>
-                
-                <div className="border-t pt-6 mt-6">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <div>
-                      <h3 className="font-medium flex items-center gap-2 mb-3">
-                        <Calendar className="h-4 w-4 text-blue-600" />
-                        Suggested Agenda
-                      </h3>
-                      <ol className="list-decimal list-inside space-y-2 pl-1 text-sm">
-                        {selectedObjective.agendaItems.map((item, idx) => (
-                          <li key={idx} className="text-gray-700">
-                            {item}
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium flex items-center gap-2 mb-3">
-                        <MessageSquareText className="h-4 w-4 text-green-600" />
-                        Key English Phrases
-                      </h3>
-                      <div className="space-y-4">
-                        {selectedObjective.keyPhrases.map((section, idx) => (
-                          <div key={idx} className="space-y-2">
-                            <h4 className="text-sm font-medium text-gray-900">{section.category}</h4>
-                            <ul className="list-disc list-inside space-y-1 pl-1 text-sm">
-                              {section.phrases.map((phrase, i) => (
-                                <li key={i} className="text-gray-700">
-                                  {phrase}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button>Save Call Objective</Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
           
           <TabsContent value="company-info" className="space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
@@ -757,6 +624,139 @@ const CallPreparation: React.FC = () => {
                   ))}
                 </div>
               </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="call-objective" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Call Objective</CardTitle>
+                <CardDescription>
+                  Define your call objective and get a suggested agenda and key phrases
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <Form {...form}>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="objective"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Call Objective</FormLabel>
+                          <Select 
+                            onValueChange={value => handleObjectiveChange(value)} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a call objective" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {callObjectiveTemplates.map((objective) => (
+                                <SelectItem key={objective.id} value={objective.id}>
+                                  {objective.name}
+                                </SelectItem>
+                              ))}
+                              <SelectItem value="custom">Custom Objective</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="audienceLevel"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>English Proficiency Level</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select audience level" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="beginner">Beginner</SelectItem>
+                              <SelectItem value="intermediate">Intermediate</SelectItem>
+                              <SelectItem value="advanced">Advanced</SelectItem>
+                              <SelectItem value="fluent">Fluent</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {form.watch("objective") === "custom" && (
+                      <div className="sm:col-span-2">
+                        <FormField
+                          control={form.control}
+                          name="customObjective"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Custom Objective Description</FormLabel>
+                              <FormControl>
+                                <Textarea 
+                                  placeholder="Describe your call objective..."
+                                  className="min-h-[100px]"
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </Form>
+                
+                <div className="border-t pt-6 mt-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <Calendar className="h-4 w-4 text-blue-600" />
+                        Suggested Agenda
+                      </h3>
+                      <ol className="list-decimal list-inside space-y-2 pl-1 text-sm">
+                        {selectedObjective.agendaItems.map((item, idx) => (
+                          <li key={idx} className="text-gray-700">
+                            {item}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <MessageSquareText className="h-4 w-4 text-green-600" />
+                        Key English Phrases
+                      </h3>
+                      <div className="space-y-4">
+                        {selectedObjective.keyPhrases.map((section, idx) => (
+                          <div key={idx} className="space-y-2">
+                            <h4 className="text-sm font-medium text-gray-900">{section.category}</h4>
+                            <ul className="list-disc list-inside space-y-1 pl-1 text-sm">
+                              {section.phrases.map((phrase, i) => (
+                                <li key={i} className="text-gray-700">
+                                  {phrase}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save Call Objective</Button>
+              </CardFooter>
             </Card>
           </TabsContent>
           
