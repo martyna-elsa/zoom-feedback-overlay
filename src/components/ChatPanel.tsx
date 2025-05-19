@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell } from 'lucide-react';
+import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 
 // Sample conversation data
 const sampleConversation = [
@@ -110,6 +111,7 @@ const ChatPanel: React.FC = () => {
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           <ScrollArea className="flex-grow p-3">
             <div className="space-y-4">
+              {/* Regular conversation messages */}
               {messages.map((msg) => (
                 <div key={msg.id} className="flex items-start gap-2">
                   {msg.sender !== 'You' && getAvatar(msg.sender)}
@@ -140,6 +142,19 @@ const ChatPanel: React.FC = () => {
                   </div>
                   
                   {msg.sender === 'You' && getAvatar(msg.sender)}
+                </div>
+              ))}
+
+              {/* Feedback and communication issues */}
+              {feedbackAndIssues.map((item) => (
+                <div key={item.id} className="flex items-start gap-2">
+                  {getMessageIcon(item)}
+                  
+                  <div className="flex-grow">
+                    <div className={`p-2 ${getMessageStyle(item)}`}>
+                      <p className="text-sm">{item.message}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -230,6 +245,52 @@ const ChatPanel: React.FC = () => {
                   {getAvatar('Sandra')}
                   <div className="flex-grow ml-2">
                     <p className="text-sm font-medium">Sandra</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Meeting Summary Card */}
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
+              <h3 className="font-medium mb-2">Meeting Summary</h3>
+              <div className="space-y-2">
+                <div>
+                  <h4 className="text-sm font-medium">Key Points</h4>
+                  <ul className="text-xs text-gray-600 pl-4 list-disc mt-1">
+                    <li>Discussion on the new product pricing strategy</li>
+                    <li>Team agreed on Q2 timeline for launch</li>
+                    <li>Marketing materials need to be finalized by next week</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium">Action Items</h4>
+                  <ul className="text-xs text-gray-600 pl-4 list-disc mt-1">
+                    <li>John will send updated sales figures</li>
+                    <li>You need to prepare presentation slides</li>
+                    <li>Raul will contact the design team</li>
+                    <li>Everyone: Review proposal by Friday</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+
+            {/* Questions & Concerns Card */}
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
+              <h3 className="font-medium mb-2">Questions & Concerns</h3>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2 p-2 bg-blue-50 rounded-md">
+                  <AlertTriangle className="h-4 w-4 text-blue-500 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-medium text-blue-800">From Sandra</p>
+                    <p className="text-xs text-blue-700">"Are we sure the pricing is competitive with recent market changes?"</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 p-2 bg-amber-50 rounded-md">
+                  <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-medium text-amber-800">From Michael</p>
+                    <p className="text-xs text-amber-700">"Who else is involved in the decision-making process?"</p>
+                    <Badge variant="outline" className="mt-1 text-[10px] px-1 border-amber-300 text-amber-700">Unanswered</Badge>
                   </div>
                 </div>
               </div>

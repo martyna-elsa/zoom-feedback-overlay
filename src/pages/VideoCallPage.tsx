@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
 import { Bell, Home, Square } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
