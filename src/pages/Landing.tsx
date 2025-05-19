@@ -356,7 +356,7 @@ const Landing: React.FC = () => {
                       </div>
                     </Card>
                   </CardHeader>
-                  <CardContent className="h-[400px]">
+                  <CardContent className="h-[600px]">
                     <ChartContainer config={chartConfig}>
                       <LineChart data={skillsData}>
                         <CartesianGrid strokeDasharray="3 3" opacity={0.3} />

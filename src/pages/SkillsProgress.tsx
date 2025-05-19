@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, 
@@ -10,4 +9,14 @@ import {
   PolarAngleAxis, PolarRadiusAxis, Radar 
 } from 'recharts';
 
-export {}; // Ensuring this module has an export
+const SkillsProgress: React.FC = () => {
+  // Placeholder content, replace with actual implementation
+  return (
+    <div>
+      <h1>Skills Progress</h1>
+      <p>This page will display the learner's skills progress.</p>
+    </div>
+  );
+};
+
+export default SkillsProgress;
