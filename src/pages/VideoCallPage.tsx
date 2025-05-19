@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -133,9 +132,9 @@ const VideoCallPage: React.FC = () => {
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg px-4 py-2">
           <Alert variant="default" className="bg-blue-500/90 backdrop-blur-sm border-blue-600/40 text-white shadow-md">
             <Bell className="h-4 w-4 text-white" />
-            <AlertTitle>Facilitator Hint</AlertTitle>
+            <AlertTitle>Unanswered Question</AlertTitle>
             <AlertDescription>
-              Remember to ask open-ended questions to encourage deeper discussion from all participants.
+              There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
             </AlertDescription>
           </Alert>
         </div>
