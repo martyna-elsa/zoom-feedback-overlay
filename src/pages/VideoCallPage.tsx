@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -123,15 +124,15 @@ const VideoCallPage: React.FC = () => {
       {/* Floating overlay header - positioned absolute with margins */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-30 w-auto">
         {headerVisible ? (
-          <div className="bg-white/90 backdrop-blur-md px-6 py-3 rounded-full shadow-lg flex items-center gap-6 border border-gray-200/30">
-            <div className="flex items-center gap-4">
+          <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-4 border border-gray-200/30">
+            <div className="flex items-center gap-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-gray-500 hover:text-gray-700 font-normal text-base flex items-center gap-2"
+                className="text-gray-500 hover:text-gray-700 font-normal text-sm flex items-center gap-1.5"
                 onClick={handleFacilitatorHint}
               >
-                <Bell className="h-5 w-5" />
+                <Bell className="h-4 w-4" />
                 Facilitator Mode
               </Button>
               
@@ -151,13 +152,14 @@ const VideoCallPage: React.FC = () => {
               )}
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleChat}
-                className="text-gray-500 hover:text-gray-700 font-normal text-base flex items-center gap-2"
+                className="text-gray-500 hover:text-gray-700 font-normal text-sm flex items-center gap-1.5"
               >
+                {chatVisible ? <EyeOff className="h-4 w-4 mr-1" /> : <Eye className="h-4 w-4 mr-1" />}
                 {chatVisible ? "Hide Conversation" : "Show Conversation"}
               </Button>
               
@@ -165,16 +167,16 @@ const VideoCallPage: React.FC = () => {
                 variant="ghost" 
                 size="icon" 
                 onClick={toggleHeader}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 h-8 w-8"
               >
-                <Settings className="h-5 w-5" />
+                <Settings className="h-4 w-4" />
               </Button>
               
               <Link to="/web-platform">
                 <Button 
-                  className="bg-blue-500 text-white hover:bg-blue-600 border-none px-4 py-2 rounded-full"
+                  className="bg-blue-500 text-white hover:bg-blue-600 border-none px-3 py-1.5 rounded-full text-sm"
                 >
-                  <Home className="h-5 w-5 mr-2" />
+                  <Home className="h-4 w-4 mr-1.5" />
                   Go to Elsa
                 </Button>
               </Link>
