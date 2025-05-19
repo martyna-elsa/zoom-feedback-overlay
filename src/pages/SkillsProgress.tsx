@@ -50,8 +50,8 @@ const radarData = [
 
 // Sales skills insight data
 const salesSkillsInsights = {
-  winRatePredictors: {
-    title: "Win-Rate Predictors",
+  negotiations: {
+    title: "Negotiations",
     trend: "+8% improvement",
     description: "Your ability to identify high-value opportunities has improved significantly. Success rate for enterprise deals is up 12% with improved qualification techniques.",
     icon: TrendingUp,
