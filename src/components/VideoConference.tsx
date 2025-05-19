@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Video, VideoOff, PhoneOff, Share2, Users, MessageSquare, Shield, MoreHorizontal, Grid, Maximize, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -11,6 +10,14 @@ const VideoConference: React.FC = () => {
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [isGalleryView, setIsGalleryView] = useState(true);
+
+  // Emit event when screen sharing state changes
+  useEffect(() => {
+    const event = new CustomEvent('screenShareChange', { 
+      detail: { isScreenSharing } 
+    });
+    window.dispatchEvent(event);
+  }, [isScreenSharing]);
 
   return (
     <div className="flex flex-col h-full bg-black relative">

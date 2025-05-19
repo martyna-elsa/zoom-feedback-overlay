@@ -1,10 +1,9 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { Button } from '@/components/ui/button';
-import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff } from 'lucide-react';
+import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -15,7 +14,27 @@ const VideoCallPage: React.FC = () => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [chatVisible, setChatVisible] = useState(true);
   const [showFacilitatorHint, setShowFacilitatorHint] = useState(false);
+  const [isScreenSharing, setIsScreenSharing] = useState(false);
   const { toast } = useToast();
+  
+  // Effect to listen to screen sharing state from VideoConference component
+  useEffect(() => {
+    const handleScreenShareChange = (event: CustomEvent) => {
+      setIsScreenSharing(event.detail.isScreenSharing);
+      
+      // Hide UI elements when screen sharing starts
+      if (event.detail.isScreenSharing) {
+        setChatVisible(false);
+        setHeaderVisible(false);
+      }
+    };
+    
+    window.addEventListener('screenShareChange' as any, handleScreenShareChange);
+    
+    return () => {
+      window.removeEventListener('screenShareChange' as any, handleScreenShareChange);
+    };
+  }, []);
   
   const toggleFacilitatorMode = () => {
     const newMode = !facilitatorMode;
@@ -67,6 +86,19 @@ const VideoCallPage: React.FC = () => {
     }
   };
 
+  // Don't render UI elements when screen sharing is active
+  if (isScreenSharing) {
+    return (
+      <div className="min-h-screen bg-black flex flex-col">
+        <div className="flex-grow relative">
+          <div className="absolute inset-0">
+            <VideoConference />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Floating overlay header - positioned absolute with margins */}
@@ -116,6 +148,13 @@ const VideoCallPage: React.FC = () => {
             <Settings className="h-3.5 w-3.5 text-gray-500" />
           </Button>
         )}
+        
+        {/* Only visible to you indicator */}
+        <div className="mt-2 text-center">
+          <span className="text-xs text-white/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-md">
+            <Users className="h-3 w-3 inline mr-1" /> Only visible to you
+          </span>
+        </div>
       </div>
       
       {showNotification && headerVisible && (
@@ -151,6 +190,9 @@ const VideoCallPage: React.FC = () => {
         {/* Chat panel overlay - conditionally rendered based on chatVisible state */}
         {chatVisible && (
           <div className="absolute top-4 right-4 bottom-20 w-96 z-10 rounded-lg overflow-hidden shadow-xl">
+            <div className="bg-black/40 text-white text-xs px-2 py-0.5 rounded-t-lg text-center backdrop-blur-sm">
+              <Users className="h-3 w-3 inline mr-1" /> Only visible to you
+            </div>
             <ChatPanel />
           </div>
         )}
