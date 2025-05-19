@@ -5,7 +5,7 @@ import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { Bell, Home } from 'lucide-react';
+import { Bell, Home, SquareWidget } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -42,7 +42,10 @@ const VideoCallPage: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="bg-white p-3 shadow-sm flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <h1 className="text-xl font-bold">ELSA Video Call</h1>
+          <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 shadow-sm">
+            <SquareWidget className="h-5 w-5 text-blue-500" />
+            <h1 className="text-lg font-bold text-blue-700">ELSA Meeting Assistant</h1>
+          </div>
           <div className="flex items-center gap-2">
             <Toggle 
               pressed={facilitatorMode} 
