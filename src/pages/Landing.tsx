@@ -324,7 +324,7 @@ const Landing: React.FC = () => {
                       <LineChart data={skillsData}>
                         <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                         <XAxis dataKey="month" />
-                        <YAxis domain={[50, 100]} />
+                        <YAxis domain={[50, 80]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
                         {/* English Proficiency skills */}
