@@ -41,9 +41,9 @@ const VideoCallPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black/50 flex flex-col">
       {/* Desktop assistant overlay header */}
-      <div className="bg-black/80 backdrop-blur-md p-3 shadow-md flex justify-between items-center border-b border-white/10">
+      <div className="bg-blue-900/20 backdrop-blur-sm p-3 shadow-lg flex justify-between items-center border-b border-blue-300/20">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-blue-900/50 px-3 py-1.5 rounded-lg border border-blue-500/30 shadow-lg">
+          <div className="flex items-center gap-2 bg-blue-500/20 px-3 py-1.5 rounded-lg border border-blue-400/30 shadow-lg">
             <Square className="h-5 w-5 text-blue-400" />
             <h1 className="text-lg font-bold text-blue-300">ELSA Meeting Assistant</h1>
           </div>
@@ -61,7 +61,7 @@ const VideoCallPage: React.FC = () => {
         </div>
         <div className="flex items-center gap-2">
           <Link to="/">
-            <Button variant="outline" className="flex items-center gap-2 bg-black/50 border-white/20 text-blue-300 hover:bg-blue-900/40">
+            <Button variant="outline" className="flex items-center gap-2 bg-blue-500/10 border-blue-300/30 text-blue-300 hover:bg-blue-900/40">
               <Home className="h-4 w-4" />
               Back to Home
             </Button>
