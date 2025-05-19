@@ -2,12 +2,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChartBar, FileText, History, Home, Video, Users } from 'lucide-react';
+import { ChartBar, FileText, History, Home, Video, Users, Plus, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent } from '@/components/ui/card';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const WebPlatformPage: React.FC = () => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>("upcoming");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const { toast } = useToast();
   
   const handleLinkAccount = () => {
@@ -19,8 +24,27 @@ const WebPlatformPage: React.FC = () => {
     setShowLinkDialog(false);
   };
 
+  // Sample data for calls
+  const upcomingCalls = [
+    { id: "C-5430", name: "Weekly Team Check-in", date: "2025-05-21", time: "10:00 AM", participants: 5, status: "Scheduled" },
+    { id: "C-5429", name: "Client Presentation", date: "2025-05-22", time: "2:30 PM", participants: 8, status: "Scheduled" },
+    { id: "C-5428", name: "Sales Training", date: "2025-05-23", time: "1:00 PM", participants: 12, status: "Scheduled" }
+  ];
+
+  const pastCalls = [
+    { id: "C-5427", name: "Project Review", date: "2025-05-19", time: "11:00 AM", participants: 6, status: "Completed" },
+    { id: "C-5426", name: "Leadership Meeting", date: "2025-05-18", time: "3:00 PM", participants: 4, status: "Completed" },
+    { id: "C-5425", name: "Product Demo", date: "2025-05-17", time: "10:30 AM", participants: 9, status: "Completed" }
+  ];
+
+  const activeData = activeTab === "upcoming" ? upcomingCalls : pastCalls;
+  const filteredData = activeData.filter(call => 
+    call.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    call.id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <div className="bg-white p-3 shadow-sm flex justify-between items-center">
         <div className="flex items-center gap-4">
           <h1 className="text-xl font-bold">ELSA Web Platform</h1>
@@ -44,54 +68,159 @@ const WebPlatformPage: React.FC = () => {
       
       <div className="flex-grow p-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-2xl font-semibold text-blue-800 mb-4">Welcome to your ELSA Platform</h2>
-              <p className="text-gray-600 mb-6">
-                From here, you can access your call history, prepare for upcoming calls, and track your speaking skills progress.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg font-medium text-blue-800">Call History</h3>
-                    <History className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Review past calls, analyze feedback, and track improvement over time.
-                  </p>
-                  <Link to="/call-history">
-                    <Button variant="outline" className="w-full">View Call History</Button>
-                  </Link>
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold mb-1">Call Management</h2>
+            <p className="text-gray-600">Manage your scheduled and past calls</p>
+          </div>
+          
+          <Card className="shadow-sm border-gray-200">
+            <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-wrap gap-2">
+                <Button 
+                  variant={activeTab === "upcoming" ? "default" : "outline"} 
+                  onClick={() => setActiveTab("upcoming")}
+                  className="rounded-md"
+                >
+                  Upcoming
+                </Button>
+                <Button 
+                  variant={activeTab === "past" ? "default" : "outline"} 
+                  onClick={() => setActiveTab("past")}
+                  className="rounded-md"
+                >
+                  Past Calls
+                </Button>
+                <Button 
+                  variant={activeTab === "archived" ? "default" : "outline"} 
+                  onClick={() => setActiveTab("archived")}
+                  className="rounded-md"
+                >
+                  Archived
+                </Button>
+              </div>
+              <div className="flex gap-2 justify-end">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search calls..."
+                    className="pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm w-full sm:w-64"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
-                
-                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg font-medium text-blue-800">Call Preparation</h3>
-                    <FileText className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Create briefs, set goals, and prepare talking points for upcoming calls.
-                  </p>
-                  <Link to="/call-preparation">
-                    <Button variant="outline" className="w-full">Prepare for Call</Button>
-                  </Link>
-                </div>
-                
-                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg font-medium text-blue-800">Skills Progress</h3>
-                    <ChartBar className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Track improvement in pronunciation, grammar, confidence, and more.
-                  </p>
-                  <Link to="/skills-progress">
-                    <Button variant="outline" className="w-full">View Skills Progress</Button>
-                  </Link>
-                </div>
+                <Button onClick={() => setShowLinkDialog(true)} className="rounded-md whitespace-nowrap">
+                  <Plus className="h-4 w-4 mr-1" />
+                  Schedule Call
+                </Button>
               </div>
             </div>
+
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[50px] pl-4">
+                      <Checkbox />
+                    </TableHead>
+                    <TableHead>Call ID</TableHead>
+                    <TableHead>Call Name</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Time</TableHead>
+                    <TableHead>Participants</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredData.length > 0 ? (
+                    filteredData.map((call) => (
+                      <TableRow key={call.id}>
+                        <TableCell className="pl-4">
+                          <Checkbox />
+                        </TableCell>
+                        <TableCell className="font-medium">{call.id}</TableCell>
+                        <TableCell>{call.name}</TableCell>
+                        <TableCell>{call.date}</TableCell>
+                        <TableCell>{call.time}</TableCell>
+                        <TableCell>{call.participants}</TableCell>
+                        <TableCell>
+                          <span className={`px-2 py-1 text-xs rounded-full ${
+                            call.status === "Scheduled" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"
+                          }`}>
+                            {call.status}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+                            <Video className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                        No calls found. Try adjusting your search or schedule a new call.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-medium">Call History</h3>
+                  <History className="h-5 w-5 text-blue-600" />
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Review past calls, analyze feedback, and track improvement over time.
+                </p>
+              </div>
+              <div className="p-4">
+                <Link to="/call-history">
+                  <Button variant="outline" className="w-full">View Call History</Button>
+                </Link>
+              </div>
+            </Card>
+            
+            <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-medium">Call Preparation</h3>
+                  <FileText className="h-5 w-5 text-blue-600" />
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Create briefs, set goals, and prepare talking points for upcoming calls.
+                </p>
+              </div>
+              <div className="p-4">
+                <Link to="/call-preparation">
+                  <Button variant="outline" className="w-full">Prepare for Call</Button>
+                </Link>
+              </div>
+            </Card>
+            
+            <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-medium">Skills Progress</h3>
+                  <ChartBar className="h-5 w-5 text-blue-600" />
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Track improvement in pronunciation, grammar, confidence, and more.
+                </p>
+              </div>
+              <div className="p-4">
+                <Link to="/skills-progress">
+                  <Button variant="outline" className="w-full">View Skills Progress</Button>
+                </Link>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
