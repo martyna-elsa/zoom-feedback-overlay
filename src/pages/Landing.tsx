@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -71,7 +72,7 @@ const Landing: React.FC = () => {
                 <Link to="/video-call">
                   <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
                     <Video className="mr-2 h-5 w-5" />
-                    Join Video Call
+                    Enable Elsa AI Assistant
                   </Button>
                 </Link>
               </div>
