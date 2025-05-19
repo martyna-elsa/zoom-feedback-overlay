@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
@@ -140,6 +141,16 @@ const ChatPanel: React.FC = () => {
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           <ScrollArea className="flex-grow p-2">
             <div className="space-y-2">
+              {/* Recommended Reply heading */}
+              {feedbackAndIssues.some(item => item.type === 'recommendedReply') && (
+                <div className="mb-1 mt-1">
+                  <h3 className="text-sm font-medium text-purple-700 flex items-center">
+                    <MessageCircle className="h-3.5 w-3.5 mr-1" />
+                    Recommended Reply
+                  </h3>
+                </div>
+              )}
+              
               {/* Feedback and communication issues */}
               {feedbackAndIssues.map((item) => (
                 <div key={item.id} className="flex items-start gap-1 mb-2">
