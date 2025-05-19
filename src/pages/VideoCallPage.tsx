@@ -39,9 +39,9 @@ const VideoCallPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black/50 flex flex-col">
+    <div className="min-h-screen bg-black flex flex-col">
       {/* Desktop assistant overlay header */}
-      <div className="bg-white/80 backdrop-blur-sm p-3 shadow-sm flex justify-between items-center border-b border-gray-200/40">
+      <div className="bg-white/80 backdrop-blur-sm p-3 shadow-sm flex justify-between items-center border-b border-gray-200/40 relative z-20">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-300/20 shadow-sm">
             <Square className="h-5 w-5 text-blue-500" />
@@ -70,7 +70,7 @@ const VideoCallPage: React.FC = () => {
       </div>
       
       {showNotification && (
-        <div className="px-4 py-2">
+        <div className="px-4 py-2 relative z-20">
           <Alert variant="default" className="bg-white/80 backdrop-blur-sm border-blue-200/40 text-gray-700 shadow-sm">
             <Bell className="h-4 w-4 text-blue-500" />
             <AlertTitle>Unanswered Question</AlertTitle>
@@ -81,15 +81,17 @@ const VideoCallPage: React.FC = () => {
         </div>
       )}
       
-      <ResizablePanelGroup direction="horizontal" className="flex-grow">
-        <ResizablePanel defaultSize={70} minSize={40}>
+      <div className="flex-grow relative">
+        {/* Video conference takes the full area */}
+        <div className="absolute inset-0">
           <VideoConference />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={30} minSize={20}>
+        </div>
+        
+        {/* Chat panel overlay */}
+        <div className="absolute top-4 right-4 bottom-20 w-96 z-10 rounded-lg overflow-hidden shadow-xl">
           <ChatPanel />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+        </div>
+      </div>
     </div>
   );
 };
