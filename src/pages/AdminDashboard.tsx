@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
@@ -37,7 +36,7 @@ import {
   ChartLegendContent
 } from '@/components/ui/chart';
 
-// Define skill categories
+// Define skill categories - same as in SkillsProgress
 const CATEGORIES = {
   ENGLISH: "english-proficiency",
   SOFT: "soft-skills",
@@ -67,28 +66,180 @@ const learners = [
   { id: "8", name: "Jennifer Lee", team: "customer-support" },
 ];
 
-// Sample skills data
+// Sample skills data - expanded with more skill types like in SkillsProgress
 const skillsData = [
-  { month: 'Jan', pronunciation: 65, grammar: 70, confidence: 60, comprehension: 72 },
-  { month: 'Feb', pronunciation: 68, grammar: 72, confidence: 63, comprehension: 75 },
-  { month: 'Mar', pronunciation: 72, grammar: 73, confidence: 68, comprehension: 78 },
-  { month: 'Apr', pronunciation: 75, grammar: 76, confidence: 72, comprehension: 80 },
-  { month: 'May', pronunciation: 78, grammar: 78, confidence: 75, comprehension: 82 },
+  { month: 'Jan', pronunciation: 65, grammar: 70, vocabulary: 72, intonation: 60, fluency: 65, negotiation: 80, persuasion: 75, understanding: 85, confidence: 90, coherence: 80 },
+  { month: 'Feb', pronunciation: 68, grammar: 72, vocabulary: 75, intonation: 63, fluency: 68, negotiation: 82, persuasion: 77, understanding: 87, confidence: 91, coherence: 82 },
+  { month: 'Mar', pronunciation: 72, grammar: 73, vocabulary: 78, intonation: 68, fluency: 72, negotiation: 84, persuasion: 80, understanding: 88, confidence: 92, coherence: 84 },
+  { month: 'Apr', pronunciation: 75, grammar: 76, vocabulary: 80, intonation: 72, fluency: 75, negotiation: 86, persuasion: 82, understanding: 90, confidence: 94, coherence: 86 },
+  { month: 'May', pronunciation: 78, grammar: 78, vocabulary: 82, intonation: 75, fluency: 78, negotiation: 88, persuasion: 84, understanding: 92, confidence: 95, coherence: 88 },
 ];
 
-// Sample learner performance data
+// Expanded learner performance data with more detailed skills
 const learnerPerformanceData = [
-  { id: "1", name: "Emma Davis", team: "sales", progress: 94, improvement: "+15%", calls: 24, skills: { pronunciation: 92, grammar: 88, confidence: 96, comprehension: 91 } },
-  { id: "2", name: "Michael Chen", team: "marketing", progress: 92, improvement: "+12%", calls: 18, skills: { pronunciation: 90, grammar: 94, confidence: 89, comprehension: 88 } },
-  { id: "3", name: "Sarah Johnson", team: "sales", progress: 89, improvement: "+10%", calls: 22, skills: { pronunciation: 86, grammar: 92, confidence: 91, comprehension: 87 } },
-  { id: "4", name: "James Wilson", team: "customer-support", progress: 87, improvement: "+8%", calls: 20, skills: { pronunciation: 85, grammar: 84, confidence: 90, comprehension: 89 } },
-  { id: "5", name: "David Thompson", team: "engineering", progress: 85, improvement: "+9%", calls: 16, skills: { pronunciation: 82, grammar: 87, confidence: 86, comprehension: 84 } },
-  { id: "6", name: "Lisa Rodriguez", team: "marketing", progress: 83, improvement: "+7%", calls: 19, skills: { pronunciation: 80, grammar: 85, confidence: 84, comprehension: 81 } },
-  { id: "7", name: "Robert Kim", team: "engineering", progress: 81, improvement: "+11%", calls: 15, skills: { pronunciation: 78, grammar: 84, confidence: 82, comprehension: 80 } },
-  { id: "8", name: "Jennifer Lee", team: "customer-support", progress: 80, improvement: "+6%", calls: 17, skills: { pronunciation: 78, grammar: 79, confidence: 82, comprehension: 80 } },
+  { 
+    id: "1", 
+    name: "Emma Davis", 
+    team: "sales", 
+    progress: 94, 
+    improvement: "+15%", 
+    calls: 24, 
+    skills: { 
+      pronunciation: 92, 
+      grammar: 88, 
+      vocabulary: 90, 
+      intonation: 85, 
+      fluency: 87, 
+      negotiation: 96, 
+      persuasion: 94, 
+      understanding: 91, 
+      confidence: 96, 
+      coherence: 91 
+    } 
+  },
+  { 
+    id: "2", 
+    name: "Michael Chen", 
+    team: "marketing", 
+    progress: 92, 
+    improvement: "+12%", 
+    calls: 18, 
+    skills: { 
+      pronunciation: 90, 
+      grammar: 94, 
+      vocabulary: 88, 
+      intonation: 86, 
+      fluency: 87, 
+      negotiation: 89, 
+      persuasion: 94, 
+      understanding: 88, 
+      confidence: 89, 
+      coherence: 87 
+    } 
+  },
+  { 
+    id: "3", 
+    name: "Sarah Johnson", 
+    team: "sales", 
+    progress: 89, 
+    improvement: "+10%", 
+    calls: 22, 
+    skills: { 
+      pronunciation: 86, 
+      grammar: 92, 
+      vocabulary: 87, 
+      intonation: 84, 
+      fluency: 85, 
+      negotiation: 91, 
+      persuasion: 90, 
+      understanding: 89, 
+      confidence: 91, 
+      coherence: 88 
+    } 
+  },
+  { 
+    id: "4", 
+    name: "James Wilson", 
+    team: "customer-support", 
+    progress: 87, 
+    improvement: "+8%", 
+    calls: 20, 
+    skills: { 
+      pronunciation: 85, 
+      grammar: 84, 
+      vocabulary: 83, 
+      intonation: 80, 
+      fluency: 81, 
+      negotiation: 89, 
+      persuasion: 88, 
+      understanding: 89, 
+      confidence: 89, 
+      coherence: 88 
+    } 
+  },
+  { 
+    id: "5", 
+    name: "David Thompson", 
+    team: "engineering", 
+    progress: 85, 
+    improvement: "+9%", 
+    calls: 16, 
+    skills: { 
+      pronunciation: 82, 
+      grammar: 87, 
+      vocabulary: 86, 
+      intonation: 83, 
+      fluency: 84, 
+      negotiation: 86, 
+      persuasion: 85, 
+      understanding: 84, 
+      confidence: 86, 
+      coherence: 83 
+    } 
+  },
+  { 
+    id: "6", 
+    name: "Lisa Rodriguez", 
+    team: "marketing", 
+    progress: 83, 
+    improvement: "+7%", 
+    calls: 19, 
+    skills: { 
+      pronunciation: 80, 
+      grammar: 85, 
+      vocabulary: 84, 
+      intonation: 81, 
+      fluency: 82, 
+      negotiation: 84, 
+      persuasion: 83, 
+      understanding: 81, 
+      confidence: 84, 
+      coherence: 80 
+    } 
+  },
+  { 
+    id: "7", 
+    name: "Robert Kim", 
+    team: "engineering", 
+    progress: 81, 
+    improvement: "+11%", 
+    calls: 15, 
+    skills: { 
+      pronunciation: 78, 
+      grammar: 84, 
+      vocabulary: 82, 
+      intonation: 79, 
+      fluency: 80, 
+      negotiation: 82, 
+      persuasion: 81, 
+      understanding: 80, 
+      confidence: 82, 
+      coherence: 79 
+    } 
+  },
+  { 
+    id: "8", 
+    name: "Jennifer Lee", 
+    team: "customer-support", 
+    progress: 80, 
+    improvement: "+6%", 
+    calls: 17, 
+    skills: { 
+      pronunciation: 78, 
+      grammar: 79, 
+      vocabulary: 78, 
+      intonation: 76, 
+      fluency: 77, 
+      negotiation: 79, 
+      persuasion: 78, 
+      understanding: 78, 
+      confidence: 80, 
+      coherence: 77 
+    } 
+  },
 ];
 
-// Sample team performance data - aggregate of individual performances
+// Team performance data - aggregate of individual performances
 const teamPerformanceData = teams.map(team => {
   const teamMembers = learnerPerformanceData.filter(learner => learner.team === team.id);
   const avgProgress = Math.round(teamMembers.reduce((sum, member) => sum + member.progress, 0) / teamMembers.length);
@@ -98,8 +249,14 @@ const teamPerformanceData = teams.map(team => {
   const avgSkills = {
     pronunciation: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.pronunciation, 0) / teamMembers.length),
     grammar: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.grammar, 0) / teamMembers.length),
+    vocabulary: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.vocabulary, 0) / teamMembers.length),
+    intonation: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.intonation, 0) / teamMembers.length),
+    fluency: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.fluency, 0) / teamMembers.length),
+    negotiation: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.negotiation, 0) / teamMembers.length),
+    persuasion: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.persuasion, 0) / teamMembers.length),
+    understanding: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.understanding, 0) / teamMembers.length),
     confidence: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.confidence, 0) / teamMembers.length),
-    comprehension: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.comprehension, 0) / teamMembers.length)
+    coherence: Math.round(teamMembers.reduce((sum, member) => sum + member.skills.coherence, 0) / teamMembers.length)
   };
   
   return {
@@ -121,16 +278,28 @@ const orgPerformanceData = {
   skills: {
     pronunciation: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.pronunciation, 0) / learnerPerformanceData.length),
     grammar: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.grammar, 0) / learnerPerformanceData.length),
+    vocabulary: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.vocabulary, 0) / learnerPerformanceData.length),
+    intonation: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.intonation, 0) / learnerPerformanceData.length),
+    fluency: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.fluency, 0) / learnerPerformanceData.length),
+    negotiation: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.negotiation, 0) / learnerPerformanceData.length),
+    persuasion: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.persuasion, 0) / learnerPerformanceData.length),
+    understanding: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.understanding, 0) / learnerPerformanceData.length),
     confidence: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.confidence, 0) / learnerPerformanceData.length),
-    comprehension: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.comprehension, 0) / learnerPerformanceData.length)
+    coherence: Math.round(learnerPerformanceData.reduce((sum, learner) => sum + learner.skills.coherence, 0) / learnerPerformanceData.length)
   }
 };
 
 const chartConfig = {
   pronunciation: { label: 'Pronunciation', color: '#4f46e5' },
   grammar: { label: 'Grammar', color: '#0ea5e9' },
-  confidence: { label: 'Confidence', color: '#10b981' },
-  comprehension: { label: 'Comprehension', color: '#f59e0b' },
+  vocabulary: { label: 'Vocabulary', color: '#8b5cf6' },
+  intonation: { label: 'Intonation', color: '#ec4899' },
+  fluency: { label: 'Fluency', color: '#f43f5e' },
+  negotiation: { label: 'Negotiation', color: '#10b981' },
+  persuasion: { label: 'Persuasion', color: '#14b8a6' },
+  understanding: { label: 'Understanding', color: '#f59e0b' },
+  confidence: { label: 'Confidence', color: '#d97706' },
+  coherence: { label: 'Coherence', color: '#84cc16' },
 };
 
 const getCategoryColor = (category: string): string => {
@@ -152,10 +321,23 @@ const categoryLabels: Record<string, string> = {
   [CATEGORIES.COMMUNICATION]: "Communication Competency"
 };
 
+const skillCategories: Record<string, string> = {
+  pronunciation: CATEGORIES.ENGLISH,
+  grammar: CATEGORIES.ENGLISH,
+  vocabulary: CATEGORIES.ENGLISH,
+  intonation: CATEGORIES.ENGLISH,
+  fluency: CATEGORIES.ENGLISH,
+  negotiation: CATEGORIES.SOFT,
+  persuasion: CATEGORIES.SOFT,
+  understanding: CATEGORIES.COMMUNICATION,
+  confidence: CATEGORIES.COMMUNICATION,
+  coherence: CATEGORIES.COMMUNICATION
+};
+
 const AdminDashboard: React.FC = () => {
   const [viewFilter, setViewFilter] = useState<ViewFilter>("organization");
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("month");
-  const [selectedTeamId, setSelectedTeamId] = useState<string>(""); 
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
   const [selectedLearnerId, setSelectedLearnerId] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [currentTab, setCurrentTab] = useState("overview");
@@ -172,16 +354,19 @@ const AdminDashboard: React.FC = () => {
   };
 
   const currentData = getCurrentData();
-
-  // Transform data for radar chart
+  
+  // Transform data for radar chart, filtered by selected categories
   const getRadarChartData = () => {
     if (!currentData) return [];
-    return [
-      { name: 'Pronunciation', value: currentData.skills.pronunciation, category: CATEGORIES.ENGLISH },
-      { name: 'Grammar', value: currentData.skills.grammar, category: CATEGORIES.ENGLISH },
-      { name: 'Confidence', value: currentData.skills.confidence, category: CATEGORIES.COMMUNICATION },
-      { name: 'Comprehension', value: currentData.skills.comprehension, category: CATEGORIES.COMMUNICATION },
-    ].filter(skill => selectedCategories.length === 0 || selectedCategories.includes(skill.category));
+    
+    return Object.entries(currentData.skills).map(([skill, value]) => ({
+      name: skill.charAt(0).toUpperCase() + skill.slice(1),
+      value: value,
+      category: skillCategories[skill] || CATEGORIES.ENGLISH
+    })).filter(skill => 
+      selectedCategories.length === 0 || 
+      selectedCategories.includes(skill.category)
+    );
   };
 
   const radarChartData = getRadarChartData();
@@ -380,10 +565,7 @@ const AdminDashboard: React.FC = () => {
                         Object.keys(skills)[0]
                       );
                       const topSkillValue = skills[topSkillName as keyof typeof skills];
-                      
-                      const skillCategory = topSkillName === "pronunciation" || topSkillName === "grammar" 
-                        ? CATEGORIES.ENGLISH 
-                        : CATEGORIES.COMMUNICATION;
+                      const skillCategory = skillCategories[topSkillName] || CATEGORIES.ENGLISH;
                       
                       return (
                         <>
@@ -541,12 +723,70 @@ const AdminDashboard: React.FC = () => {
                       <YAxis domain={[50, 100]} />
                       <ChartTooltip content={<ChartTooltipContent />} />
                       <ChartLegend content={<ChartLegendContent />} />
-                      <Line type="monotone" dataKey="pronunciation" stroke={chartConfig.pronunciation.color} strokeWidth={2} />
-                      <Line type="monotone" dataKey="grammar" stroke={chartConfig.grammar.color} strokeWidth={2} />
-                      <Line type="monotone" dataKey="confidence" stroke={chartConfig.confidence.color} strokeWidth={2} />
-                      <Line type="monotone" dataKey="comprehension" stroke={chartConfig.comprehension.color} strokeWidth={2} />
+                      {Object.entries(chartConfig).map(([key, config]) => (
+                        <Line 
+                          key={key} 
+                          type="monotone" 
+                          dataKey={key} 
+                          stroke={config.color} 
+                          strokeWidth={2}
+                          hide={selectedCategories.length > 0 && !selectedCategories.includes(skillCategories[key])}
+                        />
+                      ))}
                     </LineChart>
                   </ChartContainer>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Individual Skills Analysis */}
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle>Individual Skills Analysis</CardTitle>
+                <CardDescription>
+                  Detailed breakdown of each skill with improvement metrics
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                  {currentData && Object.entries(currentData.skills)
+                    .filter(([skill]) => 
+                      selectedCategories.length === 0 || 
+                      selectedCategories.includes(skillCategories[skill])
+                    )
+                    .map(([skill, value]) => {
+                      const category = skillCategories[skill];
+                      const improvement = "+10%"; // Example improvement value
+                      
+                      return (
+                        <Card key={skill} className="overflow-hidden">
+                          <div className="h-2" style={{ backgroundColor: getCategoryColor(category) }}></div>
+                          <div className="p-4">
+                            <div className="flex justify-between items-center mb-2">
+                              <h3 className="font-medium capitalize">{skill}</h3>
+                              <Badge variant="outline" className="text-xs">
+                                {improvement}
+                              </Badge>
+                            </div>
+                            <Progress value={value} className="h-2 mb-2" />
+                            <div className="flex justify-between items-center text-sm">
+                              <span>{value}%</span>
+                              <Badge 
+                                variant="outline" 
+                                className="text-xs"
+                                style={{
+                                  backgroundColor: `${getCategoryColor(category)}10`,
+                                  borderColor: `${getCategoryColor(category)}40`,
+                                  color: getCategoryColor(category)
+                                }}
+                              >
+                                {categoryLabels[category]}
+                              </Badge>
+                            </div>
+                          </div>
+                        </Card>
+                      );
+                    })}
                 </div>
               </CardContent>
             </Card>
