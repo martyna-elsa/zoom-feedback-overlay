@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -91,7 +92,7 @@ const VideoCallPage: React.FC = () => {
                 onClick={toggleChat}
                 className="text-gray-500 hover:text-gray-700 font-light text-sm px-3 flex items-center gap-1.5"
               >
-                {chatVisible ? "Hide" : "Show"}
+                {chatVisible ? "Hide Conversation" : "Show Conversation"}
                 {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
               </Button>
               
