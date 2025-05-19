@@ -61,7 +61,6 @@ const WebPlatformPage: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="mb-6">
             <h2 className="text-2xl font-semibold mb-1">Call Management</h2>
-            <p className="text-gray-600">Manage your scheduled and past calls</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
