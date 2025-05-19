@@ -5,9 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users } from 'lucide-react';
+import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users, Check, Star, Award, Info } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 // Sample sales conversation data from the screenshots
 const sampleConversation = [
@@ -231,9 +232,124 @@ const ChatPanel: React.FC = () => {
               </div>
             </Card>
 
+            {/* Measurable Results Card */}
             <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-4 text-blue-600">Language Proficiency Assessment</h3>
+              <div className="flex items-center mb-4">
+                <Award className="h-5 w-5 text-blue-500 mr-2" />
+                <h3 className="font-medium text-lg text-blue-600">Measurable Results</h3>
+              </div>
               
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <div className="text-3xl font-bold text-blue-700">87%</div>
+                  <div className="text-sm font-medium text-gray-600">Overall Effectiveness</div>
+                </div>
+                
+                <div className="bg-green-50 p-3 rounded-lg">
+                  <div className="text-3xl font-bold text-green-600">+20%</div>
+                  <div className="text-sm font-medium text-gray-600">Value Added (Annual Discount)</div>
+                </div>
+                
+                <div className="bg-purple-50 p-3 rounded-lg">
+                  <div className="text-3xl font-bold text-purple-600">3/4</div>
+                  <div className="text-sm font-medium text-gray-600">Key Points Addressed</div>
+                </div>
+                
+                <div className="bg-amber-50 p-3 rounded-lg">
+                  <div className="text-3xl font-bold text-amber-600">100%</div>
+                  <div className="text-sm font-medium text-gray-600">Customer Questions Answered</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Communication Skills Card */}
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
+              <div className="flex items-center mb-4">
+                <MessageCircle className="h-5 w-5 text-blue-500 mr-2" />
+                <h3 className="font-medium text-lg text-blue-600">Communication Skills</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Negotiation Skills</h4>
+                    <span>82%</span>
+                  </div>
+                  <Progress value={82} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Effectively presented value proposition. Could improve by proactively addressing potential objections before they arise.
+                  </p>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Persuasion Effectiveness</h4>
+                    <span>78%</span>
+                  </div>
+                  <Progress value={78} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Good use of social proof and value-based selling. Example: "For a team your size, our Business plan would be ideal."
+                  </p>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Customer Understanding</h4>
+                    <span>95%</span>
+                  </div>
+                  <Progress value={95} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Excellent at identifying customer needs and matching solutions. Quickly recognized security as a key priority.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Soft Skills Card */}
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
+              <div className="flex items-center mb-4">
+                <Star className="h-5 w-5 text-blue-500 mr-2" />
+                <h3 className="font-medium text-lg text-blue-600">Soft Skills</h3>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Active Listening</h4>
+                    <span>88%</span>
+                  </div>
+                  <Progress value={88} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Demonstrated excellent comprehension by addressing the specific team size and security concerns mentioned by the customer.
+                  </p>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Empathy</h4>
+                    <span>82%</span>
+                  </div>
+                  <Progress value={82} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Showed understanding of customer's budget concerns by proactively offering the annual discount option.
+                  </p>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Problem Solving</h4>
+                    <span>90%</span>
+                  </div>
+                  <Progress value={90} className="h-2 mb-1" />
+                  <p className="text-sm text-gray-600">
+                    Quickly identified the appropriate plan based on team size and security requirements without unnecessary upselling.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
+              <h3 className="font-medium mb-2 text-blue-600">Language Proficiency Assessment</h3>
               <div className="space-y-6">
                 <div>
                   <div className="flex justify-between mb-1">
@@ -273,14 +389,6 @@ const ChatPanel: React.FC = () => {
                     Spoke without hesitation. Maintained conversational flow even when discussing technical features.
                   </p>
                 </div>
-              </div>
-            </Card>
-
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-2 text-blue-600">Communication Skills</h3>
-              <div className="space-y-2">
-                <h4 className="font-medium">Negotiation Skills</h4>
-                {/* Additional content here if needed */}
               </div>
             </Card>
           </div>
