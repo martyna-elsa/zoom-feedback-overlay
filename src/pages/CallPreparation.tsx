@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/
 import { useForm } from 'react-hook-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Sample participants data
 const participants = [
@@ -349,6 +350,18 @@ const CallPreparation: React.FC = () => {
     });
   };
 
+  // Simulate organization data status - in a real app, this would come from an API
+  const [orgDataStatus] = useState({
+    yourCompany: {
+      provided: true,
+      lastUpdated: "2023-10-15",
+      updatedBy: "Admin (Sarah Chen)"
+    },
+    participantCompany: {
+      provided: false
+    }
+  });
+
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-5xl mx-auto">
@@ -388,12 +401,31 @@ const CallPreparation: React.FC = () => {
               {/* Company Information Card */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Update Your Company Information</CardTitle>
-                  <CardDescription>
-                    Add details about your company to improve contextual feedback
-                  </CardDescription>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>Update Your Company Information</CardTitle>
+                      <CardDescription>
+                        Add details about your company to improve contextual feedback
+                      </CardDescription>
+                    </div>
+                    {orgDataStatus.yourCompany.provided && (
+                      <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-700 border-green-200">
+                        <Check className="h-3 w-3" />
+                        Provided by Admin
+                      </Badge>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
+                  {orgDataStatus.yourCompany.provided && (
+                    <Alert className="bg-blue-50 text-blue-800 border-blue-200 mb-4">
+                      <Info className="h-4 w-4" />
+                      <AlertDescription>
+                        Information already provided by {orgDataStatus.yourCompany.updatedBy} on {orgDataStatus.yourCompany.lastUpdated}. You can update if needed.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                  
                   <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer" 
                        onClick={() => handleUpload('your company')}>
                     <div className="flex items-center gap-3">
@@ -436,12 +468,31 @@ const CallPreparation: React.FC = () => {
               {/* Participant's Company Information */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Participant's Company Information</CardTitle>
-                  <CardDescription>
-                    Add details about the participant's company to receive more relevant insights
-                  </CardDescription>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>Participant's Company Information</CardTitle>
+                      <CardDescription>
+                        Add details about the participant's company to receive more relevant insights
+                      </CardDescription>
+                    </div>
+                    {orgDataStatus.participantCompany.provided && (
+                      <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-700 border-green-200">
+                        <Check className="h-3 w-3" />
+                        Provided by Admin
+                      </Badge>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-6">
+                  {orgDataStatus.participantCompany.provided && (
+                    <Alert className="bg-blue-50 text-blue-800 border-blue-200 mb-4">
+                      <Info className="h-4 w-4" />
+                      <AlertDescription>
+                        Information already provided by organization admin. You can update if needed.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                  
                   <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer"
                        onClick={() => handleUpload('participant company')}>
                     <div className="flex items-center gap-3">
