@@ -11,7 +11,6 @@ import SkillsProgress from "./pages/SkillsProgress";
 import NotFound from "./pages/NotFound";
 import CallPreparation from "./pages/CallPreparation";
 import CallHistory from "./pages/CallHistory";
-import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +27,6 @@ const App = () => (
           <Route path="/skills-progress" element={<SkillsProgress />} />
           <Route path="/call-preparation" element={<CallPreparation />} />
           <Route path="/call-history" element={<CallHistory />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

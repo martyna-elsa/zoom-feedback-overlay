@@ -114,23 +114,6 @@ const WebPlatformPage: React.FC = () => {
                 </Link>
               </div>
             </Card>
-            
-            <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-              <div className="p-6 border-b border-gray-100">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-lg font-medium">Admin Dashboard</h3>
-                  <Users className="h-5 w-5 text-blue-600" />
-                </div>
-                <p className="text-sm text-gray-600 mb-4">
-                  Monitor learner performance, track goals achievement, and analyze skills development over time.
-                </p>
-              </div>
-              <div className="p-4">
-                <Link to="/admin-dashboard">
-                  <Button variant="outline" className="w-full">Open Admin Dashboard</Button>
-                </Link>
-              </div>
-            </Card>
           </div>
         </div>
       </div>
