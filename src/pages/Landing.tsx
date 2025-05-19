@@ -51,8 +51,8 @@ const Landing: React.FC = () => {
             {/* Zoom Call Card */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
               <div className="bg-indigo-800 p-6">
-                <h3 className="text-2xl font-semibold text-white mb-2">Join Video Call</h3>
-                <p className="text-indigo-100">Start or join a live video call with AI-powered analysis</p>
+                <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
+                <p className="text-indigo-100">Enable video calls with AI-powered analysis</p>
               </div>
               <div className="p-6">
                 <ul className="text-gray-600 mb-8 space-y-2">
