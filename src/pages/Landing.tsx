@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal, Settings, Info } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal, Settings, Info, Upload, Link as LinkIcon } from 'lucide-react';
 import { 
   ChartContainer, 
   ChartTooltip, 
@@ -32,6 +32,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Sample data for learner skills progress
 const skillsData = [
@@ -127,6 +128,7 @@ const categoryLabels = {
 const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("general");
   
   // Filter radar data without categories selection
   const filteredRadarData = radarData;
@@ -164,71 +166,181 @@ const Landing: React.FC = () => {
         <div className="max-w-6xl w-full px-4">
           {!showAdminSection ? (
             <>
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-blue-800 mb-2">Welcome to ELSA</h2>
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
               
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* ELSA Web Platform Card */}
-                  <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
-                    <div className="bg-blue-800 p-6">
-                      <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
-                      <p className="text-blue-100">Access your personal dashboard, view progress, and prepare for calls</p>
+              <Tabs defaultValue="general" className="w-full mb-6">
+                <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
+                  <TabsTrigger value="general">General</TabsTrigger>
+                  <TabsTrigger value="ai-setup">AI Assistant Setup</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="general" className="space-y-4 mt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* ELSA Web Platform Card */}
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
+                      <div className="bg-blue-800 p-6">
+                        <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
+                        <p className="text-blue-100">Access your personal dashboard, view progress, and prepare for calls</p>
+                      </div>
+                      <div className="p-6">
+                        <ul className="text-gray-600 mb-8 space-y-2">
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>View Skills Progress</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>Call History</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>Call Preparation</span>
+                          </li>
+                        </ul>
+                        <Link to="/web-platform">
+                          <Button className="w-full">Enter ELSA Web Platform</Button>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="p-6">
-                      <ul className="text-gray-600 mb-8 space-y-2">
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          <span>View Skills Progress</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          <span>Call History</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          <span>Call Preparation</span>
-                        </li>
-                      </ul>
-                      <Link to="/web-platform">
-                        <Button className="w-full">Enter ELSA Web Platform</Button>
-                      </Link>
+                    
+                    {/* Zoom Call Card */}
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
+                      <div className="bg-indigo-800 p-6">
+                        <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
+                        <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
+                      </div>
+                      <div className="p-6">
+                        <ul className="text-gray-600 mb-8 space-y-2">
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Real-time Conversation Analysis</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Facilitator Mode</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Call Summary</span>
+                          </li>
+                        </ul>
+                        <Link to="/video-call">
+                          <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
+                            <Download className="mr-2 h-5 w-5" />
+                            Download Elsa AI Assistant
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                  
-                  {/* Zoom Call Card */}
-                  <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
-                    <div className="bg-indigo-800 p-6">
-                      <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
-                      <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
-                    </div>
-                    <div className="p-6">
-                      <ul className="text-gray-600 mb-8 space-y-2">
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                          <span>Real-time Conversation Analysis</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                          <span>Facilitator Mode</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                          <span>Call Summary</span>
-                        </li>
-                      </ul>
-                      <Link to="/video-call">
-                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
-                          <Download className="mr-2 h-5 w-5" />
-                          Download Elsa AI Assistant
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </TabsContent>
+                
+                <TabsContent value="ai-setup" className="space-y-4 mt-6">
+                  <Card className="border-0 shadow-md">
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <CardTitle className="text-2xl">Update Your Company Information</CardTitle>
+                          <CardDescription className="text-lg">
+                            Add details about your company to improve contextual feedback
+                          </CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-4 py-1.5">
+                          <div className="flex items-center gap-1">
+                            <span className="rounded-full bg-green-500 w-2 h-2"></span>
+                            Provided by Admin
+                          </div>
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <Alert className="bg-blue-50 text-blue-800 border-blue-200 mb-6">
+                        <Info className="h-5 w-5" />
+                        <AlertDescription>
+                          Information already provided by Admin (Sarah Chen) on 2023-10-15. You can update if needed.
+                        </AlertDescription>
+                      </Alert>
+
+                      <div className="grid gap-6 md:grid-cols-2">
+                        {/* Upload Document Card */}
+                        <div className="border rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer bg-white">
+                          <div className="flex items-center gap-4">
+                            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+                              <Upload className="h-7 w-7 text-blue-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-lg mb-1">Upload Document</h3>
+                              <p className="text-gray-600">Upload company brochures, presentations or other documents</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Company URL Card */}
+                        <div className="border rounded-lg p-6 bg-white">
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
+                              <LinkIcon className="h-7 w-7 text-green-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-lg mb-1">Paste Company URL</h3>
+                              <p className="text-gray-600">Add your company website or LinkedIn page</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Input placeholder="https://yourcompany.com" type="url" className="flex-1" />
+                            <Button>Analyze</Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-0 shadow-md">
+                    <CardHeader>
+                      <CardTitle className="text-2xl">Participant's Company Information</CardTitle>
+                      <CardDescription className="text-lg">
+                        Add details about the participant's company to receive more relevant insights
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid gap-6 md:grid-cols-2">
+                        {/* Upload Document Card */}
+                        <div className="border rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer bg-white">
+                          <div className="flex items-center gap-4">
+                            <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center">
+                              <Upload className="h-7 w-7 text-purple-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-lg mb-1">Upload Document</h3>
+                              <p className="text-gray-600">Upload materials about the participant's company</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Company URL Card */}
+                        <div className="border rounded-lg p-6 bg-white">
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
+                              <LinkIcon className="h-7 w-7 text-amber-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-lg mb-1">Paste Company URL</h3>
+                              <p className="text-gray-600">Add their company website or LinkedIn page</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Input placeholder="https://theircompany.com" type="url" className="flex-1" />
+                            <Button>Analyze</Button>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
             </>
           ) : (
             // Admin Dashboard Content
