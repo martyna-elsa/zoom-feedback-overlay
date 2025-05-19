@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -124,16 +123,16 @@ const VideoCallPage: React.FC = () => {
       {/* Floating overlay header - positioned absolute with margins */}
       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg">
         {headerVisible ? (
-          <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-6 border border-gray-200/30">
-            <div className="flex items-center gap-4">
+          <div className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg flex items-center gap-3 border border-gray-200/30">
+            <div className="flex items-center gap-2">
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-gray-500 hover:text-gray-700 font-light text-sm px-3 flex items-center gap-1.5"
+                className="text-gray-500 hover:text-gray-700 font-light text-xs px-2 flex items-center gap-1.5 h-6"
                 onClick={handleFacilitatorHint}
               >
-                <Bell className="h-3.5 w-3.5 mr-1" />
-                Facilitator Mode
+                <Bell className="h-3 w-3 mr-0.5" />
+                Facilitator
               </Button>
               
               {/* New facilitator visibility option */}
@@ -143,43 +142,42 @@ const VideoCallPage: React.FC = () => {
                     id="facilitatorVisibility" 
                     checked={facilitatorVisibleToAll}
                     onCheckedChange={toggleFacilitatorVisibility}
-                    className="h-3.5 w-3.5"
+                    className="h-3 w-3"
                   />
                   <label htmlFor="facilitatorVisibility" className="text-xs cursor-pointer">
-                    Visible to all
+                    Visible
                   </label>
                 </div>
               )}
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleChat}
-                className="text-gray-500 hover:text-gray-700 font-light text-sm px-3 flex items-center gap-1.5"
+                className="text-gray-500 hover:text-gray-700 font-light text-xs px-2 h-6 flex items-center gap-1"
               >
-                {chatVisible ? "Hide Conversation" : "Show Conversation"}
-                {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                {chatVisible ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
               </Button>
               
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={toggleHeader}
-                className="text-gray-500 hover:text-gray-700 h-7 w-7"
+                className="text-gray-500 hover:text-gray-700 h-6 w-6"
               >
-                <Settings className="h-4 w-4" />
+                <Settings className="h-3.5 w-3.5" />
               </Button>
               
               <Link to="/web-platform">
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="bg-blue-500 text-white hover:bg-blue-600 border-none h-7 text-xs px-3"
+                  className="bg-blue-500 text-white hover:bg-blue-600 border-none h-6 text-xs px-2"
                 >
-                  <Home className="h-3.5 w-3.5 mr-1" />
-                  Go to Elsa
+                  <Home className="h-3 w-3 mr-0.5" />
+                  Elsa
                 </Button>
               </Link>
             </div>
@@ -190,26 +188,26 @@ const VideoCallPage: React.FC = () => {
               variant="ghost" 
               size="sm" 
               onClick={toggleHeader} 
-              className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-3 py-1.5"
+              className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-2 py-1 h-6"
             >
-              <Settings className="h-3.5 w-3.5 text-gray-500" />
+              <Settings className="h-3 w-3 text-gray-500" />
             </Button>
             
             <Link to="/web-platform">
               <Button 
                 variant="outline" 
                 size="sm"
-                className="bg-blue-500 text-white hover:bg-blue-600 border-none px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md text-xs flex items-center gap-1"
+                className="bg-blue-500 text-white hover:bg-blue-600 border-none px-2 py-1 h-6 rounded-full shadow-sm backdrop-blur-md text-xs flex items-center gap-1"
               >
-                <Home className="h-3.5 w-3.5" />
-                Go to Elsa
+                <Home className="h-3 w-3" />
+                Elsa
               </Button>
             </Link>
           </div>
         )}
         
         {/* Only visible to you indicator */}
-        <div className="mt-2 text-center">
+        <div className="mt-1 text-center">
           <span className="text-xs text-white/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-md">
             <Users className="h-3 w-3 inline mr-1" /> Only visible to you
           </span>
