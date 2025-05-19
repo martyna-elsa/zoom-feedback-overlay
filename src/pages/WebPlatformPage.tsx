@@ -112,15 +112,6 @@ const WebPlatformPage: React.FC = () => {
                 </div>
               </Card>
             </div>
-
-            <div className="mt-8 flex justify-center">
-              <Link to="/admin-dashboard">
-                <Button variant="outline" className="flex items-center gap-2 px-6 py-6 rounded-lg border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                  <Settings className="h-5 w-5 mr-2" />
-                  <span className="text-lg font-medium">Admin Dashboard</span>
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
       </div>
