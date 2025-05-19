@@ -124,18 +124,13 @@ const categoryLabels = {
 const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   
-  // Filter radar data based on selected categories
-  const filteredRadarData = radarData.filter(item => 
-    selectedCategories.length === 0 || selectedCategories.includes(item.category)
-  );
-
-  // Filter line chart skills based on selected categories
+  // Filter radar data without categories selection
+  const filteredRadarData = radarData;
+  
+  // Get all skills without filtering
   const getFilteredSkills = () => {
-    const allSkills = Object.keys(skillCategories);
-    if (selectedCategories.length === 0) return allSkills;
-    return allSkills.filter(skill => selectedCategories.includes(skillCategories[skill]));
+    return Object.keys(skillCategories);
   };
   
   const filteredSkills = getFilteredSkills();
@@ -334,25 +329,7 @@ const Landing: React.FC = () => {
                         <Button variant="ghost" size="icon" className="h-8 w-8">
                           <SlidersHorizontal className="h-4 w-4" />
                         </Button>
-                        <ToggleGroup 
-                          type="multiple" 
-                          value={selectedCategories}
-                          onValueChange={setSelectedCategories}
-                        >
-                          {Object.entries(categoryLabels).map(([category, label]) => (
-                            <ToggleGroupItem 
-                              key={category} 
-                              value={category}
-                              className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-8 px-3 flex items-center gap-1"
-                            >
-                              <span 
-                                className="w-2 h-2 rounded-full" 
-                                style={{ backgroundColor: getCategoryColor(category) }}
-                              ></span>
-                              {label}
-                            </ToggleGroupItem>
-                          ))}
-                        </ToggleGroup>
+                        
                       </div>
                     </Card>
                   </CardHeader>
@@ -386,48 +363,24 @@ const Landing: React.FC = () => {
                           }}
                         />
                         
-                        {/* Only render lines for filtered skills */}
-                        {filteredSkills.includes('pronunciation') && (
-                          <Line 
-                            type="monotone" 
-                            dataKey="pronunciation" 
-                            stroke="#3b82f6" 
-                            strokeWidth={2} 
-                            dot={{ r: 4 }} 
-                            activeDot={{ r: 6 }}
-                          />
-                        )}
-                        {filteredSkills.includes('grammar') && (
-                          <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('vocabulary') && (
-                          <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('intonation') && (
-                          <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('fluency') && (
-                          <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
-                        )}
-                        
-                        {/* Soft skills */}
-                        {filteredSkills.includes('negotiation') && (
-                          <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('persuasion') && (
-                          <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
-                        )}
-                        
-                        {/* Communication skills */}
-                        {filteredSkills.includes('understanding') && (
-                          <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('confidence') && (
-                          <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
-                        )}
-                        {filteredSkills.includes('coherence') && (
-                          <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
-                        )}
+                        {/* Render all lines since we're not filtering anymore */}
+                        <Line 
+                          type="monotone" 
+                          dataKey="pronunciation" 
+                          stroke="#3b82f6" 
+                          strokeWidth={2} 
+                          dot={{ r: 4 }} 
+                          activeDot={{ r: 6 }}
+                        />
+                        <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
+                        <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
+                        <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
+                        <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
+                        <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
+                        <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
+                        <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
+                        <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
+                        <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
                       </LineChart>
                     </ChartContainer>
                   </CardContent>
@@ -457,28 +410,7 @@ const Landing: React.FC = () => {
                           </RadarChart>
                         </ResponsiveContainer>
                       </div>
-                      <div className="mt-4">
-                        <ToggleGroup 
-                          type="multiple" 
-                          value={selectedCategories}
-                          onValueChange={setSelectedCategories}
-                          className="flex flex-wrap gap-2 justify-center"
-                        >
-                          {Object.entries(categoryLabels).map(([category, label]) => (
-                            <ToggleGroupItem 
-                              key={category} 
-                              value={category}
-                              className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-8 px-3 flex items-center gap-1"
-                            >
-                              <span 
-                                className="w-2 h-2 rounded-full" 
-                                style={{ backgroundColor: getCategoryColor(category) }}
-                              ></span>
-                              {label}
-                            </ToggleGroupItem>
-                          ))}
-                        </ToggleGroup>
-                      </div>
+                      
                     </CardContent>
                   </Card>
                   
