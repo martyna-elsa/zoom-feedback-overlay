@@ -41,27 +41,27 @@ const VideoCallPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black/50 flex flex-col">
       {/* Desktop assistant overlay header */}
-      <div className="bg-blue-900/20 backdrop-blur-sm p-3 shadow-lg flex justify-between items-center border-b border-blue-300/20">
+      <div className="bg-white/80 backdrop-blur-sm p-3 shadow-sm flex justify-between items-center border-b border-gray-200/40">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-blue-500/20 px-3 py-1.5 rounded-lg border border-blue-400/30 shadow-lg">
-            <Square className="h-5 w-5 text-blue-400" />
-            <h1 className="text-lg font-bold text-blue-300">ELSA Meeting Assistant</h1>
+          <div className="flex items-center gap-2 bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-300/20 shadow-sm">
+            <Square className="h-5 w-5 text-blue-500" />
+            <h1 className="text-lg font-medium text-gray-700">ELSA Meeting Assistant</h1>
           </div>
           <div className="flex items-center gap-2">
             <Toggle 
               pressed={facilitatorMode} 
               onPressedChange={toggleFacilitatorMode}
               aria-label="Toggle facilitator mode"
-              className="data-[state=on]:bg-blue-500 text-white"
+              className="data-[state=on]:bg-blue-500 text-gray-700"
             >
-              <Bell className="h-4 w-4 mr-1 text-blue-300" />
-              <span className="text-blue-100">Facilitator Mode</span>
+              <Bell className="h-4 w-4 mr-1 text-gray-600" />
+              <span className="text-gray-700">Facilitator Mode</span>
             </Toggle>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Link to="/">
-            <Button variant="outline" className="flex items-center gap-2 bg-blue-500/10 border-blue-300/30 text-blue-300 hover:bg-blue-900/40">
+            <Button variant="outline" className="flex items-center gap-2 bg-white/50 border-gray-300/40 text-gray-700 hover:bg-gray-100/60">
               <Home className="h-4 w-4" />
               Back to Home
             </Button>
@@ -71,10 +71,10 @@ const VideoCallPage: React.FC = () => {
       
       {showNotification && (
         <div className="px-4 py-2">
-          <Alert variant="default" className="bg-blue-900/30 backdrop-blur-sm border-blue-500/30 text-white/90 shadow-lg">
-            <Bell className="h-4 w-4 text-blue-400" />
+          <Alert variant="default" className="bg-white/80 backdrop-blur-sm border-blue-200/40 text-gray-700 shadow-sm">
+            <Bell className="h-4 w-4 text-blue-500" />
             <AlertTitle>Unanswered Question</AlertTitle>
-            <AlertDescription className="text-blue-200">
+            <AlertDescription className="text-gray-600">
               There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
             </AlertDescription>
           </Alert>
