@@ -5,7 +5,7 @@ import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { Bell, Home, SquareWidget } from 'lucide-react';
+import { Bell, Home, Square } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -39,28 +39,29 @@ const VideoCallPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <div className="bg-white p-3 shadow-sm flex justify-between items-center">
+    <div className="min-h-screen bg-black/50 flex flex-col">
+      {/* Desktop assistant overlay header */}
+      <div className="bg-black/80 backdrop-blur-md p-3 shadow-md flex justify-between items-center border-b border-white/10">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 shadow-sm">
-            <SquareWidget className="h-5 w-5 text-blue-500" />
-            <h1 className="text-lg font-bold text-blue-700">ELSA Meeting Assistant</h1>
+          <div className="flex items-center gap-2 bg-blue-900/50 px-3 py-1.5 rounded-lg border border-blue-500/30 shadow-lg">
+            <Square className="h-5 w-5 text-blue-400" />
+            <h1 className="text-lg font-bold text-blue-300">ELSA Meeting Assistant</h1>
           </div>
           <div className="flex items-center gap-2">
             <Toggle 
               pressed={facilitatorMode} 
               onPressedChange={toggleFacilitatorMode}
               aria-label="Toggle facilitator mode"
-              className="data-[state=on]:bg-blue-500"
+              className="data-[state=on]:bg-blue-500 text-white"
             >
-              <Bell className="h-4 w-4 mr-1" />
-              Facilitator Mode
+              <Bell className="h-4 w-4 mr-1 text-blue-300" />
+              <span className="text-blue-100">Facilitator Mode</span>
             </Toggle>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Link to="/">
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button variant="outline" className="flex items-center gap-2 bg-black/50 border-white/20 text-blue-300 hover:bg-blue-900/40">
               <Home className="h-4 w-4" />
               Back to Home
             </Button>
@@ -68,21 +69,17 @@ const VideoCallPage: React.FC = () => {
         </div>
       </div>
       
-      {/* Removed the blue banner that was here */}
-      
       {showNotification && (
         <div className="px-4 py-2">
-          <Alert variant="default" className="bg-blue-50 border-blue-200">
-            <Bell className="h-4 w-4 text-blue-500" />
+          <Alert variant="default" className="bg-blue-900/30 backdrop-blur-sm border-blue-500/30 text-white/90 shadow-lg">
+            <Bell className="h-4 w-4 text-blue-400" />
             <AlertTitle>Unanswered Question</AlertTitle>
-            <AlertDescription className="text-blue-700">
+            <AlertDescription className="text-blue-200">
               There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
             </AlertDescription>
           </Alert>
         </div>
       )}
-      
-      {/* Removed the gradient banner that was here */}
       
       <ResizablePanelGroup direction="horizontal" className="flex-grow">
         <ResizablePanel defaultSize={70} minSize={40}>
