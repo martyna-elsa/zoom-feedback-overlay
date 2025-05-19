@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,8 +5,6 @@ import { ChartBar, FileText, History, Home, Video, Users, Plus, Search } from 'l
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import { Checkbox } from '@/components/ui/checkbox';
 
 const WebPlatformPage: React.FC = () => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
@@ -24,7 +21,7 @@ const WebPlatformPage: React.FC = () => {
     setShowLinkDialog(false);
   };
 
-  // Sample data for calls
+  // Sample data for calls - keeping these in case they're needed elsewhere
   const upcomingCalls = [
     { id: "C-5430", name: "Weekly Team Check-in", date: "2025-05-21", time: "10:00 AM", participants: 5, status: "Scheduled" },
     { id: "C-5429", name: "Client Presentation", date: "2025-05-22", time: "2:30 PM", participants: 8, status: "Scheduled" },
@@ -36,12 +33,6 @@ const WebPlatformPage: React.FC = () => {
     { id: "C-5426", name: "Leadership Meeting", date: "2025-05-18", time: "3:00 PM", participants: 4, status: "Completed" },
     { id: "C-5425", name: "Product Demo", date: "2025-05-17", time: "10:30 AM", participants: 9, status: "Completed" }
   ];
-
-  const activeData = activeTab === "upcoming" ? upcomingCalls : pastCalls;
-  const filteredData = activeData.filter(call => 
-    call.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    call.id.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -72,103 +63,6 @@ const WebPlatformPage: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-1">Call Management</h2>
             <p className="text-gray-600">Manage your scheduled and past calls</p>
           </div>
-          
-          <Card className="shadow-sm border-gray-200">
-            <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex flex-wrap gap-2">
-                <Button 
-                  variant={activeTab === "upcoming" ? "default" : "outline"} 
-                  onClick={() => setActiveTab("upcoming")}
-                  className="rounded-md"
-                >
-                  Upcoming
-                </Button>
-                <Button 
-                  variant={activeTab === "past" ? "default" : "outline"} 
-                  onClick={() => setActiveTab("past")}
-                  className="rounded-md"
-                >
-                  Past Calls
-                </Button>
-                <Button 
-                  variant={activeTab === "archived" ? "default" : "outline"} 
-                  onClick={() => setActiveTab("archived")}
-                  className="rounded-md"
-                >
-                  Archived
-                </Button>
-              </div>
-              <div className="flex gap-2 justify-end">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search calls..."
-                    className="pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm w-full sm:w-64"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </div>
-                <Button onClick={() => setShowLinkDialog(true)} className="rounded-md whitespace-nowrap">
-                  <Plus className="h-4 w-4 mr-1" />
-                  Schedule Call
-                </Button>
-              </div>
-            </div>
-
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[50px] pl-4">
-                      <Checkbox />
-                    </TableHead>
-                    <TableHead>Call ID</TableHead>
-                    <TableHead>Call Name</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Time</TableHead>
-                    <TableHead>Participants</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredData.length > 0 ? (
-                    filteredData.map((call) => (
-                      <TableRow key={call.id}>
-                        <TableCell className="pl-4">
-                          <Checkbox />
-                        </TableCell>
-                        <TableCell className="font-medium">{call.id}</TableCell>
-                        <TableCell>{call.name}</TableCell>
-                        <TableCell>{call.date}</TableCell>
-                        <TableCell>{call.time}</TableCell>
-                        <TableCell>{call.participants}</TableCell>
-                        <TableCell>
-                          <span className={`px-2 py-1 text-xs rounded-full ${
-                            call.status === "Scheduled" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"
-                          }`}>
-                            {call.status}
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <Button variant="outline" size="sm" className="h-8 w-8 p-0">
-                            <Video className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={8} className="text-center py-8 text-gray-500">
-                        No calls found. Try adjusting your search or schedule a new call.
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
