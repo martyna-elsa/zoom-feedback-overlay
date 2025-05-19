@@ -173,7 +173,7 @@ const Landing: React.FC = () => {
               
               <Tabs defaultValue="general" className="w-full mb-6">
                 <TabsList className="mb-6">
-                  <TabsTrigger value="general">General</TabsTrigger>
+                  {/* General tab button removed as requested */}
                 </TabsList>
                 
                 <TabsContent value="general" className="space-y-4">
