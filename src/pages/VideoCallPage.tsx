@@ -57,10 +57,6 @@ const VideoCallPage: React.FC = () => {
         {headerVisible ? (
           <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-6 border border-gray-200/30">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-gray-500 text-sm font-light">18:24</span>
-              </div>
-              
               <Button 
                 variant="ghost" 
                 size="sm" 
