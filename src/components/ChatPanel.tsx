@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
@@ -139,15 +138,15 @@ const ChatPanel: React.FC = () => {
         </div>
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
-          <ScrollArea className="flex-grow p-3">
-            <div className="space-y-4">
+          <ScrollArea className="flex-grow p-2">
+            <div className="space-y-2">
               {/* Feedback and communication issues */}
               {feedbackAndIssues.map((item) => (
-                <div key={item.id} className="flex items-start gap-2">
+                <div key={item.id} className="flex items-start gap-1 mb-2">
                   {getMessageIcon(item)}
                   
                   <div className="flex-grow">
-                    <div className={`p-2 ${getMessageStyle(item)}`}>
+                    <div className={`p-1.5 ${getMessageStyle(item)}`}>
                       <p className="text-sm">{item.message}</p>
                     </div>
                   </div>
@@ -156,16 +155,16 @@ const ChatPanel: React.FC = () => {
 
               {/* Regular conversation messages */}
               {messages.map((msg) => (
-                <div key={msg.id} className="flex items-start gap-2">
+                <div key={msg.id} className="flex items-start gap-1.5 mb-1.5">
                   {msg.type === 'customer' && getAvatar(msg.sender)}
                   
                   <div className="flex-grow">
-                    <div className="flex text-xs text-gray-500 mb-1">
+                    <div className="flex text-xs text-gray-500 mb-0.5">
                       <span className="font-medium">{msg.sender}</span>
                       <span className="ml-auto">{msg.time}</span>
                     </div>
                     
-                    <div className={`p-2 ${getMessageStyle(msg)}`}>
+                    <div className={`p-1.5 ${getMessageStyle(msg)}`}>
                       <p className="text-sm">{msg.message}</p>
                     </div>
                   </div>
@@ -176,7 +175,7 @@ const ChatPanel: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <div className="p-2 mt-2 border-t border-gray-200/50">
+          <div className="p-2 mt-1 border-t border-gray-200/50">
             <div className="relative">
               <Input 
                 placeholder="Ask about this conversation..."
@@ -196,7 +195,7 @@ const ChatPanel: React.FC = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
+        <TabsContent value="summary" className="flex-grow mt-0 p-3 overflow-auto h-full">
           <div className="grid gap-4">
             <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
               <div className="flex items-center mb-4">
