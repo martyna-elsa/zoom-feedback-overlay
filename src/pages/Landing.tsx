@@ -458,7 +458,7 @@ const Landing: React.FC = () => {
                       </thead>
                       <tbody>
                         {topLearners.map((learner, index) => (
-                          <tr key={learner.id} className="border-b hover:bg-gray-50">
+                          <tr key={index} className="border-b hover:bg-gray-50">
                             <td className="p-2 flex items-center gap-2">
                               {index === 0 ? (
                                 <Medal className="h-4 w-4 text-yellow-500" />
