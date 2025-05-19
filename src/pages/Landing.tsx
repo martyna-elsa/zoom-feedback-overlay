@@ -174,7 +174,6 @@ const Landing: React.FC = () => {
               <Tabs defaultValue="general" className="w-full mb-6">
                 <TabsList className="mb-6">
                   <TabsTrigger value="general">General</TabsTrigger>
-                  <TabsTrigger value="ai-setup">AI Assistant Setup</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="general" className="space-y-4">
@@ -238,108 +237,8 @@ const Landing: React.FC = () => {
                   </div>
                 </TabsContent>
                 
-                <TabsContent value="ai-setup" className="space-y-4 mt-6">
-                  <Card className="border-0 shadow-md">
-                    <CardHeader>
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <CardTitle className="text-2xl">Update Your Company Information</CardTitle>
-                          <CardDescription className="text-lg">
-                            Add details about your company to improve contextual feedback
-                          </CardDescription>
-                        </div>
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-4 py-1.5">
-                          <div className="flex items-center gap-1">
-                            <span className="rounded-full bg-green-500 w-2 h-2"></span>
-                            Provided by Admin
-                          </div>
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <Alert className="bg-blue-50 text-blue-800 border-blue-200 mb-6">
-                        <Info className="h-5 w-5" />
-                        <AlertDescription>
-                          Information already provided by Admin (Sarah Chen) on 2023-10-15. You can update if needed.
-                        </AlertDescription>
-                      </Alert>
-
-                      <div className="grid gap-6 md:grid-cols-2">
-                        {/* Upload Document Card */}
-                        <div className="border rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer bg-white">
-                          <div className="flex items-center gap-4">
-                            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
-                              <Upload className="h-7 w-7 text-blue-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-lg mb-1">Upload Document</h3>
-                              <p className="text-gray-600">Upload company brochures, presentations or other documents</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Company URL Card */}
-                        <div className="border rounded-lg p-6 bg-white">
-                          <div className="flex items-center gap-4 mb-4">
-                            <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-                              <LinkIcon className="h-7 w-7 text-green-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-lg mb-1">Paste Company URL</h3>
-                              <p className="text-gray-600">Add your company website or LinkedIn page</p>
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Input placeholder="https://yourcompany.com" type="url" className="flex-1" />
-                            <Button>Analyze</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="border-0 shadow-md">
-                    <CardHeader>
-                      <CardTitle className="text-2xl">Participant's Company Information</CardTitle>
-                      <CardDescription className="text-lg">
-                        Add details about the participant's company to receive more relevant insights
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid gap-6 md:grid-cols-2">
-                        {/* Upload Document Card */}
-                        <div className="border rounded-lg p-6 hover:bg-gray-50 transition-colors cursor-pointer bg-white">
-                          <div className="flex items-center gap-4">
-                            <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center">
-                              <Upload className="h-7 w-7 text-purple-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-lg mb-1">Upload Document</h3>
-                              <p className="text-gray-600">Upload materials about the participant's company</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Company URL Card */}
-                        <div className="border rounded-lg p-6 bg-white">
-                          <div className="flex items-center gap-4 mb-4">
-                            <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
-                              <LinkIcon className="h-7 w-7 text-amber-600" />
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-lg mb-1">Paste Company URL</h3>
-                              <p className="text-gray-600">Add their company website or LinkedIn page</p>
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Input placeholder="https://theircompany.com" type="url" className="flex-1" />
-                            <Button>Analyze</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                {/* Removed the AI-setup tab content section */}
+                
               </Tabs>
             </>
           ) : (
