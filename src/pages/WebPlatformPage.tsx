@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChartBar, FileText, History, Home, Video, Users, Plus, Search, Settings, Sliders, Bot } from 'lucide-react';
+import { ChartBar, FileText, History, Home, Settings } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const WebPlatformPage: React.FC = () => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("upcoming");
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const { toast } = useToast();
   
   const handleLinkAccount = () => {
@@ -116,11 +113,11 @@ const WebPlatformPage: React.FC = () => {
               </Card>
             </div>
 
-            <div className="mt-8 flex justify-end">
+            <div className="mt-8 flex justify-center">
               <Link to="/admin-dashboard">
-                <Button variant="outline" className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Admin Dashboard
+                <Button variant="outline" className="flex items-center gap-2 px-6 py-6 rounded-lg border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                  <Settings className="h-5 w-5 mr-2" />
+                  <span className="text-lg font-medium">Admin Dashboard</span>
                 </Button>
               </Link>
             </div>
