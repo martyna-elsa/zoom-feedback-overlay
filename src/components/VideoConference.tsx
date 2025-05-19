@@ -10,7 +10,7 @@ const VideoConference: React.FC = () => {
       {/* Top navigation bar */}
       <div className="bg-white shadow-sm py-2 px-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-gray-800">Meeting: Team Sync</span>
+          <span className="font-semibold text-gray-800">Sales Call Trainer</span>
           <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Live</span>
         </div>
         <div className="flex items-center gap-2">

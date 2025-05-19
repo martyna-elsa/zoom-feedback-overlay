@@ -5,7 +5,7 @@ import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
-import { ChartBar, Bell, FileText, Users, History } from 'lucide-react';
+import { ChartBar, Bell, FileText, History } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -42,7 +42,7 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="bg-white p-3 shadow-sm flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <h1 className="text-xl font-bold">Sales Call Trainer</h1>
+          <h1 className="text-xl font-bold">ELSA Web Platform</h1>
           <div className="flex items-center gap-2">
             <Toggle 
               pressed={facilitatorMode} 
@@ -56,24 +56,36 @@ const Index: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Link to="/call-history">
-            <Button variant="outline" className="flex items-center gap-2">
-              <History className="h-4 w-4" />
-              Call History
-            </Button>
-          </Link>
-          <Link to="/call-preparation">
-            <Button variant="outline" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Call Preparation
-            </Button>
-          </Link>
-          <Link to="/skills-progress">
-            <Button variant="outline" className="flex items-center gap-2">
-              <ChartBar className="h-4 w-4" />
-              View Skills Progress
-            </Button>
-          </Link>
+          <div className="bg-blue-50 p-1 rounded text-sm text-blue-800 mr-2">
+            Active Video Call: Sales Call Trainer
+          </div>
+          <div className="flex items-center gap-2 border-l pl-2">
+            <Link to="/call-history">
+              <Button variant="outline" className="flex items-center gap-2">
+                <History className="h-4 w-4" />
+                Call History
+              </Button>
+            </Link>
+            <Link to="/call-preparation">
+              <Button variant="outline" className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                Call Preparation
+              </Button>
+            </Link>
+            <Link to="/skills-progress">
+              <Button variant="outline" className="flex items-center gap-2">
+                <ChartBar className="h-4 w-4" />
+                View Skills Progress
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-blue-800 text-white px-4 py-1.5 text-sm">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <span className="font-medium">ELSA Web Platform</span>
+          <span>Active Session: Live Video Call with AI-powered Analysis</span>
         </div>
       </div>
       
@@ -88,6 +100,25 @@ const Index: React.FC = () => {
           </Alert>
         </div>
       )}
+      
+      {/* Video conference area with real-time widgets */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 border-b border-blue-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-sm text-blue-800 mb-1 flex items-center justify-between">
+            <div>
+              <span className="font-medium">Active Video Call Tools:</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center">
+                <div className={`w-2 h-2 rounded-full ${facilitatorMode ? 'bg-green-500' : 'bg-gray-300'} mr-1`}></div>
+                <span>Facilitator Mode: {facilitatorMode ? 'Active' : 'Inactive'}</span>
+              </div>
+              <div>Real-time Conversation Analysis</div>
+              <div>Call Summary</div>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <ResizablePanelGroup direction="horizontal" className="flex-grow">
         <ResizablePanel defaultSize={70} minSize={40}>
