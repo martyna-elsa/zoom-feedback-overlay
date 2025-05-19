@@ -56,13 +56,13 @@ const ChatPanel: React.FC = () => {
 
   const getMessageStyle = (message) => {
     if (message.type === 'recommendedReply') {
-      return 'bg-purple-50/90 border-l-4 border-purple-400 px-3';
+      return 'bg-purple-50 border-l-4 border-purple-400 px-3';
     } else if (message.type === 'issue') {
-      return 'bg-amber-50/90 border-l-4 border-amber-400 px-3';
+      return 'bg-amber-50 border-l-4 border-amber-400 px-3';
     } else if (message.sender === 'You') {
-      return 'bg-blue-100/90 ml-12 rounded-tl-lg rounded-bl-lg rounded-br-lg';
+      return 'bg-blue-100 ml-12 rounded-tl-lg rounded-bl-lg rounded-br-lg';
     } else {
-      return 'bg-gray-800/30 mr-12 rounded-tr-lg rounded-bl-lg rounded-br-lg text-white';
+      return 'bg-gray-100 mr-12 rounded-tr-lg rounded-bl-lg rounded-br-lg';
     }
   };
 
@@ -91,19 +91,19 @@ const ChatPanel: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gray-900/80 backdrop-blur-md rounded-lg border border-gray-700/30">
+    <div className="h-full flex flex-col bg-white/80 backdrop-blur-md rounded-lg border border-gray-200/50 shadow-lg">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
-        <div className="p-2 border-b border-gray-700/50 flex justify-between items-center">
-          <TabsList className="w-3/5 bg-gray-800/50">
-            <TabsTrigger value="conversation" className="flex-1 text-white">Chat</TabsTrigger>
-            <TabsTrigger value="summary" className="flex-1 text-white">Participants</TabsTrigger>
+        <div className="p-2 border-b border-gray-200/50 flex justify-between items-center">
+          <TabsList className="w-3/5 bg-gray-100/80">
+            <TabsTrigger value="conversation" className="flex-1 text-gray-700">Chat</TabsTrigger>
+            <TabsTrigger value="summary" className="flex-1 text-gray-700">Participants</TabsTrigger>
           </TabsList>
-          <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/50">
+          <Button variant="ghost" size="icon" className="text-gray-700 hover:bg-gray-100/80">
             <Bell className="h-4 w-4" />
           </Button>
         </div>
 
-        <div className="p-2 text-center text-white/70 text-xs border-b border-gray-700/50">
+        <div className="p-2 text-center text-gray-500 text-xs border-b border-gray-200/50">
           9:41 AM
         </div>
 
@@ -115,7 +115,7 @@ const ChatPanel: React.FC = () => {
                   {msg.sender !== 'You' && getAvatar(msg.sender)}
                   
                   <div className="flex-grow">
-                    <div className="flex text-xs text-gray-400 mb-1 items-center">
+                    <div className="flex text-xs text-gray-500 mb-1 items-center">
                       {msg.sender !== 'You' && (
                         <span className="font-medium flex items-center gap-1">
                           {msg.sender} {msg.direct && 
@@ -150,7 +150,7 @@ const ChatPanel: React.FC = () => {
               <Button 
                 variant="ghost" 
                 size="sm"
-                className="text-white text-xs flex items-center gap-1 bg-gray-800/50 hover:bg-gray-700/50 rounded-full h-7 px-3"
+                className="text-gray-700 text-xs flex items-center gap-1 bg-gray-100/80 hover:bg-gray-200/80 rounded-full h-7 px-3"
               >
                 Send to everyone
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -165,12 +165,12 @@ const ChatPanel: React.FC = () => {
                 value={message} 
                 onChange={(e) => setMessage(e.target.value)} 
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="bg-gray-800/50 border-gray-700/30 text-white pl-9 pr-9 rounded-full"
+                className="bg-gray-100/80 border-gray-200/50 text-gray-700 pl-9 pr-9 rounded-full"
               />
               <Button 
                 size="icon" 
                 variant="ghost"
-                className="absolute left-1 top-1 bottom-1 text-gray-400 hover:text-white hover:bg-transparent p-1"
+                className="absolute left-1 top-1 bottom-1 text-gray-500 hover:text-gray-700 hover:bg-transparent p-1"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -181,7 +181,7 @@ const ChatPanel: React.FC = () => {
               <Button
                 size="icon"
                 onClick={handleSendMessage}
-                className="absolute right-1 top-1 bottom-1 text-gray-400 hover:text-white hover:bg-transparent p-1"
+                className="absolute right-1 top-1 bottom-1 text-gray-500 hover:text-gray-700 hover:bg-transparent p-1"
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -191,7 +191,7 @@ const ChatPanel: React.FC = () => {
             </div>
             
             <div className="flex justify-center mt-3">
-              <Button variant="ghost" size="sm" className="text-white/70 text-xs flex items-center gap-1 hover:bg-gray-700/30">
+              <Button variant="ghost" size="sm" className="text-gray-500 text-xs flex items-center gap-1 hover:bg-gray-100/80">
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M12 16v-4"></path>
@@ -205,7 +205,7 @@ const ChatPanel: React.FC = () => {
 
         <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
           <div className="grid gap-4">
-            <Card className="p-4 bg-gray-800/30 border-gray-700/50 text-white">
+            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
               <h3 className="font-medium mb-2">Participants (4)</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
