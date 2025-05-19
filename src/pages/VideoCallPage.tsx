@@ -68,12 +68,7 @@ const VideoCallPage: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-blue-800 text-white px-4 py-1.5 text-sm">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <span className="font-medium">ELSA Video Call</span>
-          <span>Active Session: Live Video Call with AI-powered Analysis</span>
-        </div>
-      </div>
+      {/* Removed the blue banner that was here */}
       
       {showNotification && (
         <div className="px-4 py-2">
