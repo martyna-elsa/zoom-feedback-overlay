@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal } from 'lucide-react';
+import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, Legend as LegendIcon, SlidersHorizontal } from 'lucide-react';
 import { 
   ChartContainer, 
   ChartTooltip, 
@@ -130,6 +131,15 @@ const Landing: React.FC = () => {
   const filteredRadarData = radarData.filter(item => 
     selectedCategories.length === 0 || selectedCategories.includes(item.category)
   );
+
+  // Filter line chart skills based on selected categories
+  const getFilteredSkills = () => {
+    const allSkills = Object.keys(skillCategories);
+    if (selectedCategories.length === 0) return allSkills;
+    return allSkills.filter(skill => selectedCategories.includes(skillCategories[skill]));
+  };
+  
+  const filteredSkills = getFilteredSkills();
   
   // Calculate total proficiency score
   const totalProficiency = Math.round(
@@ -296,59 +306,109 @@ const Landing: React.FC = () => {
               {/* Updated chart section - now full width */}
               <div className="grid grid-cols-1 gap-6 mb-6">
                 <Card className="col-span-1">
-                  <CardHeader>
-                    <CardTitle>Skills Development Over Time</CardTitle>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {Object.entries(categoryLabels).map(([category, label]) => (
-                        <Badge 
-                          key={category}
-                          variant="outline" 
-                          className="flex items-center gap-1"
-                          style={{
-                            backgroundColor: `${getCategoryColor(category)}10`,
-                            borderColor: `${getCategoryColor(category)}40`,
-                            color: getCategoryColor(category)
-                          }}
-                        >
-                          <span 
-                            className="w-2 h-2 rounded-full" 
-                            style={{ backgroundColor: getCategoryColor(category) }}
-                          ></span>
-                          {label}
-                        </Badge>
-                      ))}
+                  <CardHeader className="flex flex-row justify-between">
+                    <div>
+                      <CardTitle>Skills Development Over Time</CardTitle>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {Object.entries(categoryLabels).map(([category, label]) => (
+                          <Badge 
+                            key={category}
+                            variant="outline" 
+                            className="flex items-center gap-1"
+                            style={{
+                              backgroundColor: `${getCategoryColor(category)}10`,
+                              borderColor: `${getCategoryColor(category)}40`,
+                              color: getCategoryColor(category)
+                            }}
+                          >
+                            <span 
+                              className="w-2 h-2 rounded-full" 
+                              style={{ backgroundColor: getCategoryColor(category) }}
+                            ></span>
+                            {label}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
+                    <Card className="p-2">
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <SlidersHorizontal className="h-4 w-4" />
+                        </Button>
+                        <ToggleGroup 
+                          type="multiple" 
+                          value={selectedCategories}
+                          onValueChange={setSelectedCategories}
+                          className="flex flex-wrap gap-2"
+                        >
+                          {Object.entries(categoryLabels).map(([category, label]) => (
+                            <ToggleGroupItem 
+                              key={category} 
+                              value={category}
+                              className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-8 px-3 flex items-center gap-1"
+                            >
+                              <span 
+                                className="w-2 h-2 rounded-full" 
+                                style={{ backgroundColor: getCategoryColor(category) }}
+                              ></span>
+                              {label}
+                            </ToggleGroupItem>
+                          ))}
+                        </ToggleGroup>
+                      </div>
+                    </Card>
                   </CardHeader>
                   <CardContent className="h-[500px]">
                     <ChartContainer config={chartConfig}>
                       <LineChart data={skillsData}>
                         <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                         <XAxis dataKey="month" />
-                        <YAxis domain={[50, 80]} />
+                        <YAxis domain={[59, 80]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
-                        {/* English Proficiency skills */}
-                        <Line 
-                          type="monotone" 
-                          dataKey="pronunciation" 
-                          stroke="#3b82f6" 
-                          strokeWidth={2} 
-                          dot={{ r: 4 }} 
-                          activeDot={{ r: 6 }}
-                        />
-                        <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
-                        <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
-                        <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
-                        <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
+                        
+                        {/* Only render lines for filtered skills */}
+                        {filteredSkills.includes('pronunciation') && (
+                          <Line 
+                            type="monotone" 
+                            dataKey="pronunciation" 
+                            stroke="#3b82f6" 
+                            strokeWidth={2} 
+                            dot={{ r: 4 }} 
+                            activeDot={{ r: 6 }}
+                          />
+                        )}
+                        {filteredSkills.includes('grammar') && (
+                          <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('vocabulary') && (
+                          <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('intonation') && (
+                          <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('fluency') && (
+                          <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
+                        )}
                         
                         {/* Soft skills */}
-                        <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
-                        <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
+                        {filteredSkills.includes('negotiation') && (
+                          <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('persuasion') && (
+                          <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
+                        )}
                         
                         {/* Communication skills */}
-                        <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
-                        <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
-                        <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
+                        {filteredSkills.includes('understanding') && (
+                          <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('confidence') && (
+                          <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
+                        )}
+                        {filteredSkills.includes('coherence') && (
+                          <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
+                        )}
                       </LineChart>
                     </ChartContainer>
                   </CardContent>
@@ -389,23 +449,13 @@ const Landing: React.FC = () => {
                             <ToggleGroupItem 
                               key={category} 
                               value={category}
-                              style={{
-                                backgroundColor: selectedCategories.includes(category) ? 
-                                  getCategoryColor(category) : 
-                                  `${getCategoryColor(category)}20`,
-                                color: selectedCategories.includes(category) ? 
-                                  'white' : 
-                                  getCategoryColor(category),
-                                border: `1px solid ${getCategoryColor(category)}`
-                              }}
+                              className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-8 px-3 flex items-center gap-1"
                             >
-                              <span className="flex items-center gap-1">
-                                <span 
-                                  className="w-2 h-2 rounded-full" 
-                                  style={{ backgroundColor: selectedCategories.includes(category) ? 'white' : getCategoryColor(category) }}
-                                ></span>
-                                {label}
-                              </span>
+                              <span 
+                                className="w-2 h-2 rounded-full" 
+                                style={{ backgroundColor: getCategoryColor(category) }}
+                              ></span>
+                              {label}
                             </ToggleGroupItem>
                           ))}
                         </ToggleGroup>

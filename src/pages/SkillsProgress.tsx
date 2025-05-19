@@ -6,7 +6,7 @@ import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadius
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, Filter, Calendar } from 'lucide-react';
+import { ChevronLeft, Filter, Calendar, Legend as LegendIcon, SlidersHorizontal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -275,23 +275,33 @@ const SkillsProgress: React.FC = () => {
             <TabsTrigger value="details">Details</TabsTrigger>
           </TabsList>
 
-          <div className="mb-6">
-            <ToggleGroup 
-              type="multiple" 
-              value={selectedCategories}
-              onValueChange={setSelectedCategories}
-              className="flex flex-wrap gap-2"
-            >
-              {Object.entries(categoryLabels).map(([category, label]) => (
-                <ToggleGroupItem 
-                  key={category} 
-                  value={category}
-                  className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
-                >
-                  {label}
-                </ToggleGroupItem>
-              ))}
-            </ToggleGroup>
+          <div className="mb-6 flex flex-wrap gap-2">
+            <Card className="p-2 flex items-center gap-2">
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <SlidersHorizontal className="h-4 w-4" />
+              </Button>
+              <span className="text-sm font-medium mr-2">Filter by:</span>
+              <ToggleGroup 
+                type="multiple" 
+                value={selectedCategories}
+                onValueChange={setSelectedCategories}
+                className="flex flex-wrap gap-2"
+              >
+                {Object.entries(categoryLabels).map(([category, label]) => (
+                  <ToggleGroupItem 
+                    key={category} 
+                    value={category}
+                    className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-primary-foreground h-8 px-3 flex items-center gap-1"
+                  >
+                    <span 
+                      className="w-2 h-2 rounded-full" 
+                      style={{ backgroundColor: getCategoryColor(category) }}
+                    ></span>
+                    {label}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            </Card>
           </div>
 
           <TabsContent value="overview" className="space-y-6">
