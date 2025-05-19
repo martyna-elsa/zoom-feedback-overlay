@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -178,58 +179,60 @@ const Landing: React.FC = () => {
                 
                 <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* ELSA Web Platform Card */}
+                    {/* ELSA Web Platform Card - Updated copy */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-blue-800 p-6">
                         <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
-                        <p className="text-blue-100">Access your personal dashboard, view progress, and prepare for calls</p>
+                        <p className="text-blue-100">Track your progress, review past calls, and get ready to shine.</p>
                       </div>
                       <div className="p-6">
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>View Skills Progress</span>
+                            <span>Smart Call Prep Tools</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Call History</span>
+                            <span>Skill Progress Dashboard</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Call Preparation</span>
+                            <span>Call History & Feedback</span>
                           </li>
                         </ul>
                         <Link to="/web-platform">
-                          <Button className="w-full">Enter ELSA Web Platform</Button>
+                          <Button className="w-full">
+                            <span>👉 Enter ELSA Web Platform</span>
+                          </Button>
                         </Link>
                       </div>
                     </div>
                     
-                    {/* Zoom Call Card */}
+                    {/* Zoom Call Card - Updated copy and renamed to ELSA Copilot */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-indigo-800 p-6">
-                        <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
-                        <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
+                        <h3 className="text-2xl font-semibold text-white mb-2">ELSA Copilot</h3>
+                        <p className="text-indigo-100">Get live AI support to boost your video call performance.</p>
                       </div>
                       <div className="p-6">
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>Real-time Conversation Analysis</span>
+                            <span>Real-time Conversation Insights and Hints</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>Facilitator Mode</span>
+                            <span>Guided Facilitation Mode</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>Call Summary</span>
+                            <span>Instant Call Summaries</span>
                           </li>
                         </ul>
                         <Link to="/video-call">
                           <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
                             <Download className="mr-2 h-5 w-5" />
-                            Download Elsa AI Assistant
+                            <span>📥 Download ELSA Copilot</span>
                           </Button>
                         </Link>
                       </div>
