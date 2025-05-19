@@ -21,16 +21,59 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend, 
-  ResponsiveContainer 
+  ResponsiveContainer,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar
 } from 'recharts';
+import { Badge } from '@/components/ui/badge';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 // Sample data for learner skills progress
 const skillsData = [
-  { month: 'Jan', pronunciation: 65, grammar: 70, confidence: 60, comprehension: 72 },
-  { month: 'Feb', pronunciation: 68, grammar: 72, confidence: 63, comprehension: 75 },
-  { month: 'Mar', pronunciation: 72, grammar: 73, confidence: 68, comprehension: 78 },
-  { month: 'Apr', pronunciation: 75, grammar: 76, confidence: 72, comprehension: 80 },
-  { month: 'May', pronunciation: 78, grammar: 78, confidence: 75, comprehension: 82 },
+  { month: 'Jan', pronunciation: 65, grammar: 70, confidence: 60, comprehension: 72, vocabulary: 68, intonation: 63, fluency: 65, negotiation: 70, persuasion: 67, understanding: 74, coherence: 71 },
+  { month: 'Feb', pronunciation: 68, grammar: 72, confidence: 63, comprehension: 75, vocabulary: 70, intonation: 65, fluency: 68, negotiation: 73, persuasion: 70, understanding: 77, coherence: 73 },
+  { month: 'Mar', pronunciation: 72, grammar: 73, confidence: 68, comprehension: 78, vocabulary: 74, intonation: 68, fluency: 71, negotiation: 75, persuasion: 73, understanding: 79, coherence: 75 },
+  { month: 'Apr', pronunciation: 75, grammar: 76, confidence: 72, comprehension: 80, vocabulary: 77, intonation: 71, fluency: 74, negotiation: 78, persuasion: 75, understanding: 81, coherence: 78 },
+  { month: 'May', pronunciation: 78, grammar: 78, confidence: 75, comprehension: 82, vocabulary: 80, intonation: 74, fluency: 77, negotiation: 81, persuasion: 78, understanding: 84, coherence: 80 },
+];
+
+// Define skill categories
+const CATEGORIES = {
+  ENGLISH: "english-proficiency",
+  SOFT: "soft-skills",
+  COMMUNICATION: "communication-competency"
+};
+
+// Define skill categories mapping
+const skillCategories = {
+  pronunciation: CATEGORIES.ENGLISH,
+  grammar: CATEGORIES.ENGLISH,
+  vocabulary: CATEGORIES.ENGLISH,
+  intonation: CATEGORIES.ENGLISH,
+  fluency: CATEGORIES.ENGLISH,
+  negotiation: CATEGORIES.SOFT,
+  persuasion: CATEGORIES.SOFT,
+  understanding: CATEGORIES.COMMUNICATION,
+  confidence: CATEGORIES.COMMUNICATION,
+  coherence: CATEGORIES.COMMUNICATION,
+  comprehension: CATEGORIES.COMMUNICATION
+};
+
+// Sample data for radar chart
+const radarData = [
+  { name: "Pronunciation", value: 78, category: CATEGORIES.ENGLISH },
+  { name: "Grammar", value: 78, category: CATEGORIES.ENGLISH },
+  { name: "Vocabulary", value: 80, category: CATEGORIES.ENGLISH },
+  { name: "Intonation", value: 74, category: CATEGORIES.ENGLISH },
+  { name: "Fluency", value: 77, category: CATEGORIES.ENGLISH },
+  { name: "Negotiation", value: 81, category: CATEGORIES.SOFT },
+  { name: "Persuasion", value: 78, category: CATEGORIES.SOFT },
+  { name: "Understanding", value: 84, category: CATEGORIES.COMMUNICATION },
+  { name: "Confidence", value: 75, category: CATEGORIES.COMMUNICATION },
+  { name: "Coherence", value: 80, category: CATEGORIES.COMMUNICATION }
 ];
 
 // Sample data for goals achievement
@@ -60,9 +103,39 @@ const chartConfig = {
   achieved: { label: 'Achieved', color: '#10b981' },
 };
 
+const getCategoryColor = (category) => {
+  switch (category) {
+    case CATEGORIES.ENGLISH:
+      return "#3b82f6"; // blue
+    case CATEGORIES.SOFT:
+      return "#10b981"; // green
+    case CATEGORIES.COMMUNICATION:
+      return "#8b5cf6"; // purple
+    default:
+      return "#6b7280"; // gray
+  }
+};
+
+const categoryLabels = {
+  [CATEGORIES.ENGLISH]: "English Proficiency",
+  [CATEGORIES.SOFT]: "Soft Skills",
+  [CATEGORIES.COMMUNICATION]: "Communication Competency"
+};
+
 const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  
+  // Filter radar data based on selected categories
+  const filteredRadarData = radarData.filter(item => 
+    selectedCategories.length === 0 || selectedCategories.includes(item.category)
+  );
+  
+  // Calculate total proficiency score
+  const totalProficiency = Math.round(
+    radarData.reduce((sum, item) => sum + item.value, 0) / radarData.length
+  );
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
@@ -204,7 +277,7 @@ const Landing: React.FC = () => {
                     <Star className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">78%</div>
+                    <div className="text-2xl font-bold">{totalProficiency}%</div>
                     <p className="text-xs text-muted-foreground">+5% from last month</p>
                   </CardContent>
                 </Card>
@@ -234,10 +307,16 @@ const Landing: React.FC = () => {
                         <YAxis domain={[50, 100]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
-                        <Line type="monotone" dataKey="pronunciation" stroke={chartConfig.pronunciation.color} strokeWidth={2} />
-                        <Line type="monotone" dataKey="grammar" stroke={chartConfig.grammar.color} strokeWidth={2} />
-                        <Line type="monotone" dataKey="confidence" stroke={chartConfig.confidence.color} strokeWidth={2} />
-                        <Line type="monotone" dataKey="comprehension" stroke={chartConfig.comprehension.color} strokeWidth={2} />
+                        <Line type="monotone" dataKey="pronunciation" stroke="#3b82f6" strokeWidth={2} />
+                        <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
+                        <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
+                        <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
+                        <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
+                        <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
+                        <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
+                        <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
+                        <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
+                        <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
                       </LineChart>
                     </ChartContainer>
                   </CardContent>
@@ -245,20 +324,60 @@ const Landing: React.FC = () => {
                 
                 <Card className="col-span-1">
                   <CardHeader>
-                    <CardTitle>Goals vs. Achievement</CardTitle>
+                    <CardTitle>Skills Radar</CardTitle>
+                    <div className="text-sm text-muted-foreground">Visualize skills progression across different areas</div>
                   </CardHeader>
                   <CardContent className="h-80">
-                    <ChartContainer config={chartConfig}>
-                      <BarChart data={goalsData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis domain={[0, 100]} />
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <ChartLegend content={<ChartLegendContent />} />
-                        <Bar dataKey="target" fill={chartConfig.target.color} />
-                        <Bar dataKey="achieved" fill={chartConfig.achieved.color} />
-                      </BarChart>
-                    </ChartContainer>
+                    <div className="w-full h-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={filteredRadarData}>
+                          <PolarGrid />
+                          <PolarAngleAxis dataKey="name" />
+                          <PolarRadiusAxis domain={[0, 100]} />
+                          <Tooltip />
+                          <Radar
+                            name="Current Level"
+                            dataKey="value"
+                            stroke="#3b82f6"
+                            fill="#3b82f6"
+                            fillOpacity={0.6}
+                          />
+                        </RadarChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="mt-4">
+                      <ToggleGroup 
+                        type="multiple" 
+                        value={selectedCategories}
+                        onValueChange={setSelectedCategories}
+                        className="flex flex-wrap gap-2 justify-center"
+                      >
+                        {Object.entries(categoryLabels).map(([category, label]) => (
+                          <ToggleGroupItem 
+                            key={category} 
+                            value={category}
+                            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground rounded-full text-xs px-4"
+                            style={{
+                              backgroundColor: selectedCategories.includes(category) ? 
+                                getCategoryColor(category) : 
+                                `${getCategoryColor(category)}20`,
+                              color: selectedCategories.includes(category) ? 
+                                'white' : 
+                                getCategoryColor(category),
+                              border: `1px solid ${getCategoryColor(category)}`
+                            }}
+                          >
+                            <span className="flex items-center gap-1">
+                              <span 
+                                className="w-2 h-2 rounded-full" 
+                                style={{ backgroundColor: selectedCategories.includes(category) ? 'white' : getCategoryColor(category) }}
+                              ></span>
+                              {label}
+                            </span>
+                          </ToggleGroupItem>
+                        ))}
+                      </ToggleGroup>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
