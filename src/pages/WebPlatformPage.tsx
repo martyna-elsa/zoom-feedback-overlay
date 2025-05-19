@@ -1,10 +1,24 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChartBar, FileText, History, Home } from 'lucide-react';
+import { ChartBar, FileText, History, Home, Video, Users } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 
 const WebPlatformPage: React.FC = () => {
+  const [showLinkDialog, setShowLinkDialog] = useState(false);
+  const { toast } = useToast();
+  
+  const handleLinkAccount = () => {
+    // In a real implementation, this would connect to an API
+    toast({
+      title: "Account Linked",
+      description: "Your video conferencing account has been linked successfully!",
+    });
+    setShowLinkDialog(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <div className="bg-white p-3 shadow-sm flex justify-between items-center">
@@ -81,15 +95,81 @@ const WebPlatformPage: React.FC = () => {
               <div className="mt-10 p-5 border-t">
                 <div className="flex justify-between items-center">
                   <h3 className="font-medium text-gray-800">Ready for your next call?</h3>
-                  <Link to="/video-call">
-                    <Button>Join a Video Call</Button>
-                  </Link>
+                  <div className="flex gap-3">
+                    <Button 
+                      variant="outline"
+                      className="flex items-center gap-2"
+                      onClick={() => setShowLinkDialog(true)}
+                    >
+                      <Users className="h-4 w-4" />
+                      Link Video Account
+                    </Button>
+                    <Link to="/video-call">
+                      <Button className="flex items-center gap-2">
+                        <Video className="h-4 w-4" />
+                        Join a Video Call
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      <Dialog open={showLinkDialog} onOpenChange={setShowLinkDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Link your video conferencing account</DialogTitle>
+            <DialogDescription>
+              Connect your preferred video conferencing platform for a seamless experience with ELSA.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <div className="flex flex-col gap-5">
+              <Button 
+                variant="outline" 
+                className="flex items-center justify-start gap-3 h-14"
+                onClick={handleLinkAccount}
+              >
+                <img src="https://www.gstatic.com/meet/google_meet_horizontal_wordmark_2020q4_1x_icon_124_40_2373e79660dabbeb28e85a635cba7901.png" 
+                     className="h-6" 
+                     alt="Google Meet" />
+                <span>Connect with Google Meet</span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="flex items-center justify-start gap-3 h-14"
+                onClick={handleLinkAccount}
+              >
+                <img src="https://st1.zoom.us/static/6.3.10815/image/new/home/logo.png" 
+                     className="h-6" 
+                     alt="Zoom" />
+                <span>Connect with Zoom</span>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="flex items-center justify-start gap-3 h-14"
+                onClick={handleLinkAccount}
+              >
+                <img src="https://static.teams.cdn.office.net/evergreen-assets/icons/teams-logo-filled-16x16-navy.svg" 
+                     className="h-6" 
+                     alt="Microsoft Teams" />
+                <span>Connect with Microsoft Teams</span>
+              </Button>
+            </div>
+          </div>
+          
+          <DialogFooter className="flex justify-between">
+            <Button variant="ghost" onClick={() => setShowLinkDialog(false)}>Cancel</Button>
+            <div className="text-sm text-gray-500">Your data is secure and private</div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       
       <div className="bg-white py-4">
         <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
