@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -13,6 +14,7 @@ const VideoCallPage: React.FC = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
   const [chatVisible, setChatVisible] = useState(true);
+  const [showFacilitatorHint, setShowFacilitatorHint] = useState(false);
   const { toast } = useToast();
   
   const toggleFacilitatorMode = () => {
@@ -49,6 +51,21 @@ const VideoCallPage: React.FC = () => {
       description: chatVisible ? "The chat panel has been hidden." : "The chat panel is now visible.",
     });
   };
+  
+  const handleFacilitatorHint = () => {
+    setShowFacilitatorHint(!showFacilitatorHint);
+    if (!showFacilitatorHint) {
+      toast({
+        title: "Facilitator Hint Shown",
+        description: "All participants can now see the facilitator hint.",
+      });
+    } else {
+      toast({
+        title: "Facilitator Hint Hidden",
+        description: "The facilitator hint is now hidden.",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
@@ -61,8 +78,9 @@ const VideoCallPage: React.FC = () => {
                 variant="ghost" 
                 size="sm" 
                 className="text-gray-500 hover:text-gray-700 font-light text-sm px-3"
+                onClick={handleFacilitatorHint}
               >
-                Ask AI
+                Facilitator Mode
               </Button>
             </div>
             
@@ -106,6 +124,18 @@ const VideoCallPage: React.FC = () => {
             <AlertTitle>Unanswered Question</AlertTitle>
             <AlertDescription className="text-gray-600">
               There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      
+      {showFacilitatorHint && (
+        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg px-4 py-2">
+          <Alert variant="default" className="bg-blue-500/90 backdrop-blur-sm border-blue-600/40 text-white shadow-md">
+            <Bell className="h-4 w-4 text-white" />
+            <AlertTitle>Facilitator Hint</AlertTitle>
+            <AlertDescription>
+              Remember to ask open-ended questions to encourage deeper discussion from all participants.
             </AlertDescription>
           </Alert>
         </div>
