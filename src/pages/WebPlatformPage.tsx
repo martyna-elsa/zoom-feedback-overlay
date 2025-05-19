@@ -91,28 +91,6 @@ const WebPlatformPage: React.FC = () => {
                   </Link>
                 </div>
               </div>
-              
-              <div className="mt-10 p-5 border-t">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-medium text-gray-800">Ready for your next call?</h3>
-                  <div className="flex gap-3">
-                    <Button 
-                      variant="outline"
-                      className="flex items-center gap-2"
-                      onClick={() => setShowLinkDialog(true)}
-                    >
-                      <Users className="h-4 w-4" />
-                      Link Video Account
-                    </Button>
-                    <Link to="/video-call">
-                      <Button className="flex items-center gap-2">
-                        <Video className="h-4 w-4" />
-                        Join a Video Call
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
