@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
@@ -151,6 +150,21 @@ const ChatPanel: React.FC = () => {
                 </div>
               )}
               
+              {/* Recommended Reply items */}
+              {feedbackAndIssues
+                .filter(item => item.type === 'recommendedReply')
+                .map((item) => (
+                  <div key={item.id} className="flex items-start gap-1 mb-2">
+                    {getMessageIcon(item)}
+                    
+                    <div className="flex-grow">
+                      <div className={`p-1.5 ${getMessageStyle(item)}`}>
+                        <p className="text-sm">{item.message}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              
               {/* Miscommunication Detected heading */}
               {feedbackAndIssues.some(item => item.type === 'issue') && (
                 <div className="mb-1 mt-2">
@@ -161,18 +175,20 @@ const ChatPanel: React.FC = () => {
                 </div>
               )}
               
-              {/* Feedback and communication issues */}
-              {feedbackAndIssues.map((item) => (
-                <div key={item.id} className="flex items-start gap-1 mb-2">
-                  {getMessageIcon(item)}
-                  
-                  <div className="flex-grow">
-                    <div className={`p-1.5 ${getMessageStyle(item)}`}>
-                      <p className="text-sm">{item.message}</p>
+              {/* Communication issues items */}
+              {feedbackAndIssues
+                .filter(item => item.type === 'issue')
+                .map((item) => (
+                  <div key={item.id} className="flex items-start gap-1 mb-2">
+                    {getMessageIcon(item)}
+                    
+                    <div className="flex-grow">
+                      <div className={`p-1.5 ${getMessageStyle(item)}`}>
+                        <p className="text-sm">{item.message}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
               {/* Regular conversation messages */}
               {messages.map((msg) => (
