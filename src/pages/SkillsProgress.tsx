@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -220,18 +219,6 @@ const SkillsProgress: React.FC = () => {
                   />
                 </RadarChart>
               </ResponsiveContainer>
-            </div>
-            
-            <div className="flex justify-center gap-4 mt-4">
-              <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer">
-                English Proficiency
-              </Badge>
-              <Badge className="bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer">
-                Soft Skills
-              </Badge>
-              <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200 cursor-pointer">
-                Communication Competency
-              </Badge>
             </div>
           </CardContent>
         </Card>
