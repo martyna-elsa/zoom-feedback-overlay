@@ -82,18 +82,18 @@ const ChatPanel: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white border-l border-gray-200">
+    <div className="h-full flex flex-col bg-transparent">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
-        <div className="p-3 border-b border-gray-200">
-          <TabsList className="w-full">
+        <div className="p-3 border-b border-gray-200/30 bg-white/80 backdrop-blur-sm rounded-t-lg">
+          <TabsList className="w-full bg-gray-100/70">
             <TabsTrigger value="conversation" className="flex-1">Conversation</TabsTrigger>
             <TabsTrigger value="summary" className="flex-1">Summary</TabsTrigger>
           </TabsList>
         </div>
 
-        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
+        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden bg-white/80 backdrop-blur-sm">
           {/* Feedback and Communication Issues Section at the top */}
-          <div className="border-b border-gray-200 p-3 space-y-2">
+          <div className="p-3 space-y-2 border-b border-gray-200/30">
             {feedbackAndIssues.map((item) => (
               <div 
                 key={item.id} 
@@ -128,13 +128,14 @@ const ChatPanel: React.FC = () => {
             </div>
           </ScrollArea>
 
-          <div className="p-1 border-t border-gray-200">
+          <div className="p-1 border-t border-gray-200/30">
             <div className="flex gap-1">
               <Input 
                 placeholder="Ask about this conversation..." 
                 value={question} 
                 onChange={(e) => setQuestion(e.target.value)} 
                 onKeyPress={(e) => e.key === 'Enter' && handleSendQuestion()}
+                className="bg-white/90"
               />
               <Button size="icon" onClick={handleSendQuestion}>
                 <Send className="h-4 w-4" />
@@ -143,9 +144,9 @@ const ChatPanel: React.FC = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
+        <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full bg-white/80 backdrop-blur-sm">
           <div className="grid gap-4">
-            <Card className="p-4">
+            <Card className="p-4 bg-white/90">
               <h3 className="font-medium mb-2 flex items-center gap-2">
                 <MessageSquare className="h-4 w-4 text-blue-600" />
                 Conversation Summary
@@ -159,7 +160,7 @@ const ChatPanel: React.FC = () => {
               </ul>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 bg-white/90">
               <h3 className="font-medium mb-3 text-blue-700">Language Proficiency Assessment</h3>
               
               <div className="mb-4">
@@ -196,7 +197,7 @@ const ChatPanel: React.FC = () => {
               </div>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 bg-white/90">
               <h3 className="font-medium mb-3 text-blue-700">Communication Skills</h3>
               
               <div className="mb-4">
@@ -233,7 +234,7 @@ const ChatPanel: React.FC = () => {
               </div>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 bg-white/90">
               <h3 className="font-medium mb-3 text-blue-700">Soft Skills</h3>
               
               <div className="mb-4">
@@ -270,7 +271,7 @@ const ChatPanel: React.FC = () => {
               </div>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 bg-white/90">
               <h3 className="font-medium mb-2 text-blue-700">Measurable Results</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="bg-blue-50 p-3 rounded-lg text-center">
