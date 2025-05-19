@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -89,9 +88,9 @@ const goalsData = [
 const topLearners = [
   { id: 1, name: 'Emma Davis', progress: 94, improvement: '+15%', calls: 24 },
   { id: 2, name: 'Michael Chen', progress: 92, improvement: '+12%', calls: 18 },
-  { id: 3, name: 'Sarah Johnson', progress: 89, improvement: '+10%', calls: 22 },
-  { id: 4, name: 'James Wilson', progress: 87, improvement: '+8%', calls: 20 },
-  { id: 5, name: 'David Thompson', progress: 85, improvement: '+9%', calls: 16 },
+  { name: 'Sarah Johnson', progress: 89, improvement: '+10%', calls: 22 },
+  { name: 'James Wilson', progress: 87, improvement: '+8%', calls: 20 },
+  { name: 'David Thompson', progress: 85, improvement: '+9%', calls: 16 },
 ];
 
 const chartConfig = {
@@ -390,7 +389,6 @@ const Landing: React.FC = () => {
                             <ToggleGroupItem 
                               key={category} 
                               value={category}
-                              className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground rounded-full text-xs px-4"
                               style={{
                                 backgroundColor: selectedCategories.includes(category) ? 
                                   getCategoryColor(category) : 
