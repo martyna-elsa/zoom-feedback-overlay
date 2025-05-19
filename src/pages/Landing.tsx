@@ -319,7 +319,7 @@ const Landing: React.FC = () => {
                       ))}
                     </div>
                   </CardHeader>
-                  <CardContent className="h-96">
+                  <CardContent className="h-[500px]">
                     <ChartContainer config={chartConfig}>
                       <LineChart data={skillsData}>
                         <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
