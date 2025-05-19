@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronDown, TrendingUp, Award, Handshake } from 'lucide-react';
 import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer
 } from 'recharts';
@@ -47,6 +47,31 @@ const radarData = [
   { name: "Confidence", value: 85, category: CATEGORIES.COMMUNICATION, improvement: "+25%" },
   { name: "Coherence", value: 78, category: CATEGORIES.COMMUNICATION, improvement: "+18%" }
 ];
+
+// Sales skills insight data
+const salesSkillsInsights = {
+  winRatePredictors: {
+    title: "Win-Rate Predictors",
+    trend: "+8% improvement",
+    description: "Your ability to identify high-value opportunities has improved significantly. Success rate for enterprise deals is up 12% with improved qualification techniques.",
+    icon: TrendingUp,
+    color: "text-emerald-600"
+  },
+  objectionHandling: {
+    title: "Objection Handling",
+    trend: "+15% improvement",
+    description: "Notable improvement in addressing pricing concerns. Your listening-to-talking ratio has optimized to 65:35, leading to better customer sentiment scores.",
+    icon: Handshake,
+    color: "text-blue-600"
+  },
+  persuasionTechniques: {
+    title: "Persuasion Techniques",
+    trend: "+10% improvement",
+    description: "Effective use of social proof and scarcity principles in your latest calls. Value-based selling approach has resulted in 18% higher average deal size.",
+    icon: Award,
+    color: "text-purple-600"
+  }
+};
 
 // Category labels mapping
 const categoryLabels = {
@@ -189,6 +214,34 @@ const SkillsProgress: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Sales Skills Insights Section */}
+          <Card className="shadow-sm mb-8 border-blue-100">
+            <CardContent className="p-6">
+              <h2 className="text-xl font-bold mb-2">Sales Skills Insights</h2>
+              <p className="text-sm text-gray-500 mb-6">Analysis of your sales performance metrics over time</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {Object.values(salesSkillsInsights).map((insight, index) => {
+                  const Icon = insight.icon;
+                  return (
+                    <div key={index} className="flex flex-col p-4 rounded-lg bg-white border border-gray-100 shadow-sm">
+                      <div className="flex items-center mb-3">
+                        <div className={`p-2 rounded-full ${insight.color.replace('text', 'bg').replace('600', '100')}`}>
+                          <Icon className={`h-5 w-5 ${insight.color}`} />
+                        </div>
+                        <h3 className="text-lg font-semibold ml-2">{insight.title}</h3>
+                      </div>
+                      <div className={`text-lg font-bold mb-2 ${insight.color}`}>
+                        {insight.trend}
+                      </div>
+                      <p className="text-sm text-gray-600">{insight.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
           
           <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="w-fit">
             <TabsList>
