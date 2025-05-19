@@ -171,9 +171,8 @@ const Landing: React.FC = () => {
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
               
-              <Tabs defaultValue="general" className="w-full mb-6">
+              <Tabs defaultValue="ai-setup" className="w-full mb-6">
                 <TabsList className="mb-6">
-                  <TabsTrigger value="general">General</TabsTrigger>
                   <TabsTrigger value="ai-setup">AI Assistant Setup</TabsTrigger>
                 </TabsList>
                 
