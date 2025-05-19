@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -164,10 +165,10 @@ const SkillsProgress: React.FC = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-5xl mx-auto">
         <div className="mb-4">
-          <Link to="/">
+          <Link to="/web-platform">
             <Button variant="ghost" className="flex items-center gap-2">
               <ChevronLeft className="h-4 w-4" />
-              Back to Call
+              Back to Dashboard
             </Button>
           </Link>
         </div>
