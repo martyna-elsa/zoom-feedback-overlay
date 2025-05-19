@@ -92,11 +92,11 @@ const WebPlatformPage: React.FC = () => {
       <div className="flex-grow p-6">
         <div className="max-w-6xl mx-auto">
           <div>
-            <h2 className="text-2xl font-bold mb-6">User Dashboard</h2>
+            <h2 className="text-2xl font-bold">User Dashboard</h2>
             
             <Tabs defaultValue="insights" className="w-full">
               <TabsList>
-                <TabsTrigger value="insights">Insights</TabsTrigger>
+                {/* Insights tab trigger removed */}
               </TabsList>
               
               <TabsContent value="insights" className="space-y-8">
