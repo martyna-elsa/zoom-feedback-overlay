@@ -9,12 +9,50 @@ import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users } from '
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
-// Sample conversation data
+// Sample sales conversation data from the screenshots
 const sampleConversation = [
-  { id: 1, sender: 'John', message: "Can you send a link to the file?", time: '9:41 AM', direct: true },
-  { id: 2, sender: 'You', message: "Just sent it", time: '9:42 AM', direct: false, audience: 'everyone' },
-  { id: 3, sender: 'Raul', message: "How do you think it is going? I don't think I am going to share the entire portion of my slides. I still have some work to do on it. Either way, this gives us a chance to do a dry run.", time: '9:45 AM', direct: true },
-  { id: 4, sender: 'Sandra', message: "Thanks for staying everyone. The feedback is helpful to all of us.", time: '9:48 AM', audience: 'Everyone' },
+  { 
+    id: 1, 
+    sender: 'Customer', 
+    message: "Hi, I'm interested in your product, but I need to understand your pricing options.", 
+    time: '10:02 AM',
+    type: 'customer'
+  },
+  { 
+    id: 2, 
+    sender: 'Sales Rep', 
+    message: "Hello! Thanks for your interest. Our pricing is designed to scale with your needs. Can I ask about your use case to recommend the best option?", 
+    time: '10:03 AM',
+    type: 'rep'
+  },
+  { 
+    id: 3, 
+    sender: 'Customer', 
+    message: "We're a team of 25 people looking for a video conferencing solution with good security features.", 
+    time: '10:05 AM',
+    type: 'customer'
+  },
+  { 
+    id: 4, 
+    sender: 'Sales Rep', 
+    message: "Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.", 
+    time: '10:07 AM',
+    type: 'rep'
+  },
+  { 
+    id: 5, 
+    sender: 'Customer', 
+    message: "That sounds promising. Do you offer any discounts for annual payments?", 
+    time: '10:08 AM',
+    type: 'customer'
+  },
+  { 
+    id: 6, 
+    sender: 'Sales Rep', 
+    message: "Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.", 
+    time: '10:10 AM',
+    type: 'rep'
+  }
 ];
 
 // Feedback and communication issues
@@ -45,10 +83,10 @@ const ChatPanel: React.FC = () => {
       ...messages,
       { 
         id: messages.length + 1, 
-        sender: 'You', 
+        sender: 'Sales Rep', 
         message: message, 
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        audience: recipient
+        type: 'rep'
       }
     ]);
     
@@ -60,19 +98,17 @@ const ChatPanel: React.FC = () => {
       return 'bg-purple-50 border-l-4 border-purple-400 px-3';
     } else if (message.type === 'issue') {
       return 'bg-amber-50 border-l-4 border-amber-400 px-3';
-    } else if (message.sender === 'You') {
-      return 'bg-blue-100 ml-12 rounded-tl-lg rounded-bl-lg rounded-br-lg';
+    } else if (message.type === 'rep') {
+      return 'bg-blue-100 rounded-tl-lg rounded-bl-lg rounded-br-lg';
     } else {
-      return 'bg-gray-100 mr-12 rounded-tr-lg rounded-bl-lg rounded-br-lg';
+      return 'bg-gray-100 rounded-tr-lg rounded-bl-lg rounded-br-lg';
     }
   };
 
   const getAvatar = (sender) => {
     const colors = {
-      'John': 'bg-green-200',
-      'You': 'bg-blue-200',
-      'Raul': 'bg-purple-200',
-      'Sandra': 'bg-amber-200'
+      'Customer': 'bg-gray-200',
+      'Sales Rep': 'bg-blue-200',
     };
     
     return (
@@ -95,56 +131,15 @@ const ChatPanel: React.FC = () => {
     <div className="h-full flex flex-col bg-white/80 backdrop-blur-md rounded-lg border border-gray-200/50 shadow-lg">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
         <div className="p-2 border-b border-gray-200/50 flex justify-between items-center">
-          <TabsList className="w-3/5 bg-gray-100/80">
-            <TabsTrigger value="conversation" className="flex-1 text-gray-700">Chat</TabsTrigger>
-            <TabsTrigger value="summary" className="flex-1 text-gray-700">Participants</TabsTrigger>
+          <TabsList className="w-full bg-gray-100/80">
+            <TabsTrigger value="conversation" className="flex-1 text-gray-700">Conversation</TabsTrigger>
+            <TabsTrigger value="summary" className="flex-1 text-gray-700">Summary</TabsTrigger>
           </TabsList>
-          <Button variant="ghost" size="icon" className="text-gray-700 hover:bg-gray-100/80">
-            <Bell className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <div className="p-2 text-center text-gray-500 text-xs border-b border-gray-200/50">
-          9:41 AM
         </div>
 
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           <ScrollArea className="flex-grow p-3">
             <div className="space-y-4">
-              {/* Regular conversation messages */}
-              {messages.map((msg) => (
-                <div key={msg.id} className="flex items-start gap-2">
-                  {msg.sender !== 'You' && getAvatar(msg.sender)}
-                  
-                  <div className="flex-grow">
-                    <div className="flex text-xs text-gray-500 mb-1 items-center">
-                      {msg.sender !== 'You' && (
-                        <span className="font-medium flex items-center gap-1">
-                          {msg.sender} {msg.direct && 
-                            <span className="text-red-400 text-xs font-normal">Direct Message</span>
-                          }
-                          {msg.audience && !msg.direct && 
-                            <span className="text-gray-500 text-xs font-normal">to {msg.audience}</span>
-                          }
-                        </span>
-                      )}
-                      
-                      {msg.sender === 'You' && (
-                        <span className="ml-auto font-medium flex items-center gap-1">
-                          <span className="text-gray-500 text-xs font-normal">Me to {msg.audience}</span>
-                        </span>
-                      )}
-                    </div>
-                    
-                    <div className={`p-2 ${getMessageStyle(msg)}`}>
-                      <p className="text-sm">{msg.message}</p>
-                    </div>
-                  </div>
-                  
-                  {msg.sender === 'You' && getAvatar(msg.sender)}
-                </div>
-              ))}
-
               {/* Feedback and communication issues */}
               {feedbackAndIssues.map((item) => (
                 <div key={item.id} className="flex items-start gap-2">
@@ -157,62 +152,44 @@ const ChatPanel: React.FC = () => {
                   </div>
                 </div>
               ))}
+
+              {/* Regular conversation messages */}
+              {messages.map((msg) => (
+                <div key={msg.id} className="flex items-start gap-2">
+                  {msg.type === 'customer' && getAvatar(msg.sender)}
+                  
+                  <div className="flex-grow">
+                    <div className="flex text-xs text-gray-500 mb-1">
+                      <span className="font-medium">{msg.sender}</span>
+                      <span className="ml-auto">{msg.time}</span>
+                    </div>
+                    
+                    <div className={`p-2 ${getMessageStyle(msg)}`}>
+                      <p className="text-sm">{msg.message}</p>
+                    </div>
+                  </div>
+                  
+                  {msg.type === 'rep' && getAvatar(msg.sender)}
+                </div>
+              ))}
             </div>
           </ScrollArea>
 
-          <div className="p-2 mt-2">
-            <div className="flex items-center gap-2 mb-2">
-              <Button 
-                variant="ghost" 
-                size="sm"
-                className="text-gray-700 text-xs flex items-center gap-1 bg-gray-100/80 hover:bg-gray-200/80 rounded-full h-7 px-3"
-              >
-                Send to everyone
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </Button>
-            </div>
-            
+          <div className="p-2 mt-2 border-t border-gray-200/50">
             <div className="relative">
               <Input 
-                placeholder="What happens when..."
+                placeholder="Ask about this conversation..."
                 value={message} 
                 onChange={(e) => setMessage(e.target.value)} 
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="bg-gray-100/80 border-gray-200/50 text-gray-700 pl-9 pr-9 rounded-full"
+                className="bg-gray-100/80 border-gray-200/50 text-gray-700 pr-10 rounded-full"
               />
-              <Button 
-                size="icon" 
-                variant="ghost"
-                className="absolute left-1 top-1 bottom-1 text-gray-500 hover:text-gray-700 hover:bg-transparent p-1"
-              >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-              </Button>
               <Button
                 size="icon"
                 onClick={handleSendMessage}
-                className="absolute right-1 top-1 bottom-1 text-gray-500 hover:text-gray-700 hover:bg-transparent p-1"
+                className="absolute right-1 top-1 bottom-1 text-blue-500 hover:text-blue-700 hover:bg-transparent p-1"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M12 8l4 4-4 4"></path>
-                </svg>
-              </Button>
-            </div>
-            
-            <div className="flex justify-center mt-3">
-              <Button variant="ghost" size="sm" className="text-gray-500 text-xs flex items-center gap-1 hover:bg-gray-100/80">
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M12 16v-4"></path>
-                  <path d="M12 8h.01"></path>
-                </svg>
-                Who can see your messages?
+                <Send className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -221,78 +198,89 @@ const ChatPanel: React.FC = () => {
         <TabsContent value="summary" className="flex-grow mt-0 p-4 overflow-auto h-full">
           <div className="grid gap-4">
             <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-2">Participants (4)</h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  {getAvatar('You')}
-                  <div className="flex-grow ml-2">
-                    <p className="text-sm font-medium">You (Host)</p>
-                  </div>
+              <div className="flex items-center mb-4">
+                <MessageSquare className="h-5 w-5 text-blue-500 mr-2" />
+                <h3 className="font-medium text-lg">Conversation Summary</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-sm">Customer Need:</h4>
+                  <p className="text-sm">Video conferencing for 25-person team with security features</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  {getAvatar('John')}
-                  <div className="flex-grow ml-2">
-                    <p className="text-sm font-medium">John</p>
-                  </div>
+                
+                <div>
+                  <h4 className="font-medium text-sm">Solution Offered:</h4>
+                  <p className="text-sm">Business plan ($15/user/month)</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  {getAvatar('Raul')}
-                  <div className="flex-grow ml-2">
-                    <p className="text-sm font-medium">Raul</p>
-                  </div>
+                
+                <div>
+                  <h4 className="font-medium text-sm">Key Features Highlighted:</h4>
+                  <p className="text-sm">End-to-end encryption, SSO, 24/7 support</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  {getAvatar('Sandra')}
-                  <div className="flex-grow ml-2">
-                    <p className="text-sm font-medium">Sandra</p>
-                  </div>
+                
+                <div>
+                  <h4 className="font-medium text-sm">Special Offer:</h4>
+                  <p className="text-sm">20% discount for annual payment ($12/user/month)</p>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-sm">Next Steps:</h4>
+                  <p className="text-sm">Schedule product demo, send formal quote</p>
                 </div>
               </div>
             </Card>
 
-            {/* Meeting Summary Card */}
             <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-2">Meeting Summary</h3>
-              <div className="space-y-2">
+              <h3 className="font-medium mb-4 text-blue-600">Language Proficiency Assessment</h3>
+              
+              <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-medium">Key Points</h4>
-                  <ul className="text-xs text-gray-600 pl-4 list-disc mt-1">
-                    <li>Discussion on the new product pricing strategy</li>
-                    <li>Team agreed on Q2 timeline for launch</li>
-                    <li>Marketing materials need to be finalized by next week</li>
-                  </ul>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Pronunciation</h4>
+                    <span>85%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "85%"}}></div>
+                  </div>
+                  <p className="text-sm mt-1 text-gray-600">
+                    Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".
+                  </p>
                 </div>
+                
                 <div>
-                  <h4 className="text-sm font-medium">Action Items</h4>
-                  <ul className="text-xs text-gray-600 pl-4 list-disc mt-1">
-                    <li>John will send updated sales figures</li>
-                    <li>You need to prepare presentation slides</li>
-                    <li>Raul will contact the design team</li>
-                    <li>Everyone: Review proposal by Friday</li>
-                  </ul>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Grammar & Vocabulary</h4>
+                    <span>90%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "90%"}}></div>
+                  </div>
+                  <p className="text-sm mt-1 text-gray-600">
+                    Strong command of technical vocabulary. Correctly used conditional structures: "That would bring it down to $12/user/month."
+                  </p>
+                </div>
+                
+                <div>
+                  <div className="flex justify-between mb-1">
+                    <h4 className="font-medium">Confidence & Fluency</h4>
+                    <span>88%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "88%"}}></div>
+                  </div>
+                  <p className="text-sm mt-1 text-gray-600">
+                    Spoke without hesitation. Maintained conversational flow even when discussing technical features.
+                  </p>
                 </div>
               </div>
             </Card>
 
-            {/* Questions & Concerns Card */}
             <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-2">Questions & Concerns</h3>
+              <h3 className="font-medium mb-2 text-blue-600">Communication Skills</h3>
               <div className="space-y-2">
-                <div className="flex items-start gap-2 p-2 bg-blue-50 rounded-md">
-                  <AlertTriangle className="h-4 w-4 text-blue-500 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-medium text-blue-800">From Sandra</p>
-                    <p className="text-xs text-blue-700">"Are we sure the pricing is competitive with recent market changes?"</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2 p-2 bg-amber-50 rounded-md">
-                  <AlertTriangle className="h-4 w-4 text-amber-500 mt-0.5" />
-                  <div>
-                    <p className="text-xs font-medium text-amber-800">From Michael</p>
-                    <p className="text-xs text-amber-700">"Who else is involved in the decision-making process?"</p>
-                    <Badge variant="outline" className="mt-1 text-[10px] px-1 border-amber-300 text-amber-700">Unanswered</Badge>
-                  </div>
-                </div>
+                <h4 className="font-medium">Negotiation Skills</h4>
+                {/* Additional content here if needed */}
               </div>
             </Card>
           </div>
