@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -53,7 +52,7 @@ const salesSkillsInsights = {
   negotiations: {
     title: "Negotiations",
     trend: "+8% improvement",
-    description: "Your ability to identify high-value opportunities has improved significantly. Success rate for enterprise deals is up 12% with improved qualification techniques.",
+    description: "Your negotiation skills have improved significantly. You've demonstrated better value articulation and pricing discussions, leading to 12% higher close rates on competitive deals.",
     icon: TrendingUp,
     color: "text-emerald-600"
   },
