@@ -172,12 +172,12 @@ const Landing: React.FC = () => {
               </div>
               
               <Tabs defaultValue="general" className="w-full mb-6">
-                <TabsList>
+                <div className="flex space-x-2 mb-6">
                   <TabsTrigger value="general">General</TabsTrigger>
                   <TabsTrigger value="ai-setup">AI Assistant Setup</TabsTrigger>
-                </TabsList>
+                </div>
                 
-                <TabsContent value="general" className="space-y-4 mt-6">
+                <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* ELSA Web Platform Card */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
