@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal } from 'lucide-react';
+import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal, Settings, Info } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   ChartContainer, 
   ChartTooltip, 
@@ -29,6 +30,9 @@ import {
 } from 'recharts';
 import { Badge } from '@/components/ui/badge';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Sample data for learner skills progress
 const skillsData = [
@@ -124,6 +128,7 @@ const categoryLabels = {
 const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState('insights');
   
   // Filter radar data without categories selection
   const filteredRadarData = radarData;
@@ -166,64 +171,200 @@ const Landing: React.FC = () => {
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* ELSA Web Platform Card */}
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
-                  <div className="bg-blue-800 p-6">
-                    <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
-                    <p className="text-blue-100">Access your personal dashboard, view progress, and prepare for calls</p>
-                  </div>
-                  <div className="p-6">
-                    <ul className="text-gray-600 mb-8 space-y-2">
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <span>View Skills Progress</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <span>Call History</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <span>Call Preparation</span>
-                      </li>
-                    </ul>
-                    <Link to="/web-platform">
-                      <Button className="w-full">Enter ELSA Web Platform</Button>
-                    </Link>
-                  </div>
-                </div>
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
+                <TabsList className="mb-6 w-full justify-center">
+                  <TabsTrigger value="insights" className="flex items-center gap-2">
+                    <Info className="h-4 w-4" />
+                    Insights
+                  </TabsTrigger>
+                  <TabsTrigger value="assistant-setup" className="flex items-center gap-2">
+                    <Settings className="h-4 w-4" />
+                    AI Assistant Setup
+                  </TabsTrigger>
+                </TabsList>
                 
-                {/* Zoom Call Card */}
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
-                  <div className="bg-indigo-800 p-6">
-                    <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
-                    <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
+                <TabsContent value="insights" className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* ELSA Web Platform Card */}
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
+                      <div className="bg-blue-800 p-6">
+                        <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
+                        <p className="text-blue-100">Access your personal dashboard, view progress, and prepare for calls</p>
+                      </div>
+                      <div className="p-6">
+                        <ul className="text-gray-600 mb-8 space-y-2">
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>View Skills Progress</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>Call History</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            <span>Call Preparation</span>
+                          </li>
+                        </ul>
+                        <Link to="/web-platform">
+                          <Button className="w-full">Enter ELSA Web Platform</Button>
+                        </Link>
+                      </div>
+                    </div>
+                    
+                    {/* Zoom Call Card */}
+                    <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
+                      <div className="bg-indigo-800 p-6">
+                        <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
+                        <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
+                      </div>
+                      <div className="p-6">
+                        <ul className="text-gray-600 mb-8 space-y-2">
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Real-time Conversation Analysis</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Facilitator Mode</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>Call Summary</span>
+                          </li>
+                        </ul>
+                        <Link to="/video-call">
+                          <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
+                            <Download className="mr-2 h-5 w-5" />
+                            Download Elsa AI Assistant
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <ul className="text-gray-600 mb-8 space-y-2">
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                        <span>Real-time Conversation Analysis</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                        <span>Facilitator Mode</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                        <span>Call Summary</span>
-                      </li>
-                    </ul>
-                    <Link to="/video-call">
-                      <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
-                        <Download className="mr-2 h-5 w-5" />
-                        Download Elsa AI Assistant
-                      </Button>
-                    </Link>
+                </TabsContent>
+                
+                <TabsContent value="assistant-setup" className="space-y-6">
+                  <div className="max-w-4xl mx-auto">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>AI Assistant Configuration</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                        <div className="space-y-4">
+                          <div>
+                            <h3 className="text-lg font-medium mb-2">Language Preferences</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Primary Language</label>
+                                <select className="w-full p-2 border rounded-md">
+                                  <option>English (US)</option>
+                                  <option>English (UK)</option>
+                                  <option>Spanish</option>
+                                  <option>French</option>
+                                  <option>German</option>
+                                  <option>Mandarin</option>
+                                </select>
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Learning Focus</label>
+                                <select className="w-full p-2 border rounded-md">
+                                  <option>Business Communication</option>
+                                  <option>Technical Discussions</option>
+                                  <option>Casual Conversation</option>
+                                  <option>Academic Language</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h3 className="text-lg font-medium mb-2">AI Feedback Settings</h3>
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <span>Real-time pronunciation feedback</span>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                  <input type="checkbox" className="sr-only peer" defaultChecked />
+                                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                              </div>
+                              
+                              <div className="flex items-center justify-between">
+                                <span>Grammar correction</span>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                  <input type="checkbox" className="sr-only peer" defaultChecked />
+                                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                              </div>
+                              
+                              <div className="flex items-center justify-between">
+                                <span>Vocabulary suggestions</span>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                  <input type="checkbox" className="sr-only peer" defaultChecked />
+                                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                              </div>
+                              
+                              <div className="flex items-center justify-between">
+                                <span>Cultural context insights</span>
+                                <label className="relative inline-flex items-center cursor-pointer">
+                                  <input type="checkbox" className="sr-only peer" />
+                                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h3 className="text-lg font-medium mb-2">AI Assistant Personality</h3>
+                            <div className="space-y-4">
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Communication Style</label>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                  <Button variant="outline" className="w-full">Supportive</Button>
+                                  <Button variant="outline" className="w-full bg-blue-50">Direct</Button>
+                                  <Button variant="outline" className="w-full">Analytical</Button>
+                                  <Button variant="outline" className="w-full">Encouraging</Button>
+                                </div>
+                              </div>
+                              
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Feedback Intensity</label>
+                                <input 
+                                  type="range" 
+                                  min="1" 
+                                  max="5" 
+                                  defaultValue="3"
+                                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" 
+                                />
+                                <div className="flex justify-between text-xs text-gray-500 px-1">
+                                  <span>Gentle</span>
+                                  <span>Balanced</span>
+                                  <span>Direct</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <Alert className="bg-blue-50 border-blue-200">
+                            <AlertDescription className="text-blue-800">
+                              Your AI assistant will adapt to your speaking patterns over time and provide increasingly personalized feedback based on your learning progress.
+                            </AlertDescription>
+                          </Alert>
+                          
+                          <div className="pt-4">
+                            <Button className="w-full md:w-auto">Save AI Assistant Settings</Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </div>
-              </div>
+                </TabsContent>
+              </Tabs>
             </>
           ) : (
             // Admin Dashboard Content
