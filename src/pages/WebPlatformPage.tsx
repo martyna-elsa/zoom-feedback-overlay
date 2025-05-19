@@ -1,0 +1,103 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { ChartBar, FileText, History, Home } from 'lucide-react';
+
+const WebPlatformPage: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      <div className="bg-white p-3 shadow-sm flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          <h1 className="text-xl font-bold">ELSA Web Platform</h1>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link to="/">
+            <Button variant="outline" className="flex items-center gap-2">
+              <Home className="h-4 w-4" />
+              Back to Home
+            </Button>
+          </Link>
+        </div>
+      </div>
+      
+      <div className="bg-blue-800 text-white px-4 py-1.5 text-sm">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <span className="font-medium">ELSA Web Platform</span>
+          <span>Your Personal Dashboard</span>
+        </div>
+      </div>
+      
+      <div className="flex-grow p-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-semibold text-blue-800 mb-4">Welcome to your ELSA Platform</h2>
+              <p className="text-gray-600 mb-6">
+                From here, you can access your call history, prepare for upcoming calls, and track your speaking skills progress.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-lg font-medium text-blue-800">Call History</h3>
+                    <History className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Review past calls, analyze feedback, and track improvement over time.
+                  </p>
+                  <Link to="/call-history">
+                    <Button variant="outline" className="w-full">View Call History</Button>
+                  </Link>
+                </div>
+                
+                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-lg font-medium text-blue-800">Call Preparation</h3>
+                    <FileText className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Create briefs, set goals, and prepare talking points for upcoming calls.
+                  </p>
+                  <Link to="/call-preparation">
+                    <Button variant="outline" className="w-full">Prepare for Call</Button>
+                  </Link>
+                </div>
+                
+                <div className="bg-blue-50 p-6 rounded-lg border border-blue-100 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-lg font-medium text-blue-800">Skills Progress</h3>
+                    <ChartBar className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Track improvement in pronunciation, grammar, confidence, and more.
+                  </p>
+                  <Link to="/skills-progress">
+                    <Button variant="outline" className="w-full">View Skills Progress</Button>
+                  </Link>
+                </div>
+              </div>
+              
+              <div className="mt-10 p-5 border-t">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-medium text-gray-800">Ready for your next call?</h3>
+                  <Link to="/video-call">
+                    <Button>Join a Video Call</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-white py-4">
+        <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
+          &copy; 2025 ELSA Platform. All rights reserved.
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WebPlatformPage;
