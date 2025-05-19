@@ -39,8 +39,8 @@ const VideoCallPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
-      {/* Desktop assistant overlay header */}
-      <div className="bg-white/80 backdrop-blur-sm p-3 shadow-sm flex justify-between items-center border-b border-gray-200/40 relative z-20">
+      {/* Updated header to match the chat panel styling */}
+      <div className="bg-white/80 backdrop-blur-md p-3 shadow-lg flex justify-between items-center border-b border-gray-200/50 relative z-20">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-300/20 shadow-sm">
             <Square className="h-5 w-5 text-blue-500" />
