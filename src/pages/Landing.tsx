@@ -416,7 +416,7 @@ const Landing: React.FC = () => {
                   
                   <Card>
                     <CardHeader>
-                      <CardTitle>Goal Achievement</CardTitle>
+                      <CardTitle>Call Objectives Achievement</CardTitle>
                       <div className="text-sm text-muted-foreground">Target vs. achieved progress</div>
                     </CardHeader>
                     <CardContent className="h-80">
