@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -92,7 +93,7 @@ const WebPlatformPage: React.FC = () => {
       
       <div className="flex-grow p-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-6">
+          <div>
             <h2 className="text-2xl font-bold mb-6">User Dashboard</h2>
             
             <Tabs 
