@@ -56,9 +56,6 @@ const VideoCallPage: React.FC = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="bg-blue-50 p-1 rounded text-sm text-blue-800 mr-2">
-            Active Video Call: Sales Call Trainer
-          </div>
           <Link to="/">
             <Button variant="outline" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
