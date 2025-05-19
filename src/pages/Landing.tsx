@@ -363,7 +363,28 @@ const Landing: React.FC = () => {
                         <XAxis dataKey="month" />
                         <YAxis domain={[55, 85]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <ChartLegend content={<ChartLegendContent />} />
+                        <Legend 
+                          layout="vertical" 
+                          verticalAlign="middle" 
+                          align="right"
+                          formatter={(value) => {
+                            // Map skill keys to their full readable names
+                            const skillNames = {
+                              pronunciation: "Pronunciation",
+                              grammar: "Grammar",
+                              vocabulary: "Vocabulary",
+                              intonation: "Intonation",
+                              fluency: "Fluency",
+                              negotiation: "Negotiation",
+                              persuasion: "Persuasion",
+                              understanding: "Understanding",
+                              confidence: "Confidence",
+                              coherence: "Coherence",
+                              comprehension: "Comprehension"
+                            };
+                            return skillNames[value] || value;
+                          }}
+                        />
                         
                         {/* Only render lines for filtered skills */}
                         {filteredSkills.includes('pronunciation') && (
