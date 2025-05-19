@@ -82,24 +82,7 @@ const VideoCallPage: React.FC = () => {
         </div>
       )}
       
-      {/* Video conference area with real-time widgets */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 border-b border-blue-100">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-sm text-blue-800 mb-1 flex items-center justify-between">
-            <div>
-              <span className="font-medium">Active Video Call Tools:</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center">
-                <div className={`w-2 h-2 rounded-full ${facilitatorMode ? 'bg-green-500' : 'bg-gray-300'} mr-1`}></div>
-                <span>Facilitator Mode: {facilitatorMode ? 'Active' : 'Inactive'}</span>
-              </div>
-              <div>Real-time Conversation Analysis</div>
-              <div>Call Summary</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Removed the gradient banner that was here */}
       
       <ResizablePanelGroup direction="horizontal" className="flex-grow">
         <ResizablePanel defaultSize={70} minSize={40}>
