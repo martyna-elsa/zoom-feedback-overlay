@@ -294,26 +294,59 @@ const Landing: React.FC = () => {
                 </Card>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {/* Updated chart section - now full width */}
+              <div className="grid grid-cols-1 gap-6 mb-6">
                 <Card className="col-span-1">
                   <CardHeader>
                     <CardTitle>Skills Development Over Time</CardTitle>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {Object.entries(categoryLabels).map(([category, label]) => (
+                        <Badge 
+                          key={category}
+                          variant="outline" 
+                          className="flex items-center gap-1"
+                          style={{
+                            backgroundColor: `${getCategoryColor(category)}10`,
+                            borderColor: `${getCategoryColor(category)}40`,
+                            color: getCategoryColor(category)
+                          }}
+                        >
+                          <span 
+                            className="w-2 h-2 rounded-full" 
+                            style={{ backgroundColor: getCategoryColor(category) }}
+                          ></span>
+                          {label}
+                        </Badge>
+                      ))}
+                    </div>
                   </CardHeader>
-                  <CardContent className="h-80">
+                  <CardContent className="h-96">
                     <ChartContainer config={chartConfig}>
                       <LineChart data={skillsData}>
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                         <XAxis dataKey="month" />
                         <YAxis domain={[50, 100]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
-                        <Line type="monotone" dataKey="pronunciation" stroke="#3b82f6" strokeWidth={2} />
+                        {/* English Proficiency skills */}
+                        <Line 
+                          type="monotone" 
+                          dataKey="pronunciation" 
+                          stroke="#3b82f6" 
+                          strokeWidth={2} 
+                          dot={{ r: 4 }} 
+                          activeDot={{ r: 6 }}
+                        />
                         <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
                         <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
                         <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
                         <Line type="monotone" dataKey="fluency" stroke="#dbeafe" strokeWidth={2} />
+                        
+                        {/* Soft skills */}
                         <Line type="monotone" dataKey="negotiation" stroke="#10b981" strokeWidth={2} />
                         <Line type="monotone" dataKey="persuasion" stroke="#34d399" strokeWidth={2} />
+                        
+                        {/* Communication skills */}
                         <Line type="monotone" dataKey="understanding" stroke="#8b5cf6" strokeWidth={2} />
                         <Line type="monotone" dataKey="confidence" stroke="#a78bfa" strokeWidth={2} />
                         <Line type="monotone" dataKey="coherence" stroke="#c4b5fd" strokeWidth={2} />
@@ -322,64 +355,91 @@ const Landing: React.FC = () => {
                   </CardContent>
                 </Card>
                 
-                <Card className="col-span-1">
-                  <CardHeader>
-                    <CardTitle>Skills Radar</CardTitle>
-                    <div className="text-sm text-muted-foreground">Visualize skills progression across different areas</div>
-                  </CardHeader>
-                  <CardContent className="h-80">
-                    <div className="w-full h-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={filteredRadarData}>
-                          <PolarGrid />
-                          <PolarAngleAxis dataKey="name" />
-                          <PolarRadiusAxis domain={[0, 100]} />
-                          <Tooltip />
-                          <Radar
-                            name="Current Level"
-                            dataKey="value"
-                            stroke="#3b82f6"
-                            fill="#3b82f6"
-                            fillOpacity={0.6}
-                          />
-                        </RadarChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className="mt-4">
-                      <ToggleGroup 
-                        type="multiple" 
-                        value={selectedCategories}
-                        onValueChange={setSelectedCategories}
-                        className="flex flex-wrap gap-2 justify-center"
-                      >
-                        {Object.entries(categoryLabels).map(([category, label]) => (
-                          <ToggleGroupItem 
-                            key={category} 
-                            value={category}
-                            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground rounded-full text-xs px-4"
-                            style={{
-                              backgroundColor: selectedCategories.includes(category) ? 
-                                getCategoryColor(category) : 
-                                `${getCategoryColor(category)}20`,
-                              color: selectedCategories.includes(category) ? 
-                                'white' : 
-                                getCategoryColor(category),
-                              border: `1px solid ${getCategoryColor(category)}`
-                            }}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Skills Radar</CardTitle>
+                      <div className="text-sm text-muted-foreground">Current skill levels across categories</div>
+                    </CardHeader>
+                    <CardContent className="h-80">
+                      <div className="w-full h-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={filteredRadarData}>
+                            <PolarGrid stroke="#e5e7eb" />
+                            <PolarAngleAxis dataKey="name" tick={{ fill: "#6b7280", fontSize: 12 }} />
+                            <PolarRadiusAxis domain={[0, 100]} tick={{ fill: "#6b7280" }} />
+                            <Tooltip />
+                            <Radar
+                              name="Current Level"
+                              dataKey="value"
+                              stroke="#3b82f6"
+                              fill="#3b82f6"
+                              fillOpacity={0.6}
+                            />
+                          </RadarChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="mt-4">
+                        <ToggleGroup 
+                          type="multiple" 
+                          value={selectedCategories}
+                          onValueChange={setSelectedCategories}
+                          className="flex flex-wrap gap-2 justify-center"
+                        >
+                          {Object.entries(categoryLabels).map(([category, label]) => (
+                            <ToggleGroupItem 
+                              key={category} 
+                              value={category}
+                              className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground rounded-full text-xs px-4"
+                              style={{
+                                backgroundColor: selectedCategories.includes(category) ? 
+                                  getCategoryColor(category) : 
+                                  `${getCategoryColor(category)}20`,
+                                color: selectedCategories.includes(category) ? 
+                                  'white' : 
+                                  getCategoryColor(category),
+                                border: `1px solid ${getCategoryColor(category)}`
+                              }}
+                            >
+                              <span className="flex items-center gap-1">
+                                <span 
+                                  className="w-2 h-2 rounded-full" 
+                                  style={{ backgroundColor: selectedCategories.includes(category) ? 'white' : getCategoryColor(category) }}
+                                ></span>
+                                {label}
+                              </span>
+                            </ToggleGroupItem>
+                          ))}
+                        </ToggleGroup>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Goal Achievement</CardTitle>
+                      <div className="text-sm text-muted-foreground">Target vs. achieved progress</div>
+                    </CardHeader>
+                    <CardContent className="h-80">
+                      <div className="w-full h-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart
+                            data={goalsData}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                           >
-                            <span className="flex items-center gap-1">
-                              <span 
-                                className="w-2 h-2 rounded-full" 
-                                style={{ backgroundColor: selectedCategories.includes(category) ? 'white' : getCategoryColor(category) }}
-                              ></span>
-                              {label}
-                            </span>
-                          </ToggleGroupItem>
-                        ))}
-                      </ToggleGroup>
-                    </div>
-                  </CardContent>
-                </Card>
+                            <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
+                            <XAxis dataKey="name" />
+                            <YAxis domain={[0, 100]} />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="target" name="Target" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="achieved" name="Achieved" fill="#10b981" radius={[4, 4, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
               
               <Card>
