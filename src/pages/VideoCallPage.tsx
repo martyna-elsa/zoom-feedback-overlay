@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { Button } from '@/components/ui/button';
-import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users } from 'lucide-react';
+import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users, Home } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -63,7 +63,13 @@ const VideoCallPage: React.FC = () => {
   };
 
   const toggleHeader = () => {
-    setHeaderVisible(!headerVisible);
+    const newHeaderState = !headerVisible;
+    setHeaderVisible(newHeaderState);
+    
+    // Also hide chat panel when hiding header
+    if (!newHeaderState) {
+      setChatVisible(false);
+    }
   };
   
   const toggleChat = () => {
@@ -165,17 +171,41 @@ const VideoCallPage: React.FC = () => {
               >
                 <Settings className="h-4 w-4" />
               </Button>
+              
+              <Link to="/">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="bg-blue-500 text-white hover:bg-blue-600 border-none h-7 text-xs px-3"
+                >
+                  <Home className="h-3.5 w-3.5 mr-1" />
+                  Go to Elsa
+                </Button>
+              </Link>
             </div>
           </div>
         ) : (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={toggleHeader} 
-            className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-3 py-1.5"
-          >
-            <Settings className="h-3.5 w-3.5 text-gray-500" />
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={toggleHeader} 
+              className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-3 py-1.5"
+            >
+              <Settings className="h-3.5 w-3.5 text-gray-500" />
+            </Button>
+            
+            <Link to="/">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="bg-blue-500 text-white hover:bg-blue-600 border-none px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md text-xs flex items-center gap-1"
+              >
+                <Home className="h-3.5 w-3.5" />
+                Go to Elsa
+              </Button>
+            </Link>
+          </div>
         )}
         
         {/* Only visible to you indicator */}
