@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -339,7 +338,6 @@ const Landing: React.FC = () => {
                           type="multiple" 
                           value={selectedCategories}
                           onValueChange={setSelectedCategories}
-                          className="flex flex-wrap gap-2"
                         >
                           {Object.entries(categoryLabels).map(([category, label]) => (
                             <ToggleGroupItem 
