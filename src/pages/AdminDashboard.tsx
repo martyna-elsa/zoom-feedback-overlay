@@ -1,40 +1,16 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend, Tooltip } from 'recharts';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, Filter } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { 
-  ResponsiveContainer, 
-  LineChart, 
-  Line, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  PolarGrid, 
-  PolarAngleAxis, 
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-  Tooltip, 
-  Legend 
-} from 'recharts';
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ChevronLeft, Filter, Calendar, Users } from 'lucide-react';
-import { 
-  ChartContainer, 
-  ChartTooltip, 
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent
-} from '@/components/ui/chart';
 
 // Define skill categories - same as in SkillsProgress
 const CATEGORIES = {
@@ -64,15 +40,6 @@ const learners = [
   { id: "6", name: "Lisa Rodriguez", team: "marketing" },
   { id: "7", name: "Robert Kim", team: "engineering" },
   { id: "8", name: "Jennifer Lee", team: "customer-support" },
-];
-
-// Sample skills data - expanded with more skill types like in SkillsProgress
-const skillsData = [
-  { month: 'Jan', pronunciation: 65, grammar: 70, vocabulary: 72, intonation: 60, fluency: 65, negotiation: 80, persuasion: 75, understanding: 85, confidence: 90, coherence: 80 },
-  { month: 'Feb', pronunciation: 68, grammar: 72, vocabulary: 75, intonation: 63, fluency: 68, negotiation: 82, persuasion: 77, understanding: 87, confidence: 91, coherence: 82 },
-  { month: 'Mar', pronunciation: 72, grammar: 73, vocabulary: 78, intonation: 68, fluency: 72, negotiation: 84, persuasion: 80, understanding: 88, confidence: 92, coherence: 84 },
-  { month: 'Apr', pronunciation: 75, grammar: 76, vocabulary: 80, intonation: 72, fluency: 75, negotiation: 86, persuasion: 82, understanding: 90, confidence: 94, coherence: 86 },
-  { month: 'May', pronunciation: 78, grammar: 78, vocabulary: 82, intonation: 75, fluency: 78, negotiation: 88, persuasion: 84, understanding: 92, confidence: 95, coherence: 88 },
 ];
 
 // Expanded learner performance data with more detailed skills
@@ -289,19 +256,6 @@ const orgPerformanceData = {
   }
 };
 
-const chartConfig = {
-  pronunciation: { label: 'Pronunciation', color: '#4f46e5' },
-  grammar: { label: 'Grammar', color: '#0ea5e9' },
-  vocabulary: { label: 'Vocabulary', color: '#8b5cf6' },
-  intonation: { label: 'Intonation', color: '#ec4899' },
-  fluency: { label: 'Fluency', color: '#f43f5e' },
-  negotiation: { label: 'Negotiation', color: '#10b981' },
-  persuasion: { label: 'Persuasion', color: '#14b8a6' },
-  understanding: { label: 'Understanding', color: '#f59e0b' },
-  confidence: { label: 'Confidence', color: '#d97706' },
-  coherence: { label: 'Coherence', color: '#84cc16' },
-};
-
 const getCategoryColor = (category: string): string => {
   switch (category) {
     case CATEGORIES.ENGLISH:
@@ -335,13 +289,14 @@ const skillCategories: Record<string, string> = {
 };
 
 const AdminDashboard: React.FC = () => {
-  const [viewFilter, setViewFilter] = useState<ViewFilter>("organization");
-  const [timeFrame, setTimeFrame] = useState<TimeFrame>("month");
-  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
-  const [selectedLearnerId, setSelectedLearnerId] = useState<string>("");
+  const [selectedTimeframe, setSelectedTimeframe] = useState("last-month");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [currentTab, setCurrentTab] = useState("overview");
-  
+  const [viewMode, setViewMode] = useState<"timeframe" | "call">("timeframe");
+  const [viewFilter, setViewFilter] = useState<ViewFilter>("organization");
+  const [selectedTeamId, setSelectedTeamId] = useState<string>("");
+  const [selectedLearnerId, setSelectedLearnerId] = useState<string>("");
+
   // Determine which data to show based on filters
   const getCurrentData = () => {
     if (viewFilter === "learner" && selectedLearnerId) {
@@ -370,6 +325,25 @@ const AdminDashboard: React.FC = () => {
   };
 
   const radarChartData = getRadarChartData();
+
+  // Get displayed skills based on selected categories
+  const getDisplayedSkills = () => {
+    if (!currentData) return [];
+    
+    return Object.entries(currentData.skills)
+      .map(([name, value]) => ({
+        name,
+        value,
+        improvement: "+10%", // Sample improvement
+        category: skillCategories[name] || CATEGORIES.ENGLISH,
+      }))
+      .filter(skill => 
+        selectedCategories.length === 0 || 
+        selectedCategories.includes(skill.category)
+      );
+  };
+
+  const displayedSkills = getDisplayedSkills();
 
   // Get relevant performance list based on current view
   const getPerformanceList = () => {
@@ -455,16 +429,15 @@ const AdminDashboard: React.FC = () => {
             )}
             
             <div className="flex items-center gap-2">
-              <Label htmlFor="timeFrame" className="text-sm font-medium">Period:</Label>
-              <Select value={timeFrame} onValueChange={(value: TimeFrame) => setTimeFrame(value)}>
-                <SelectTrigger className="w-[140px]" id="timeFrame">
+              <Label htmlFor="timeframe" className="text-sm font-medium">Timeframe:</Label>
+              <Select value={selectedTimeframe} onValueChange={setSelectedTimeframe}>
+                <SelectTrigger className="w-[140px]" id="timeframe">
                   <SelectValue placeholder="Select timeframe" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="week">Last Week</SelectItem>
-                  <SelectItem value="month">Last Month</SelectItem>
-                  <SelectItem value="quarter">Last Quarter</SelectItem>
-                  <SelectItem value="year">Last Year</SelectItem>
+                  <SelectItem value="last-week">Last Week</SelectItem>
+                  <SelectItem value="last-month">Last Month</SelectItem>
+                  <SelectItem value="last-quarter">Last Quarter</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -515,7 +488,7 @@ const AdminDashboard: React.FC = () => {
                     <div className="text-3xl font-bold text-blue-600 mb-2">{currentData.progress}%</div>
                     <Progress value={currentData.progress} className="h-2 mb-2" />
                     <p className="text-sm text-green-600 font-medium">
-                      {currentData.improvement} from previous {timeFrame}
+                      {currentData.improvement} from previous {selectedTimeframe.replace('last-', '')}
                     </p>
                     {viewFilter === "organization" && (
                       <p className="text-xs text-gray-500 mt-2">
@@ -532,60 +505,66 @@ const AdminDashboard: React.FC = () => {
                 
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">Total Calls</CardTitle>
-                    <CardDescription>Practice sessions completed</CardDescription>
+                    <CardTitle className="text-lg">Most Improved</CardTitle>
+                    <CardDescription>Skill with highest growth</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-3xl font-bold text-blue-600 mb-2">{currentData.calls}</div>
-                    <Progress 
-                      value={viewFilter === "organization" ? 100 : viewFilter === "team" ? 80 : 60} 
-                      className="h-2 mb-2" 
-                    />
-                    <p className="text-sm text-green-600 font-medium">
-                      {viewFilter === "organization" 
-                        ? "+15% from previous period" 
-                        : viewFilter === "team" 
-                          ? "+12% from previous period" 
-                          : "+8% from previous period"}
-                    </p>
+                    {(() => {
+                      // Sample "most improved" skill - in a real app this would be calculated
+                      const mostImprovedSkill = displayedSkills[0];
+                      
+                      return mostImprovedSkill ? (
+                        <>
+                          <div className="text-2xl font-bold mb-1 capitalize">{mostImprovedSkill.name}</div>
+                          <div className="flex items-center justify-between mb-2">
+                            <Progress value={mostImprovedSkill.value} className="h-2 flex-grow mr-2" />
+                            <span className="text-green-600 font-medium">{mostImprovedSkill.improvement}</span>
+                          </div>
+                          <Badge 
+                            variant="outline"
+                            style={{
+                              backgroundColor: `${getCategoryColor(mostImprovedSkill.category)}10`,
+                              borderColor: `${getCategoryColor(mostImprovedSkill.category)}40`,
+                              color: getCategoryColor(mostImprovedSkill.category)
+                            }}
+                          >
+                            {categoryLabels[mostImprovedSkill.category]}
+                          </Badge>
+                        </>
+                      ) : <p>No data available</p>;
+                    })()}
                   </CardContent>
                 </Card>
                 
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">Top Skill</CardTitle>
-                    <CardDescription>Highest performing skill</CardDescription>
+                    <CardTitle className="text-lg">Focus Area</CardTitle>
+                    <CardDescription>Suggested skill to improve</CardDescription>
                   </CardHeader>
                   <CardContent>
                     {(() => {
-                      // Find skill with highest value
-                      const skills = currentData.skills;
-                      const topSkillName = Object.entries(skills).reduce(
-                        (max, [key, val]) => val > skills[max as keyof typeof skills] ? key : max, 
-                        Object.keys(skills)[0]
-                      );
-                      const topSkillValue = skills[topSkillName as keyof typeof skills];
-                      const skillCategory = skillCategories[topSkillName] || CATEGORIES.ENGLISH;
+                      // Find skill with lowest value
+                      const focusAreaSkill = [...displayedSkills].sort((a, b) => a.value - b.value)[0] || displayedSkills[0];
                       
-                      return (
+                      return focusAreaSkill ? (
                         <>
-                          <div className="text-2xl font-bold mb-1 capitalize">{topSkillName}</div>
+                          <div className="text-2xl font-bold mb-1 capitalize">{focusAreaSkill.name}</div>
                           <div className="flex items-center justify-between mb-2">
-                            <Progress value={topSkillValue} className="h-2 flex-grow mr-2" />
-                            <span>{topSkillValue}%</span>
+                            <Progress value={focusAreaSkill.value} className="h-2 flex-grow mr-2" />
+                            <span className="text-green-600 font-medium">{focusAreaSkill.improvement}</span>
                           </div>
                           <Badge 
                             variant="outline"
                             style={{
-                              backgroundColor: `${getCategoryColor(skillCategory)}10`,
-                              borderColor: `${getCategoryColor(skillCategory)}40`,
-                              color: getCategoryColor(skillCategory)
+                              backgroundColor: `${getCategoryColor(focusAreaSkill.category)}10`,
+                              borderColor: `${getCategoryColor(focusAreaSkill.category)}40`,
+                              color: getCategoryColor(focusAreaSkill.category)
                             }}
                           >
-                            {categoryLabels[skillCategory]}
+                            {categoryLabels[focusAreaSkill.category]}
                           </Badge>
                         </>
-                      );
+                      ) : <p>No data available</p>;
                     })()}
                   </CardContent>
                 </Card>
@@ -646,101 +625,10 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
-            
-            {/* Performance List */}
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <div>
-                  <CardTitle>
-                    {viewFilter === "organization" ? "Team Performance" : "Learner Performance"}
-                  </CardTitle>
-                  <CardDescription>
-                    {viewFilter === "organization" 
-                      ? "Performance metrics by team" 
-                      : viewFilter === "team" && selectedTeamId
-                        ? `Performance metrics for ${teams.find(t => t.id === selectedTeamId)?.name} members` 
-                        : "Individual learner performance metrics"}
-                  </CardDescription>
-                </div>
-                <Button variant="outline" size="sm" className="flex items-center gap-1">
-                  <Filter className="h-4 w-4" /> Filter
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[50px]">
-                        <Checkbox id="select-all" />
-                      </TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Progress</TableHead>
-                      <TableHead>Improvement</TableHead>
-                      <TableHead>Calls</TableHead>
-                      {viewFilter === "organization" && <TableHead>Members</TableHead>}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {performanceList.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <Checkbox id={`select-${item.id}`} />
-                        </TableCell>
-                        <TableCell className="font-medium">{item.name}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Progress value={item.progress} className="h-2 w-24" />
-                            <span>{item.progress}%</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-green-600">{item.improvement}</TableCell>
-                        <TableCell>{item.calls}</TableCell>
-                        {viewFilter === "organization" && 'members' in item && (
-                          <TableCell>{item.members}</TableCell>
-                        )}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="details">
             <Card>
-              <CardHeader>
-                <CardTitle>Skills Development Over Time</CardTitle>
-                <CardDescription>
-                  Monthly progression across key skill areas
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-[400px]">
-                  <ChartContainer config={chartConfig}>
-                    <LineChart data={skillsData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis domain={[50, 100]} />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <ChartLegend content={<ChartLegendContent />} />
-                      {Object.entries(chartConfig).map(([key, config]) => (
-                        <Line 
-                          key={key} 
-                          type="monotone" 
-                          dataKey={key} 
-                          stroke={config.color} 
-                          strokeWidth={2}
-                          hide={selectedCategories.length > 0 && !selectedCategories.includes(skillCategories[key])}
-                        />
-                      ))}
-                    </LineChart>
-                  </ChartContainer>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Individual Skills Analysis */}
-            <Card className="mt-6">
               <CardHeader>
                 <CardTitle>Individual Skills Analysis</CardTitle>
                 <CardDescription>
@@ -749,44 +637,34 @@ const AdminDashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {currentData && Object.entries(currentData.skills)
-                    .filter(([skill]) => 
-                      selectedCategories.length === 0 || 
-                      selectedCategories.includes(skillCategories[skill])
-                    )
-                    .map(([skill, value]) => {
-                      const category = skillCategories[skill];
-                      const improvement = "+10%"; // Example improvement value
-                      
-                      return (
-                        <Card key={skill} className="overflow-hidden">
-                          <div className="h-2" style={{ backgroundColor: getCategoryColor(category) }}></div>
-                          <div className="p-4">
-                            <div className="flex justify-between items-center mb-2">
-                              <h3 className="font-medium capitalize">{skill}</h3>
-                              <Badge variant="outline" className="text-xs">
-                                {improvement}
-                              </Badge>
-                            </div>
-                            <Progress value={value} className="h-2 mb-2" />
-                            <div className="flex justify-between items-center text-sm">
-                              <span>{value}%</span>
-                              <Badge 
-                                variant="outline" 
-                                className="text-xs"
-                                style={{
-                                  backgroundColor: `${getCategoryColor(category)}10`,
-                                  borderColor: `${getCategoryColor(category)}40`,
-                                  color: getCategoryColor(category)
-                                }}
-                              >
-                                {categoryLabels[category]}
-                              </Badge>
-                            </div>
-                          </div>
-                        </Card>
-                      );
-                    })}
+                  {displayedSkills.map((skill) => (
+                    <Card key={skill.name} className="overflow-hidden">
+                      <div className="h-2" style={{ backgroundColor: getCategoryColor(skill.category) }}></div>
+                      <div className="p-4">
+                        <div className="flex justify-between items-center mb-2">
+                          <h3 className="font-medium capitalize">{skill.name}</h3>
+                          <Badge variant="outline" className="text-xs">
+                            {skill.improvement}
+                          </Badge>
+                        </div>
+                        <Progress value={skill.value} className="h-2 mb-2" />
+                        <div className="flex justify-between items-center text-sm">
+                          <span>{skill.value}%</span>
+                          <Badge 
+                            variant="outline" 
+                            className="text-xs"
+                            style={{
+                              backgroundColor: `${getCategoryColor(skill.category)}10`,
+                              borderColor: `${getCategoryColor(skill.category)}40`,
+                              color: getCategoryColor(skill.category)
+                            }}
+                          >
+                            {categoryLabels[skill.category]}
+                          </Badge>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>
