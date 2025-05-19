@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -357,12 +356,12 @@ const Landing: React.FC = () => {
                       </div>
                     </Card>
                   </CardHeader>
-                  <CardContent className="h-[500px]">
+                  <CardContent className="h-[400px]">
                     <ChartContainer config={chartConfig}>
                       <LineChart data={skillsData}>
                         <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                         <XAxis dataKey="month" />
-                        <YAxis domain={[59, 80]} />
+                        <YAxis domain={[55, 85]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
                         
