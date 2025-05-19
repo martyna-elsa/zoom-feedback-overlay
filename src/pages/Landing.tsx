@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -52,7 +51,7 @@ const Landing: React.FC = () => {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
               <div className="bg-indigo-800 p-6">
                 <h3 className="text-2xl font-semibold text-white mb-2">Enhance Video Call</h3>
-                <p className="text-indigo-100">Enable video calls with AI-powered analysis</p>
+                <p className="text-indigo-100">Enable video calls with AI-powered assistance</p>
               </div>
               <div className="p-6">
                 <ul className="text-gray-600 mb-8 space-y-2">
