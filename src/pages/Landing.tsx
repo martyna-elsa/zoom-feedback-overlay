@@ -172,7 +172,7 @@ const Landing: React.FC = () => {
               </div>
               
               <Tabs defaultValue="general" className="w-full mb-6">
-                <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
+                <TabsList>
                   <TabsTrigger value="general">General</TabsTrigger>
                   <TabsTrigger value="ai-setup">AI Assistant Setup</TabsTrigger>
                 </TabsList>
