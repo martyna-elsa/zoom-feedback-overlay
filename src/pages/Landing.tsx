@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, Legend as LegendIcon, SlidersHorizontal } from 'lucide-react';
+import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal } from 'lucide-react';
 import { 
   ChartContainer, 
   ChartTooltip, 
