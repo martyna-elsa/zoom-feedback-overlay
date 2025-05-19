@@ -159,7 +159,7 @@ const VideoCallPage: React.FC = () => {
                 className="text-gray-500 hover:text-gray-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
               >
                 {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                {chatVisible ? "Hide" : "Show"}
+                {chatVisible ? "Hide Chat" : "Show Chat"}
               </Button>
               
               <Button 
