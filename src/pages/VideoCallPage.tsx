@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -124,16 +123,16 @@ const VideoCallPage: React.FC = () => {
       {/* Floating overlay header - positioned absolute with margins */}
       <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-30 w-auto">
         {headerVisible ? (
-          <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-4 border border-gray-200/30">
-            <div className="flex items-center gap-2">
+          <div className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full shadow-lg flex items-center gap-2 border border-gray-200/30">
+            <div className="flex items-center gap-1">
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-gray-500 hover:text-gray-700 font-normal text-sm flex items-center gap-1.5"
+                className="text-gray-500 hover:text-gray-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
                 onClick={handleFacilitatorHint}
               >
-                <Bell className="h-4 w-4" />
-                Facilitator Mode
+                <Bell className="h-3.5 w-3.5" />
+                Facilitator
               </Button>
               
               {/* New facilitator visibility option */}
@@ -152,43 +151,43 @@ const VideoCallPage: React.FC = () => {
               )}
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleChat}
-                className="text-gray-500 hover:text-gray-700 font-normal text-sm flex items-center gap-1.5"
+                className="text-gray-500 hover:text-gray-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
               >
-                {chatVisible ? <EyeOff className="h-4 w-4 mr-1" /> : <Eye className="h-4 w-4 mr-1" />}
-                {chatVisible ? "Hide Conversation" : "Show Conversation"}
+                {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                {chatVisible ? "Hide" : "Show"}
               </Button>
               
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={toggleHeader}
-                className="text-gray-500 hover:text-gray-700 h-8 w-8"
+                className="text-gray-500 hover:text-gray-700 h-6 w-6"
               >
-                <Settings className="h-4 w-4" />
+                <Settings className="h-3.5 w-3.5" />
               </Button>
               
               <Link to="/web-platform">
                 <Button 
-                  className="bg-blue-500 text-white hover:bg-blue-600 border-none px-3 py-1.5 rounded-full text-sm"
+                  className="bg-blue-500 text-white hover:bg-blue-600 border-none px-2 py-1 rounded-full text-xs h-6"
                 >
-                  <Home className="h-4 w-4 mr-1.5" />
-                  Go to Elsa
+                  <Home className="h-3.5 w-3.5 mr-1" />
+                  Elsa
                 </Button>
               </Link>
             </div>
           </div>
         ) : (
-          <div className="flex gap-1.5">
+          <div className="flex gap-1">
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={toggleHeader} 
-              className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-1.5 py-0.5 h-5"
+              className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-1 py-0.5 h-5"
             >
               <Settings className="h-3 w-3 text-gray-500" />
             </Button>
@@ -197,7 +196,7 @@ const VideoCallPage: React.FC = () => {
               <Button 
                 variant="outline" 
                 size="sm"
-                className="bg-blue-500 text-white hover:bg-blue-600 border-none px-1.5 py-0.5 h-5 rounded-full shadow-sm backdrop-blur-md text-xs flex items-center gap-1"
+                className="bg-blue-500 text-white hover:bg-blue-600 border-none px-1 py-0.5 h-5 rounded-full shadow-sm backdrop-blur-md text-xs flex items-center gap-1"
               >
                 <Home className="h-3 w-3" />
                 Elsa
@@ -208,8 +207,8 @@ const VideoCallPage: React.FC = () => {
         
         {/* Only visible to you indicator */}
         <div className="mt-0.5 text-center">
-          <span className="text-xs text-white/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-md">
-            <Users className="h-3 w-3 inline mr-1" /> Only visible to you
+          <span className="text-[10px] text-white/80 bg-black/40 px-1.5 py-0.5 rounded-full backdrop-blur-md">
+            <Users className="h-2.5 w-2.5 inline mr-0.5" /> Only visible to you
           </span>
         </div>
       </div>
