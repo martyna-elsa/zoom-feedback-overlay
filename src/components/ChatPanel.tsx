@@ -151,6 +151,16 @@ const ChatPanel: React.FC = () => {
                 </div>
               )}
               
+              {/* Miscommunication Detected heading */}
+              {feedbackAndIssues.some(item => item.type === 'issue') && (
+                <div className="mb-1 mt-2">
+                  <h3 className="text-sm font-medium text-amber-600 flex items-center">
+                    <AlertTriangle className="h-3.5 w-3.5 mr-1" />
+                    Miscommunication Detected
+                  </h3>
+                </div>
+              )}
+              
               {/* Feedback and communication issues */}
               {feedbackAndIssues.map((item) => (
                 <div key={item.id} className="flex items-start gap-1 mb-2">
