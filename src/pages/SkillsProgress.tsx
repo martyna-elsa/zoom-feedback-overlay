@@ -77,10 +77,20 @@ const viewOptions = [
   { label: "Specific Call", value: "specific-call" },
 ];
 
+// Sample calls data for specific call selection
+const callOptions = [
+  { label: "Product Demo - Enterprise Plan", value: "call-1", date: "May 15, 2025" },
+  { label: "Pricing Negotiation - Mid-Market", value: "call-2", date: "May 12, 2025" },
+  { label: "Feature Walkthrough - Small Business", value: "call-3", date: "May 8, 2025" },
+  { label: "Annual Contract Renewal - Healthcare", value: "call-4", date: "May 3, 2025" },
+  { label: "Technical Support Follow-up", value: "call-5", date: "April 28, 2025" },
+];
+
 const SkillsProgress: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [selectedCategory, setSelectedCategory] = useState<string>(CATEGORIES.ALL);
   const [selectedTimeframe, setSelectedTimeframe] = useState("last-month");
+  const [selectedCall, setSelectedCall] = useState("call-1");
   const [selectedView, setSelectedView] = useState("timeframe");
   
   // Filter skills by selected category
@@ -101,6 +111,17 @@ const SkillsProgress: React.FC = () => {
     acc[skill.category].push(skill);
     return acc;
   }, {} as Record<string, typeof radarData>);
+
+  // Handler for when view changes
+  const handleViewChange = (value: string) => {
+    setSelectedView(value);
+    // Reset the selected option when switching views
+    if (value === "timeframe") {
+      setSelectedTimeframe("last-month");
+    } else {
+      setSelectedCall("call-1");
+    }
+  };
   
   return (
     <div className="min-h-screen bg-white">
@@ -117,7 +138,7 @@ const SkillsProgress: React.FC = () => {
             <div className="flex flex-col md:flex-row gap-3 mt-4 md:mt-0">
               <div className="flex items-center">
                 <span className="text-sm text-gray-600 mr-2">View:</span>
-                <Select value={selectedView} onValueChange={setSelectedView}>
+                <Select value={selectedView} onValueChange={handleViewChange}>
                   <SelectTrigger className="w-[160px]">
                     <SelectValue placeholder="Select view" />
                   </SelectTrigger>
@@ -132,19 +153,39 @@ const SkillsProgress: React.FC = () => {
               </div>
               
               <div className="flex items-center">
-                <span className="text-sm text-gray-600 mr-2">Timeframe:</span>
-                <Select value={selectedTimeframe} onValueChange={setSelectedTimeframe}>
-                  <SelectTrigger className="w-[160px]">
-                    <SelectValue placeholder="Select timeframe" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {timeframeOptions.map(option => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <span className="text-sm text-gray-600 mr-2">
+                  {selectedView === "timeframe" ? "Timeframe:" : "Call:"}
+                </span>
+                {selectedView === "timeframe" ? (
+                  <Select value={selectedTimeframe} onValueChange={setSelectedTimeframe}>
+                    <SelectTrigger className="w-[160px]">
+                      <SelectValue placeholder="Select timeframe" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeframeOptions.map(option => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Select value={selectedCall} onValueChange={setSelectedCall}>
+                    <SelectTrigger className="w-[280px]">
+                      <SelectValue placeholder="Select call" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {callOptions.map(option => (
+                        <SelectItem key={option.value} value={option.value}>
+                          <div className="flex flex-col">
+                            <span>{option.label}</span>
+                            <span className="text-xs text-gray-500">{option.date}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               </div>
             </div>
           </div>
@@ -179,6 +220,25 @@ const SkillsProgress: React.FC = () => {
                 Communication Competency
               </ToggleGroupItem>
             </ToggleGroup>
+          </div>
+          
+          {/* Display context information based on selection */}
+          <div className="mb-4 text-center">
+            {selectedView === "timeframe" ? (
+              <p className="text-sm text-gray-600">
+                Showing skills progress for: <span className="font-medium">{
+                  timeframeOptions.find(option => option.value === selectedTimeframe)?.label
+                }</span>
+              </p>
+            ) : (
+              <p className="text-sm text-gray-600">
+                Showing skills assessment for call: <span className="font-medium">{
+                  callOptions.find(option => option.value === selectedCall)?.label
+                }</span> on <span className="font-medium">{
+                  callOptions.find(option => option.value === selectedCall)?.date
+                }</span>
+              </p>
+            )}
           </div>
           
           {activeTab === 'overview' && (
