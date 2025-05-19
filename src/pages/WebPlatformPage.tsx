@@ -60,7 +60,7 @@ const WebPlatformPage: React.FC = () => {
       <div className="flex-grow p-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-1">Call Management</h2>
+            
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
