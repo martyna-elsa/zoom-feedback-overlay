@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { Button } from '@/components/ui/button';
-import { Bell, Home, Square, ChevronUp, ChevronDown, MessageSquare } from 'lucide-react';
+import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
@@ -54,50 +53,41 @@ const VideoCallPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       {/* Floating overlay header - positioned absolute with margins */}
-      <div className="absolute top-4 left-8 transform z-30 w-[75%] max-w-2xl">
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg">
         {headerVisible ? (
-          <div className="bg-white/80 backdrop-blur-md p-2 rounded-xl shadow-lg flex justify-between items-center border border-gray-200/30 relative">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 bg-blue-500/10 px-2 py-1 rounded-lg border border-blue-300/20 shadow-sm">
-                <Square className="h-4 w-4 text-blue-500" />
-                <h1 className="text-base font-normal text-gray-700">ELSA Meeting Assistant</h1>
-              </div>
+          <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-6 border border-gray-200/30">
+            <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Toggle 
-                  pressed={facilitatorMode} 
-                  onPressedChange={toggleFacilitatorMode}
-                  aria-label="Toggle facilitator mode"
-                  className="data-[state=on]:bg-blue-500 text-gray-700 h-8"
-                >
-                  <Bell className="h-3.5 w-3.5 mr-1 text-gray-600" />
-                  <span className="text-sm text-gray-700">Facilitator Mode</span>
-                </Toggle>
-                
-                <Toggle
-                  pressed={chatVisible}
-                  onPressedChange={toggleChat}
-                  aria-label="Toggle chat panel"
-                  className="data-[state=on]:bg-blue-500 text-gray-700 h-8"
-                >
-                  <MessageSquare className="h-3.5 w-3.5 mr-1 text-gray-600" />
-                  <span className="text-sm text-gray-700">Chat Panel</span>
-                </Toggle>
+                <span className="text-gray-500 text-sm font-light">18:24</span>
               </div>
+              
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-gray-500 hover:text-gray-700 font-light text-sm px-3"
+              >
+                Ask AI
+              </Button>
             </div>
-            <div className="flex items-center gap-2">
-              <Link to="/">
-                <Button variant="outline" size="sm" className="flex items-center gap-1.5 bg-white/50 border-gray-300/40 text-gray-700 hover:bg-gray-100/60 text-sm">
-                  <Home className="h-3.5 w-3.5" />
-                  Go to Elsa Web
-                </Button>
-              </Link>
+            
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleChat}
+                className="text-gray-500 hover:text-gray-700 font-light text-sm px-3 flex items-center gap-1.5"
+              >
+                {chatVisible ? "Hide" : "Show"}
+                {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+              </Button>
+              
               <Button 
                 variant="ghost" 
                 size="icon" 
-                onClick={toggleHeader} 
-                className="h-7 w-7 rounded-full bg-gray-100/70 hover:bg-gray-200/70"
+                onClick={toggleHeader}
+                className="text-gray-500 hover:text-gray-700 h-7 w-7"
               >
-                <ChevronUp className="h-3.5 w-3.5 text-gray-600" />
+                <Settings className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -106,17 +96,16 @@ const VideoCallPage: React.FC = () => {
             variant="ghost" 
             size="sm" 
             onClick={toggleHeader} 
-            className="flex items-center gap-1 bg-white/80 backdrop-blur-md rounded-md shadow-sm border border-gray-200/30 px-3 py-1.5"
+            className="bg-white/90 backdrop-blur-md rounded-full shadow-sm border border-gray-200/30 px-3 py-1.5"
           >
-            <ChevronDown className="h-3.5 w-3.5 text-gray-600" />
-            <span className="text-sm text-gray-700">Show controls</span>
+            <Settings className="h-3.5 w-3.5 text-gray-500" />
           </Button>
         )}
       </div>
       
       {showNotification && headerVisible && (
-        <div className="absolute top-16 left-8 z-30 w-[75%] max-w-2xl px-4 py-2">
-          <Alert variant="default" className="bg-white/80 backdrop-blur-sm border-blue-200/40 text-gray-700 shadow-sm">
+        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg px-4 py-2">
+          <Alert variant="default" className="bg-white/90 backdrop-blur-sm border-blue-200/40 text-gray-700 shadow-sm">
             <Bell className="h-4 w-4 text-blue-500" />
             <AlertTitle>Unanswered Question</AlertTitle>
             <AlertDescription className="text-gray-600">
