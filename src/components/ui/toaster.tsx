@@ -1,3 +1,4 @@
+
 import { useToast } from "@/hooks/use-toast"
 import {
   Toast,
@@ -6,6 +7,7 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
+  ToastHelp,
 } from "@/components/ui/toast"
 
 export function Toaster() {
@@ -23,6 +25,7 @@ export function Toaster() {
               )}
             </div>
             {action}
+            <ToastHelp />
             <ToastClose />
           </Toast>
         )

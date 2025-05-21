@@ -1,9 +1,10 @@
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import { X, HelpCircle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 
 const ToastProvider = ToastPrimitives.Provider
 
@@ -86,6 +87,36 @@ const ToastClose = React.forwardRef<
 ))
 ToastClose.displayName = ToastPrimitives.Close.displayName
 
+const ToastHelp = React.forwardRef<
+  React.ElementRef<typeof Popover>,
+  React.ComponentPropsWithoutRef<typeof Popover>
+>(({ className, ...props }, ref) => (
+  <Popover>
+    <PopoverTrigger asChild>
+      <button
+        className="absolute right-8 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100"
+        aria-label="Help options"
+      >
+        <HelpCircle className="h-4 w-4" />
+      </button>
+    </PopoverTrigger>
+    <PopoverContent className="w-40 p-0">
+      <div className="flex flex-col divide-y">
+        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+          Answer
+        </button>
+        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+          Explain
+        </button>
+        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+          Ideate
+        </button>
+      </div>
+    </PopoverContent>
+  </Popover>
+))
+ToastHelp.displayName = "ToastHelp"
+
 const ToastTitle = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Title>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
@@ -124,4 +155,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  ToastHelp,
 }
