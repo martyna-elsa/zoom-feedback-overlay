@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChartBar, FileText, History, Home, Settings, Upload, Link as LinkIcon, Info } from 'lucide-react';
+import { ChartBar, FileText, History, Home, Settings, Upload, Link as LinkIcon, Info, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -14,6 +14,7 @@ const WebPlatformPage: React.FC = () => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
   const [showPracticeCallDialog, setShowPracticeCallDialog] = useState(false);
   const [selectedScenario, setSelectedScenario] = useState('client');
+  const [showNotification, setShowNotification] = useState(true);
   const { toast } = useToast();
   
   const handleLinkAccount = () => {
@@ -127,6 +128,35 @@ const WebPlatformPage: React.FC = () => {
           <span>Your Personal Dashboard</span>
         </div>
       </div>
+      
+      {showNotification && (
+        <div className="bg-green-50 border-l-4 border-green-500 p-4">
+          <div className="max-w-6xl mx-auto flex justify-between items-center">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 mt-0.5">
+                <span className="text-lg">🎯</span>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-green-800">Your ELSA Progress Has Been Updated</h3>
+                <div className="mt-1 text-sm text-green-700">
+                  We've updated your ELSA Score and personalized your Learning Path with insights from your latest meeting.
+                  <br />
+                  <a href="#" className="font-medium underline text-green-800 hover:text-green-900">
+                    Open the ELSA App to continue building the skills that matter.
+                  </a>
+                </div>
+              </div>
+            </div>
+            <button 
+              onClick={() => setShowNotification(false)} 
+              className="flex-shrink-0 ml-4 text-green-600 hover:text-green-800"
+              aria-label="Close notification"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+      )}
       
       <div className="flex-grow p-6">
         <div className="max-w-6xl mx-auto">
