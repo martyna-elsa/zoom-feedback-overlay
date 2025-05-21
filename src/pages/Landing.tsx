@@ -288,7 +288,7 @@ const Landing: React.FC = () => {
                 {/* Tagline removed */}
               </div>
               
-              <Tabs defaultValue="general" className="w-full mb-4">
+              <Tabs defaultValue="general" className="w-full mb-2">
                 <TabsList className="mb-4">
                   {/* General tab button removed as requested */}
                 </TabsList>
