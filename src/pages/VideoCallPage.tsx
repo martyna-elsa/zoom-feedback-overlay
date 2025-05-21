@@ -253,7 +253,7 @@ const VideoCallPage: React.FC = () => {
         {/* Changed "Only visible to you" to "Visible to everyone" */}
         <div className="mt-0.5 text-center">
           <span className="text-[10px] text-white/80 bg-black/40 px-1.5 py-0.5 rounded-full backdrop-blur-md">
-            <Users className="h-2.5 w-2.5 inline mr-0.5" /> Visible to everyone
+            <Users className="h-2.5 w-2.5 inline mr-0.5" /> Visible only to you
           </span>
         </div>
       </div>
@@ -305,7 +305,7 @@ const VideoCallPage: React.FC = () => {
         {chatVisible && (
           <div className="absolute top-4 right-4 bottom-20 w-96 z-10 rounded-lg overflow-hidden shadow-xl">
             <div className="bg-black/40 text-white text-xs px-2 py-0.5 rounded-t-lg text-center backdrop-blur-sm">
-              <Users className="h-3 w-3 inline mr-1" /> Visible to everyone
+              <Users className="h-3 w-3 inline mr-1" /> Visible only to you
             </div>
             <ChatPanel />
           </div>
