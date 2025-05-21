@@ -1,10 +1,11 @@
+
 import React, { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users, Check, Star, Award, Info } from 'lucide-react';
+import { MessageSquare, Send, AlertTriangle, Bell, Users, Check, Star, Award, Info } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -120,7 +121,7 @@ const ChatPanel: React.FC = () => {
 
   const getMessageIcon = (message) => {
     if (message.type === 'recommendedReply') {
-      return <MessageCircle className="h-4 w-4 text-purple-600" />;
+      return null; // Removed the MessageCircle icon
     } else if (message.type === 'issue') {
       return <AlertTriangle className="h-4 w-4 text-amber-600" />;
     }
