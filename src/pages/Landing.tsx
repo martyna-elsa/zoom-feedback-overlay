@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -189,15 +188,15 @@ const Landing: React.FC = () => {
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Smart Call Prep Tools</span>
+                            <span>🧠 Strategic Presence Engine: Helps navigate live discussions.</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Skill Progress Dashboard</span>
+                            <span>🔍 Real-Time Intelligence: Surfaces company knowledge on demand.</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Call History & Feedback</span>
+                            <span>💡 On-Demand Ideation: Boosts creativity under pressure.</span>
                           </li>
                         </ul>
                         <Link to="/web-platform">
