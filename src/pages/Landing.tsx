@@ -1,41 +1,12 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal, Settings, Info, Upload, Link as LinkIcon } from 'lucide-react';
-import { 
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { 
-  ChartContainer, 
-  ChartTooltip, 
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent
-} from '@/components/ui/chart';
-import { 
-  LineChart, 
-  Line, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip as RechartsTooltip, 
-  Legend, 
-  ResponsiveContainer,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar
-} from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 import { Badge } from '@/components/ui/badge';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Textarea } from '@/components/ui/textarea';
@@ -44,13 +15,72 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Sample data for learner skills progress
-const skillsData = [
-  { month: 'Jan', pronunciation: 65, grammar: 70, confidence: 60, comprehension: 72, vocabulary: 68, intonation: 63, fluency: 65, negotiation: 70, persuasion: 67, understanding: 74, coherence: 71 },
-  { month: 'Feb', pronunciation: 68, grammar: 72, confidence: 63, comprehension: 75, vocabulary: 70, intonation: 65, fluency: 68, negotiation: 73, persuasion: 70, understanding: 77, coherence: 73 },
-  { month: 'Mar', pronunciation: 72, grammar: 73, confidence: 68, comprehension: 78, vocabulary: 74, intonation: 68, fluency: 71, negotiation: 75, persuasion: 73, understanding: 79, coherence: 75 },
-  { month: 'Apr', pronunciation: 75, grammar: 76, confidence: 72, comprehension: 80, vocabulary: 77, intonation: 71, fluency: 74, negotiation: 78, persuasion: 75, understanding: 81, coherence: 78 },
-  { month: 'May', pronunciation: 78, grammar: 78, confidence: 75, comprehension: 82, vocabulary: 80, intonation: 74, fluency: 77, negotiation: 81, persuasion: 78, understanding: 84, coherence: 80 },
-];
+const skillsData = [{
+  month: 'Jan',
+  pronunciation: 65,
+  grammar: 70,
+  confidence: 60,
+  comprehension: 72,
+  vocabulary: 68,
+  intonation: 63,
+  fluency: 65,
+  negotiation: 70,
+  persuasion: 67,
+  understanding: 74,
+  coherence: 71
+}, {
+  month: 'Feb',
+  pronunciation: 68,
+  grammar: 72,
+  confidence: 63,
+  comprehension: 75,
+  vocabulary: 70,
+  intonation: 65,
+  fluency: 68,
+  negotiation: 73,
+  persuasion: 70,
+  understanding: 77,
+  coherence: 73
+}, {
+  month: 'Mar',
+  pronunciation: 72,
+  grammar: 73,
+  confidence: 68,
+  comprehension: 78,
+  vocabulary: 74,
+  intonation: 68,
+  fluency: 71,
+  negotiation: 75,
+  persuasion: 73,
+  understanding: 79,
+  coherence: 75
+}, {
+  month: 'Apr',
+  pronunciation: 75,
+  grammar: 76,
+  confidence: 72,
+  comprehension: 80,
+  vocabulary: 77,
+  intonation: 71,
+  fluency: 74,
+  negotiation: 78,
+  persuasion: 75,
+  understanding: 81,
+  coherence: 78
+}, {
+  month: 'May',
+  pronunciation: 78,
+  grammar: 78,
+  confidence: 75,
+  comprehension: 82,
+  vocabulary: 80,
+  intonation: 74,
+  fluency: 77,
+  negotiation: 81,
+  persuasion: 78,
+  understanding: 84,
+  coherence: 80
+}];
 
 // Define skill categories
 const CATEGORIES = {
@@ -75,98 +105,171 @@ const skillCategories = {
 };
 
 // Sample data for radar chart
-const radarData = [
-  { name: "Pronunciation", value: 78, category: CATEGORIES.ENGLISH },
-  { name: "Grammar", value: 78, category: CATEGORIES.ENGLISH },
-  { name: "Vocabulary", value: 80, category: CATEGORIES.ENGLISH },
-  { name: "Intonation", value: 74, category: CATEGORIES.ENGLISH },
-  { name: "Fluency", value: 77, category: CATEGORIES.ENGLISH },
-  { name: "Negotiation", value: 81, category: CATEGORIES.SOFT },
-  { name: "Persuasion", value: 78, category: CATEGORIES.SOFT },
-  { name: "Understanding", value: 84, category: CATEGORIES.COMMUNICATION },
-  { name: "Confidence", value: 75, category: CATEGORIES.COMMUNICATION },
-  { name: "Coherence", value: 80, category: CATEGORIES.COMMUNICATION }
-];
+const radarData = [{
+  name: "Pronunciation",
+  value: 78,
+  category: CATEGORIES.ENGLISH
+}, {
+  name: "Grammar",
+  value: 78,
+  category: CATEGORIES.ENGLISH
+}, {
+  name: "Vocabulary",
+  value: 80,
+  category: CATEGORIES.ENGLISH
+}, {
+  name: "Intonation",
+  value: 74,
+  category: CATEGORIES.ENGLISH
+}, {
+  name: "Fluency",
+  value: 77,
+  category: CATEGORIES.ENGLISH
+}, {
+  name: "Negotiation",
+  value: 81,
+  category: CATEGORIES.SOFT
+}, {
+  name: "Persuasion",
+  value: 78,
+  category: CATEGORIES.SOFT
+}, {
+  name: "Understanding",
+  value: 84,
+  category: CATEGORIES.COMMUNICATION
+}, {
+  name: "Confidence",
+  value: 75,
+  category: CATEGORIES.COMMUNICATION
+}, {
+  name: "Coherence",
+  value: 80,
+  category: CATEGORIES.COMMUNICATION
+}];
 
 // Sample data for goals achievement
-const goalsData = [
-  { name: 'Sarah', target: 85, achieved: 78 },
-  { name: 'Michael', target: 80, achieved: 82 },
-  { name: 'Emma', target: 75, achieved: 80 },
-  { name: 'James', target: 90, achieved: 85 },
-  { name: 'Olivia', target: 85, achieved: 88 },
-];
+const goalsData = [{
+  name: 'Sarah',
+  target: 85,
+  achieved: 78
+}, {
+  name: 'Michael',
+  target: 80,
+  achieved: 82
+}, {
+  name: 'Emma',
+  target: 75,
+  achieved: 80
+}, {
+  name: 'James',
+  target: 90,
+  achieved: 85
+}, {
+  name: 'Olivia',
+  target: 85,
+  achieved: 88
+}];
 
 // Sample data for top performing learners
-const topLearners = [
-  { id: 1, name: 'Emma Davis', progress: 94, improvement: '+15%', calls: 24 },
-  { id: 2, name: 'Michael Chen', progress: 92, improvement: '+12%', calls: 18 },
-  { name: 'Sarah Johnson', progress: 89, improvement: '+10%', calls: 22 },
-  { name: 'James Wilson', progress: 87, improvement: '+8%', calls: 20 },
-  { name: 'David Thompson', progress: 85, improvement: '+9%', calls: 16 },
-];
-
+const topLearners = [{
+  id: 1,
+  name: 'Emma Davis',
+  progress: 94,
+  improvement: '+15%',
+  calls: 24
+}, {
+  id: 2,
+  name: 'Michael Chen',
+  progress: 92,
+  improvement: '+12%',
+  calls: 18
+}, {
+  name: 'Sarah Johnson',
+  progress: 89,
+  improvement: '+10%',
+  calls: 22
+}, {
+  name: 'James Wilson',
+  progress: 87,
+  improvement: '+8%',
+  calls: 20
+}, {
+  name: 'David Thompson',
+  progress: 85,
+  improvement: '+9%',
+  calls: 16
+}];
 const chartConfig = {
-  pronunciation: { label: 'Pronunciation', color: '#4f46e5' },
-  grammar: { label: 'Grammar', color: '#0ea5e9' },
-  confidence: { label: 'Confidence', color: '#10b981' },
-  comprehension: { label: 'Comprehension', color: '#f59e0b' },
-  target: { label: 'Target', color: '#6366f1' },
-  achieved: { label: 'Achieved', color: '#10b981' },
-};
-
-const getCategoryColor = (category) => {
-  switch (category) {
-    case CATEGORIES.ENGLISH:
-      return "#3b82f6"; // blue
-    case CATEGORIES.SOFT:
-      return "#10b981"; // green
-    case CATEGORIES.COMMUNICATION:
-      return "#8b5cf6"; // purple
-    default:
-      return "#6b7280"; // gray
+  pronunciation: {
+    label: 'Pronunciation',
+    color: '#4f46e5'
+  },
+  grammar: {
+    label: 'Grammar',
+    color: '#0ea5e9'
+  },
+  confidence: {
+    label: 'Confidence',
+    color: '#10b981'
+  },
+  comprehension: {
+    label: 'Comprehension',
+    color: '#f59e0b'
+  },
+  target: {
+    label: 'Target',
+    color: '#6366f1'
+  },
+  achieved: {
+    label: 'Achieved',
+    color: '#10b981'
   }
 };
-
+const getCategoryColor = category => {
+  switch (category) {
+    case CATEGORIES.ENGLISH:
+      return "#3b82f6";
+    // blue
+    case CATEGORIES.SOFT:
+      return "#10b981";
+    // green
+    case CATEGORIES.COMMUNICATION:
+      return "#8b5cf6";
+    // purple
+    default:
+      return "#6b7280";
+    // gray
+  }
+};
 const categoryLabels = {
   [CATEGORIES.ENGLISH]: "English Proficiency",
   [CATEGORIES.SOFT]: "Soft Skills",
   [CATEGORIES.COMMUNICATION]: "Communication Competency"
 };
-
 const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("general");
   const [webPlatformDialogOpen, setWebPlatformDialogOpen] = useState<boolean>(false);
   const [copilotDialogOpen, setCopilotDialogOpen] = useState<boolean>(false);
-  
+
   // Filter radar data without categories selection
   const filteredRadarData = radarData;
-  
+
   // Get all skills without filtering
   const getFilteredSkills = () => {
     return Object.keys(skillCategories);
   };
-  
   const filteredSkills = getFilteredSkills();
-  
+
   // Calculate total proficiency score
-  const totalProficiency = Math.round(
-    radarData.reduce((sum, item) => sum + item.value, 0) / radarData.length
-  );
-  
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
+  const totalProficiency = Math.round(radarData.reduce((sum, item) => sum + item.value, 0) / radarData.length);
+  return <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
       <div className="bg-white p-3 shadow-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold">ELSA Platform</h1>
           <div>
-            <Button 
-              variant={showAdminSection ? "default" : "outline"}
-              className="mr-2"
-              onClick={() => setShowAdminSection(!showAdminSection)}
-            >
+            <Button variant={showAdminSection ? "default" : "outline"} className="mr-2" onClick={() => setShowAdminSection(!showAdminSection)}>
               {showAdminSection ? "Hide Admin View" : "Show Admin View"}
             </Button>
           </div>
@@ -175,15 +278,10 @@ const Landing: React.FC = () => {
       
       <div className="flex-grow flex items-center justify-center pt-4 pb-16">
         <div className="max-w-6xl w-full px-4">
-          {!showAdminSection ? (
-            <>
+          {!showAdminSection ? <>
               <div className="text-center mb-6">
                 <div className="flex justify-center mb-2">
-                  <img 
-                    src="/lovable-uploads/ac25a11a-4252-4d7c-9f4b-5bad76e27357.png" 
-                    alt="ELSA Logo" 
-                    className="h-24" 
-                  />
+                  <img src="/lovable-uploads/ac25a11a-4252-4d7c-9f4b-5bad76e27357.png" alt="ELSA Logo" className="h-24" />
                 </div>
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
@@ -203,12 +301,7 @@ const Landing: React.FC = () => {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon" 
-                                  className="h-8 w-8 text-white hover:bg-blue-700"
-                                  onClick={() => setWebPlatformDialogOpen(true)}
-                                >
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-blue-700" onClick={() => setWebPlatformDialogOpen(true)}>
                                   <Info className="h-5 w-5" />
                                 </Button>
                               </TooltipTrigger>
@@ -277,12 +370,7 @@ const Landing: React.FC = () => {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon" 
-                                  className="h-8 w-8 text-white hover:bg-indigo-700"
-                                  onClick={() => setCopilotDialogOpen(true)}
-                                >
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-indigo-700" onClick={() => setCopilotDialogOpen(true)}>
                                   <Info className="h-5 w-5" />
                                 </Button>
                               </TooltipTrigger>
@@ -320,38 +408,20 @@ const Landing: React.FC = () => {
                   </div>
                 </TabsContent>
               </Tabs>
-            </>
-          ) : (
-            <div className="max-w-6xl mx-auto">
+            </> : <div className="max-w-6xl mx-auto">
               <div className="mb-6 flex justify-between items-center">
                 <h2 className="text-2xl font-semibold">Learner Performance Overview</h2>
                 <div className="flex gap-2">
-                  <Button 
-                    variant={timeRange === '1month' ? "default" : "outline"} 
-                    size="sm"
-                    onClick={() => setTimeRange('1month')}
-                  >
+                  <Button variant={timeRange === '1month' ? "default" : "outline"} size="sm" onClick={() => setTimeRange('1month')}>
                     1 Month
                   </Button>
-                  <Button 
-                    variant={timeRange === '3months' ? "default" : "outline"} 
-                    size="sm"
-                    onClick={() => setTimeRange('3months')}
-                  >
+                  <Button variant={timeRange === '3months' ? "default" : "outline"} size="sm" onClick={() => setTimeRange('3months')}>
                     3 Months
                   </Button>
-                  <Button 
-                    variant={timeRange === '6months' ? "default" : "outline"} 
-                    size="sm"
-                    onClick={() => setTimeRange('6months')}
-                  >
+                  <Button variant={timeRange === '6months' ? "default" : "outline"} size="sm" onClick={() => setTimeRange('6months')}>
                     6 Months
                   </Button>
-                  <Button 
-                    variant={timeRange === '1year' ? "default" : "outline"} 
-                    size="sm"
-                    onClick={() => setTimeRange('1year')}
-                  >
+                  <Button variant={timeRange === '1year' ? "default" : "outline"} size="sm" onClick={() => setTimeRange('1year')}>
                     1 Year
                   </Button>
                 </div>
@@ -399,24 +469,16 @@ const Landing: React.FC = () => {
                     <div>
                       <CardTitle>Skills Development Over Time</CardTitle>
                       <div className="mt-2 flex flex-wrap gap-2">
-                        {Object.entries(categoryLabels).map(([category, label]) => (
-                          <Badge 
-                            key={category}
-                            variant="outline" 
-                            className="flex items-center gap-1"
-                            style={{
-                              backgroundColor: `${getCategoryColor(category)}10`,
-                              borderColor: `${getCategoryColor(category)}40`,
-                              color: getCategoryColor(category)
-                            }}
-                          >
-                            <span 
-                              className="w-2 h-2 rounded-full" 
-                              style={{ backgroundColor: getCategoryColor(category) }}
-                            ></span>
+                        {Object.entries(categoryLabels).map(([category, label]) => <Badge key={category} variant="outline" className="flex items-center gap-1" style={{
+                      backgroundColor: `${getCategoryColor(category)}10`,
+                      borderColor: `${getCategoryColor(category)}40`,
+                      color: getCategoryColor(category)
+                    }}>
+                            <span className="w-2 h-2 rounded-full" style={{
+                        backgroundColor: getCategoryColor(category)
+                      }}></span>
                             {label}
-                          </Badge>
-                        ))}
+                          </Badge>)}
                       </div>
                     </div>
                     <Card className="p-2">
@@ -435,38 +497,30 @@ const Landing: React.FC = () => {
                         <XAxis dataKey="month" />
                         <YAxis domain={[55, 85]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Legend 
-                          layout="vertical" 
-                          verticalAlign="middle" 
-                          align="right"
-                          formatter={(value) => {
-                            // Map skill keys to their full readable names
-                            const skillNames = {
-                              pronunciation: "Pronunciation",
-                              grammar: "Grammar",
-                              vocabulary: "Vocabulary",
-                              intonation: "Intonation",
-                              fluency: "Fluency",
-                              negotiation: "Negotiation",
-                              persuasion: "Persuasion",
-                              understanding: "Understanding",
-                              confidence: "Confidence",
-                              coherence: "Coherence",
-                              comprehension: "Comprehension"
-                            };
-                            return skillNames[value] || value;
-                          }}
-                        />
+                        <Legend layout="vertical" verticalAlign="middle" align="right" formatter={value => {
+                      // Map skill keys to their full readable names
+                      const skillNames = {
+                        pronunciation: "Pronunciation",
+                        grammar: "Grammar",
+                        vocabulary: "Vocabulary",
+                        intonation: "Intonation",
+                        fluency: "Fluency",
+                        negotiation: "Negotiation",
+                        persuasion: "Persuasion",
+                        understanding: "Understanding",
+                        confidence: "Confidence",
+                        coherence: "Coherence",
+                        comprehension: "Comprehension"
+                      };
+                      return skillNames[value] || value;
+                    }} />
                         
                         {/* Render all lines since we're not filtering anymore */}
-                        <Line 
-                          type="monotone" 
-                          dataKey="pronunciation" 
-                          stroke="#3b82f6" 
-                          strokeWidth={2} 
-                          dot={{ r: 4 }} 
-                          activeDot={{ r: 6 }}
-                        />
+                        <Line type="monotone" dataKey="pronunciation" stroke="#3b82f6" strokeWidth={2} dot={{
+                      r: 4
+                    }} activeDot={{
+                      r: 6
+                    }} />
                         <Line type="monotone" dataKey="grammar" stroke="#60a5fa" strokeWidth={2} />
                         <Line type="monotone" dataKey="vocabulary" stroke="#93c5fd" strokeWidth={2} />
                         <Line type="monotone" dataKey="intonation" stroke="#bae6fd" strokeWidth={2} />
@@ -492,16 +546,15 @@ const Landing: React.FC = () => {
                         <ResponsiveContainer width="100%" height="100%">
                           <RadarChart cx="50%" cy="50%" outerRadius="80%" data={filteredRadarData}>
                             <PolarGrid stroke="#e5e7eb" />
-                            <PolarAngleAxis dataKey="name" tick={{ fill: "#6b7280", fontSize: 12 }} />
-                            <PolarRadiusAxis domain={[0, 100]} tick={{ fill: "#6b7280" }} />
+                            <PolarAngleAxis dataKey="name" tick={{
+                          fill: "#6b7280",
+                          fontSize: 12
+                        }} />
+                            <PolarRadiusAxis domain={[0, 100]} tick={{
+                          fill: "#6b7280"
+                        }} />
                             <RechartsTooltip />
-                            <Radar
-                              name="Current Level"
-                              dataKey="value"
-                              stroke="#3b82f6"
-                              fill="#3b82f6"
-                              fillOpacity={0.6}
-                            />
+                            <Radar name="Current Level" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
                           </RadarChart>
                         </ResponsiveContainer>
                       </div>
@@ -517,10 +570,12 @@ const Landing: React.FC = () => {
                     <CardContent className="h-80">
                       <div className="w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
-                          <BarChart
-                            data={goalsData}
-                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                          >
+                          <BarChart data={goalsData} margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 5
+                      }}>
                             <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                             <XAxis dataKey="name" />
                             <YAxis domain={[0, 100]} />
@@ -547,48 +602,36 @@ const Landing: React.FC = () => {
                         <tr className="border-b">
                           <th className="text-left p-2 font-medium">Rank</th>
                           <th className="text-left p-2 font-medium">Name</th>
-                          <th className="text-left p-2 font-medium">Progress</th>
-                          <th className="text-left p-2 font-medium">Improvement</th>
+                          <th className="text-left p-2 font-medium">Skills Progress</th>
+                          <th className="text-left p-2 font-medium">Skills Improvement</th>
                           <th className="text-left p-2 font-medium">Total Calls</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {topLearners.map((learner, index) => (
-                          <tr key={index} className="border-b hover:bg-gray-50">
+                        {topLearners.map((learner, index) => <tr key={index} className="border-b hover:bg-gray-50">
                             <td className="p-2 flex items-center gap-2">
-                              {index === 0 ? (
-                                <Medal className="h-4 w-4 text-yellow-500" />
-                              ) : index === 1 ? (
-                                <Medal className="h-4 w-4 text-gray-400" />
-                              ) : index === 2 ? (
-                                <Medal className="h-4 w-4 text-amber-700" />
-                              ) : (
-                                <span className="text-sm text-gray-500">{index + 1}</span>
-                              )}
+                              {index === 0 ? <Medal className="h-4 w-4 text-yellow-500" /> : index === 1 ? <Medal className="h-4 w-4 text-gray-400" /> : index === 2 ? <Medal className="h-4 w-4 text-amber-700" /> : <span className="text-sm text-gray-500">{index + 1}</span>}
                             </td>
                             <td className="p-2">{learner.name}</td>
                             <td className="p-2">
                               <div className="flex items-center gap-2">
                                 <div className="w-full max-w-24 bg-gray-200 rounded-full h-2">
-                                  <div 
-                                    className="bg-blue-600 h-2 rounded-full" 
-                                    style={{ width: `${learner.progress}%` }}
-                                  ></div>
+                                  <div className="bg-blue-600 h-2 rounded-full" style={{
+                              width: `${learner.progress}%`
+                            }}></div>
                                 </div>
                                 <span className="text-sm">{learner.progress}%</span>
                               </div>
                             </td>
                             <td className="p-2 text-green-600">{learner.improvement}</td>
                             <td className="p-2">{learner.calls}</td>
-                          </tr>
-                        ))}
+                          </tr>)}
                       </tbody>
                     </table>
                   </div>
                 </CardContent>
               </Card>
-            </div>
-          )}
+            </div>}
         </div>
       </div>
       
@@ -685,8 +728,8 @@ const Landing: React.FC = () => {
                         <p className="italic text-indigo-800">During discussion: "James pushed back hard on the pricing model."</p>
                         <div className="mt-2">
                           <p className="font-medium text-indigo-800">ELSA suggests:</p>
-                          <p className="text-indigo-800">"James is not aligned on the pricing — flag for follow-up.<br/>
-                          Sandra remained neutral.<br/>
+                          <p className="text-indigo-800">"James is not aligned on the pricing — flag for follow-up.<br />
+                          Sandra remained neutral.<br />
                           Ling showed early support."</p>
                         </div>
                       </div>
@@ -824,8 +867,6 @@ const Landing: React.FC = () => {
           &copy; 2025 ELSA Platform. All rights reserved.
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing;
