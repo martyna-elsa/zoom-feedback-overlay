@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -177,6 +178,11 @@ const WebPlatformPage: React.FC = () => {
                         <p className="text-sm text-gray-600 mb-4">
                           Rehearse important conversations and get AI feedback on your language skills.
                         </p>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700">
+                            🌀 Practice Calls
+                          </Badge>
+                        </div>
                       </div>
                       <div className="p-4">
                         <Button 
