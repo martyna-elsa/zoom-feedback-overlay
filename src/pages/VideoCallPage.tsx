@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -309,7 +308,11 @@ const VideoCallPage: React.FC = () => {
             <Bell className="h-4 w-4 text-blue-500" />
             <AlertTitle>Agenda</AlertTitle>
             <AlertDescription className="text-gray-600">
-              There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
+              Introduction and rapport building ✅<br />
+              Overview of their business challenges ✅<br />
+              Discussion of pain points and needs ❌<br />
+              Brief introduction to your solution ✅<br />
+              Next steps and scheduling follow-up ✅
             </AlertDescription>
           </Alert>
         </div>
@@ -326,7 +329,11 @@ const VideoCallPage: React.FC = () => {
               Agenda {facilitatorVisibleToAll && <span className="text-xs font-normal ml-2">(Visible to everyone)</span>}
             </AlertTitle>
             <AlertDescription className={facilitatorVisibleToAll ? '' : 'text-gray-600'}>
-              There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
+              Introduction and rapport building ✅<br />
+              Overview of their business challenges ✅<br />
+              Discussion of pain points and needs ❌<br />
+              Brief introduction to your solution ✅<br />
+              Next steps and scheduling follow-up ✅
             </AlertDescription>
           </Alert>
         </div>
