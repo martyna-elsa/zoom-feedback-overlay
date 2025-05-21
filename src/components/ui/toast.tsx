@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -90,7 +91,7 @@ ToastClose.displayName = ToastPrimitives.Close.displayName
 const ToastHelp = React.forwardRef<
   React.ElementRef<typeof Popover>,
   React.ComponentPropsWithoutRef<typeof Popover>
->(({ className, ...props }, ref) => (
+>((props, ref) => (
   <Popover>
     <PopoverTrigger asChild>
       <button
@@ -101,14 +102,14 @@ const ToastHelp = React.forwardRef<
       </button>
     </PopoverTrigger>
     <PopoverContent className="w-40 p-0">
-      <div className="flex flex-col divide-y">
-        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+      <div className="flex flex-col">
+        <button className="px-4 py-3 text-sm font-medium text-left hover:bg-blue-50 text-blue-600 transition-colors">
           Answer
         </button>
-        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+        <button className="px-4 py-3 text-sm font-medium text-left hover:bg-blue-50 text-blue-600 transition-colors">
           Explain
         </button>
-        <button className="px-3 py-2 text-sm text-left hover:bg-gray-100 transition-colors">
+        <button className="px-4 py-3 text-sm font-medium text-left hover:bg-blue-50 text-blue-600 transition-colors">
           Ideate
         </button>
       </div>
