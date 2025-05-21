@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
@@ -163,7 +164,7 @@ const VideoCallPage: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-2">
-              {/* Help button with popover */}
+              {/* Help button with popover - UPDATED CONTENT */}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -176,13 +177,23 @@ const VideoCallPage: React.FC = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-64 text-xs p-3">
-                  <h4 className="font-medium mb-1">Quick Help</h4>
-                  <ul className="space-y-1">
-                    <li><span className="font-medium">Facilitator:</span> Enable/disable facilitator mode</li>
-                    <li><span className="font-medium">Chat:</span> Show/hide the chat panel</li>
-                    <li><span className="font-medium">Settings:</span> Access call settings</li>
-                    <li><span className="font-medium">Elsa:</span> Return to Elsa platform</li>
-                  </ul>
+                  <div className="flex flex-col gap-2">
+                    <Button 
+                      className="w-full justify-start bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100"
+                    >
+                      Answer
+                    </Button>
+                    <Button 
+                      className="w-full justify-start bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100"
+                    >
+                      Explain
+                    </Button>
+                    <Button 
+                      className="w-full justify-start bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100"
+                    >
+                      Ideate
+                    </Button>
+                  </div>
                 </PopoverContent>
               </Popover>
               
