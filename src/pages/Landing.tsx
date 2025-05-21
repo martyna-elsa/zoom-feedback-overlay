@@ -396,6 +396,10 @@ const Landing: React.FC = () => {
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
                             <span>💡 On-Demand Ideation</span>
                           </li>
+                          <li className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            <span>📘 English Communication Coach</span>
+                          </li>
                         </ul>
                         <Link to="/video-call">
                           <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
