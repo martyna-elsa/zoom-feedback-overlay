@@ -4,6 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChartBar, Download, Home, Star, Users, TrendingUp, Award, Medal, SlidersHorizontal, Settings, Info, Upload, Link as LinkIcon } from 'lucide-react';
 import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { 
   ChartContainer, 
   ChartTooltip, 
   ChartTooltipContent,
@@ -18,7 +26,7 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  Tooltip, 
+  Tooltip as RechartsTooltip, 
   Legend, 
   ResponsiveContainer,
   RadarChart,
@@ -129,6 +137,8 @@ const Landing: React.FC = () => {
   const [timeRange, setTimeRange] = useState<string>('3months');
   const [showAdminSection, setShowAdminSection] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("general");
+  const [webPlatformDialogOpen, setWebPlatformDialogOpen] = useState<boolean>(false);
+  const [copilotDialogOpen, setCopilotDialogOpen] = useState<boolean>(false);
   
   // Filter radar data without categories selection
   const filteredRadarData = radarData;
@@ -181,7 +191,26 @@ const Landing: React.FC = () => {
                     {/* ELSA Web Platform Card */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-blue-800 p-6">
-                        <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="h-8 w-8 text-white hover:bg-blue-700"
+                                  onClick={() => setWebPlatformDialogOpen(true)}
+                                >
+                                  <Info className="h-5 w-5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>More information</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
                         <p className="text-blue-100">Track your progress, review past calls, and get ready to shine.</p>
                       </div>
                       <div className="p-6">
@@ -217,10 +246,6 @@ const Landing: React.FC = () => {
                                   <span className="mr-2">✅</span>
                                   <span>Action Summary Generator</span>
                                 </div>
-                                <div className="flex items-start">
-                                  <span className="mr-2">📊</span>
-                                  <span>Skills Assessment</span>
-                                </div>
                               </div>
                             </div>
                           </li>
@@ -236,7 +261,26 @@ const Landing: React.FC = () => {
                     {/* ELSA Copilot Card */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-indigo-800 p-6">
-                        <h3 className="text-2xl font-semibold text-white mb-2">ELSA Copilot</h3>
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-2xl font-semibold text-white mb-2">ELSA Copilot</h3>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="h-8 w-8 text-white hover:bg-indigo-700"
+                                  onClick={() => setCopilotDialogOpen(true)}
+                                >
+                                  <Info className="h-5 w-5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>More information</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
                         <p className="text-indigo-100">Get live AI support to boost your video call performance.</p>
                       </div>
                       <div className="p-6">
@@ -267,7 +311,6 @@ const Landing: React.FC = () => {
               </Tabs>
             </>
           ) : (
-            // Admin Dashboard Content
             <div className="max-w-6xl mx-auto">
               <div className="mb-6 flex justify-between items-center">
                 <h2 className="text-2xl font-semibold">Learner Performance Overview</h2>
@@ -440,7 +483,7 @@ const Landing: React.FC = () => {
                             <PolarGrid stroke="#e5e7eb" />
                             <PolarAngleAxis dataKey="name" tick={{ fill: "#6b7280", fontSize: 12 }} />
                             <PolarRadiusAxis domain={[0, 100]} tick={{ fill: "#6b7280" }} />
-                            <Tooltip />
+                            <RechartsTooltip />
                             <Radar
                               name="Current Level"
                               dataKey="value"
@@ -470,7 +513,7 @@ const Landing: React.FC = () => {
                             <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                             <XAxis dataKey="name" />
                             <YAxis domain={[0, 100]} />
-                            <Tooltip />
+                            <RechartsTooltip />
                             <Legend />
                             <Bar dataKey="target" name="Target" fill="#6366f1" radius={[4, 4, 0, 0]} />
                             <Bar dataKey="achieved" name="Achieved" fill="#10b981" radius={[4, 4, 0, 0]} />
@@ -537,6 +580,172 @@ const Landing: React.FC = () => {
           )}
         </div>
       </div>
+      
+      {/* Web Platform Info Dialog */}
+      <Dialog open={webPlatformDialogOpen} onOpenChange={setWebPlatformDialogOpen}>
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-blue-800">ELSA Web Platform Features</DialogTitle>
+            <DialogDescription>
+              Enhance your meeting preparation and follow-up with these powerful tools
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 py-4">
+            {/* Before the meeting section */}
+            <div>
+              <h3 className="text-xl font-semibold text-blue-700 mb-3">Before the Meeting</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-blue-100 p-2 rounded-lg">
+                      <span className="text-xl">✨</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-blue-900">Memory Whisperer</h4>
+                      <p className="text-gray-600">Never forget important details from past meetings and conversations.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-blue-100 p-2 rounded-lg">
+                      <span className="text-xl">📍</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-blue-900">Meeting Agenda Assistant (New)</h4>
+                      <p className="text-gray-600">Start focused. Arrive prepared.</p>
+                      <div className="mt-2 bg-blue-100 p-3 rounded-md">
+                        <p className="font-medium text-blue-800">Whispr suggests agenda items based on past meetings, Slack threads, and calendar invites.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-blue-100 p-2 rounded-lg">
+                      <span className="text-xl">🌀</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-blue-900">Practice Calls</h4>
+                      <p className="text-gray-600">Rehearse important conversations and get AI feedback on your language skills.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* After the meeting section */}
+            <div>
+              <h3 className="text-xl font-semibold text-indigo-700 mb-3">After the Meeting</h3>
+              <div className="space-y-4">
+                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-indigo-100 p-2 rounded-lg">
+                      <span className="text-xl">🗺️</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo-900">Post-Meeting Influence Map</h4>
+                      <p className="text-gray-600">Get clear action items and insights about stakeholder positions.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-indigo-100 p-2 rounded-lg">
+                      <span className="text-xl">✅</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo-900">Action Summary Generator (New)</h4>
+                      <p className="text-gray-600">Auto-generate clear next steps from any meeting.</p>
+                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                        <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                        <ul className="list-disc pl-5 mt-2 text-indigo-800">
+                          <li>Anna to share pricing model by Tuesday</li>
+                          <li>Team to review campaign brief by Friday</li>
+                          <li>Schedule follow-up on June 12</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Copilot Info Dialog */}
+      <Dialog open={copilotDialogOpen} onOpenChange={setCopilotDialogOpen}>
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-indigo-800">ELSA Copilot Features</DialogTitle>
+            <DialogDescription>
+              Get real-time AI support during your video calls
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 py-4">
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <span className="text-xl">🧠</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-indigo-900">Strategic Presence Engine</h4>
+                  <p className="text-gray-600">Read the room and adapt your communication for maximum impact.</p>
+                  <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                    <p className="italic text-indigo-800">"Discussion turns contentious over budget allocation."</p>
+                    <div className="mt-2">
+                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="text-indigo-800">"Pause now — your boss just took a strong stance. Suggest a bridging statement instead of pushing back."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <span className="text-xl">🔍</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-indigo-900">Real-Time Intelligence</h4>
+                  <p className="text-gray-600">Get instant answers to tough questions by tapping into your company's knowledge base.</p>
+                  <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                    <p className="italic text-indigo-800">"Your boss asks, "What's our churn rate in Vietnam last quarter?""</p>
+                    <div className="mt-2">
+                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="text-indigo-800">"Churn dropped to 5.3%, mostly due to the March voice feedback launch."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <span className="text-xl">💡</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-indigo-900">On-Demand Ideation</h4>
+                  <p className="text-gray-600">Quickly generate creative solutions and ideas during critical discussions.</p>
+                  <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                    <p className="italic text-indigo-800">"The CMO says, "Any campaign ideas for India?""</p>
+                    <div className="mt-2">
+                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="text-indigo-800">"Run a YouTube Shorts pronunciation challenge with regional influencers—mirrors our Vietnam success."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       
       <div className="bg-white py-4">
         <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
