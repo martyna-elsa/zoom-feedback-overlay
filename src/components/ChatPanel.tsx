@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
-import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users, Check, Star, Award, Info } from 'lucide-react';
+import { MessageSquare, Send, AlertTriangle, MessageCircle, Bell, Users, Check, Star, Award, Info, Search } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -69,6 +69,15 @@ const feedbackAndIssues = [
   }
 ];
 
+// Internal data
+const internalData = [
+  {
+    id: 1,
+    type: 'internalData',
+    message: "We can provide 20% discount for purchase above $50,000.",
+  }
+];
+
 const ChatPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState('conversation');
   const [message, setMessage] = useState('');
@@ -98,6 +107,8 @@ const ChatPanel: React.FC = () => {
       return 'bg-pink-50 border-l-4 border-pink-400 px-3';
     } else if (message.type === 'issue') {
       return 'bg-blue-50 border-l-4 border-blue-400 px-3';
+    } else if (message.type === 'internalData') {
+      return 'bg-gray-50 border-l-4 border-gray-400 px-3';
     } else if (message.type === 'rep') {
       return 'bg-blue-100 rounded-tl-lg rounded-bl-lg rounded-br-lg';
     } else {
@@ -123,6 +134,8 @@ const ChatPanel: React.FC = () => {
       return <MessageCircle className="h-4 w-4 text-purple-600" />;
     } else if (message.type === 'issue') {
       return <AlertTriangle className="h-4 w-4 text-blue-600" />;
+    } else if (message.type === 'internalData') {
+      return <Search className="h-4 w-4 text-gray-600" />;
     }
     return null;
   };
@@ -164,6 +177,29 @@ const ChatPanel: React.FC = () => {
                     </div>
                   </div>
                 ))}
+              
+              {/* Internal Data heading - New section in grey */}
+              {internalData.length > 0 && (
+                <div className="mb-1 mt-2 bg-gray-100 p-1 rounded">
+                  <h3 className="text-sm font-medium text-gray-600 flex items-center">
+                    <span className="mr-1">🔍</span>
+                    Your Internal Data
+                  </h3>
+                </div>
+              )}
+              
+              {/* Internal Data items */}
+              {internalData.map((item) => (
+                <div key={item.id} className="flex items-start gap-1 mb-2">
+                  {getMessageIcon(item)}
+                  
+                  <div className="flex-grow">
+                    <div className={`p-1.5 ${getMessageStyle(item)}`}>
+                      <p className="text-sm">{item.message}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
               
               {/* Miscommunication Detected heading - Changed from amber to dark blue */}
               {feedbackAndIssues.some(item => item.type === 'issue') && (
