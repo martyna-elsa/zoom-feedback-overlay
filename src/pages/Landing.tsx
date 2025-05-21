@@ -603,6 +603,13 @@ const Landing: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-blue-900">Memory Whisperer</h4>
                       <p className="text-gray-600">Never forget important details from past meetings and conversations.</p>
+                      <div className="mt-2 bg-blue-100 p-3 rounded-md">
+                        <p className="italic text-blue-800">PM asks, "Didn't we commit to that change last week?"</p>
+                        <div className="mt-2">
+                          <p className="font-medium text-blue-800">ELSA suggests:</p>
+                          <p className="text-blue-800">"Yes — you agreed to update the onboarding flow by this Friday."</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -616,7 +623,18 @@ const Landing: React.FC = () => {
                       <h4 className="font-semibold text-blue-900">Meeting Agenda Assistant (New)</h4>
                       <p className="text-gray-600">Start focused. Arrive prepared.</p>
                       <div className="mt-2 bg-blue-100 p-3 rounded-md">
-                        <p className="font-medium text-blue-800">ELSA suggests agenda items based on past meetings, Slack threads, and calendar invites.</p>
+                        <p className="italic text-blue-800">Calendar invite says: "Weekly Ops Review"</p>
+                        <p className="italic text-blue-800">Recent Slack mentions: "Bring up the API delay and vendor issue."</p>
+                        <div className="mt-2">
+                          <p className="font-medium text-blue-800">ELSA suggests:</p>
+                          <p className="text-blue-800">"Suggested agenda:</p>
+                          <ul className="list-disc pl-5 mt-2 text-blue-800">
+                            <li>Review team KPIs</li>
+                            <li>Address vendor delay</li>
+                            <li>Update on API progress</li>
+                            <li>Hiring status"</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -648,6 +666,15 @@ const Landing: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-indigo-900">Post-Meeting Influence Map</h4>
                       <p className="text-gray-600">Get clear action items and insights about stakeholder positions.</p>
+                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                        <p className="italic text-indigo-800">During discussion: "James pushed back hard on the pricing model."</p>
+                        <div className="mt-2">
+                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
+                          <p className="text-indigo-800">"James is not aligned on the pricing — flag for follow-up.<br/>
+                          Sandra remained neutral.<br/>
+                          Ling showed early support."</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -659,14 +686,18 @@ const Landing: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-indigo-900">Action Summary Generator (New)</h4>
-                      <p className="text-gray-600">Auto-generate clear next steps from any meeting.</p>
+                      <p className="text-gray-600">Auto-generate next steps and responsibilities.</p>
                       <div className="mt-2 bg-indigo-100 p-3 rounded-md">
-                        <p className="font-medium text-indigo-800">ELSA suggests:</p>
-                        <ul className="list-disc pl-5 mt-2 text-indigo-800">
-                          <li>Anna to share pricing model by Tuesday</li>
-                          <li>Team to review campaign brief by Friday</li>
-                          <li>Schedule follow-up on June 12</li>
-                        </ul>
+                        <p className="italic text-indigo-800">Meeting ends with several unresolved threads.</p>
+                        <div className="mt-2">
+                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
+                          <p className="text-indigo-800">"Next Steps:</p>
+                          <ul className="list-disc pl-5 mt-2 text-indigo-800">
+                            <li>Anna to send product brief by Tuesday</li>
+                            <li>Raj to confirm ad budget by Thursday</li>
+                            <li>Team to reconvene on June 2 at 3 PM"</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
