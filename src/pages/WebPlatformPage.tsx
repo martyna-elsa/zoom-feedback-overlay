@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -140,80 +139,89 @@ const WebPlatformPage: React.FC = () => {
               </TabsList>
               
               <TabsContent value="insights" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
-                  <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-                    <div className="p-6 border-b border-gray-100">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg font-medium">Call History</h3>
-                        <History className="h-5 w-5 text-blue-600" />
+                {/* Before the Meeting Section */}
+                <div className="mt-6">
+                  <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b pb-2">Before the Meeting</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+                      <div className="p-6 border-b border-gray-100">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-lg font-medium">Call Setup</h3>
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <p className="text-sm text-gray-600 mb-4">
+                          Create briefs, set goals, and prepare talking points for upcoming calls.
+                        </p>
                       </div>
-                      <p className="text-sm text-gray-600 mb-4">
-                        Review past calls, analyze feedback, and track improvement over time.
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <Link to="/call-history">
-                        <Button variant="outline" className="w-full">View Call History</Button>
-                      </Link>
-                    </div>
-                  </Card>
-                  
-                  <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-                    <div className="p-6 border-b border-gray-100">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg font-medium">Call Setup</h3>
-                        <FileText className="h-5 w-5 text-blue-600" />
+                      <div className="p-4">
+                        <Link to="/call-preparation">
+                          <Button variant="outline" className="w-full">Set up Call</Button>
+                        </Link>
                       </div>
-                      <p className="text-sm text-gray-600 mb-4">
-                        Create briefs, set goals, and prepare talking points for upcoming calls.
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <Link to="/call-preparation">
-                        <Button variant="outline" className="w-full">Set up Call</Button>
-                      </Link>
-                    </div>
-                  </Card>
-                  
-                  <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-                    <div className="p-6 border-b border-gray-100">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg font-medium">Skills Progress</h3>
-                        <ChartBar className="h-5 w-5 text-blue-600" />
+                    </Card>
+                    
+                    <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+                      <div className="p-6 border-b border-gray-100">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-lg font-medium">Practice Calls</h3>
+                          <FileText className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <p className="text-sm text-gray-600 mb-4">
+                          Rehearse important conversations and get AI feedback on your language skills.
+                        </p>
                       </div>
-                      <p className="text-sm text-gray-600 mb-4">
-                        Track improvement in pronunciation, grammar, confidence, and more.
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <Link to="/skills-progress">
-                        <Button variant="outline" className="w-full">View Skills Progress</Button>
-                      </Link>
-                    </div>
-                  </Card>
+                      <div className="p-4">
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                          onClick={() => setShowPracticeCallDialog(true)}
+                        >
+                          Start Practice Call
+                        </Button>
+                      </div>
+                    </Card>
+                  </div>
                 </div>
 
-                {/* Practice Calls Card */}
-                <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-                  <div className="p-6 border-b border-gray-100">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg font-medium">Practice Calls</h3>
-                      <FileText className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Rehearse important conversations and get AI feedback on your language skills.
-                    </p>
+                {/* After the Meeting Section */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-semibold mb-4 text-blue-700 border-b pb-2">After the Meeting</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+                      <div className="p-6 border-b border-gray-100">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-lg font-medium">Call History</h3>
+                          <History className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <p className="text-sm text-gray-600 mb-4">
+                          Review past calls, analyze feedback, and track improvement over time.
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <Link to="/call-history">
+                          <Button variant="outline" className="w-full">View Call History</Button>
+                        </Link>
+                      </div>
+                    </Card>
+                    
+                    <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+                      <div className="p-6 border-b border-gray-100">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-lg font-medium">Skills Progress</h3>
+                          <ChartBar className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <p className="text-sm text-gray-600 mb-4">
+                          Track improvement in pronunciation, grammar, confidence, and more.
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <Link to="/skills-progress">
+                          <Button variant="outline" className="w-full">View Skills Progress</Button>
+                        </Link>
+                      </div>
+                    </Card>
                   </div>
-                  <div className="p-4">
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => setShowPracticeCallDialog(true)}
-                    >
-                      Start Practice Call
-                    </Button>
-                  </div>
-                </Card>
+                </div>
               </TabsContent>
             </Tabs>
           </div>
