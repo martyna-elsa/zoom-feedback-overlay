@@ -178,7 +178,7 @@ const Landing: React.FC = () => {
                 
                 <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* ELSA Web Platform Card - Updated copy */}
+                    {/* ELSA Web Platform Card - Updated with new bullet points */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-blue-800 p-6">
                         <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
@@ -188,15 +188,11 @@ const Landing: React.FC = () => {
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>🧠 Strategic Presence Engine: Helps navigate live discussions.</span>
+                            <span>Before the meeting: ✨ Memory Whisperer, 📍 Meeting Agenda Assistant, 🌀 Practice Calls</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>🔍 Real-Time Intelligence: Surfaces company knowledge on demand.</span>
-                          </li>
-                          <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>💡 On-Demand Ideation: Boosts creativity under pressure.</span>
+                            <span>After the meeting: 🗺️ Post-Meeting Influence Map, ✅ Action Summary Generator, Skills Assessment, 📈 Skills Progress</span>
                           </li>
                         </ul>
                         <Link to="/web-platform">
@@ -207,7 +203,7 @@ const Landing: React.FC = () => {
                       </div>
                     </div>
                     
-                    {/* Zoom Call Card - Updated copy and renamed to ELSA Copilot */}
+                    {/* ELSA Copilot Card */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-indigo-800 p-6">
                         <h3 className="text-2xl font-semibold text-white mb-2">ELSA Copilot</h3>
@@ -238,9 +234,6 @@ const Landing: React.FC = () => {
                     </div>
                   </div>
                 </TabsContent>
-                
-                {/* Removed the AI-setup tab content section */}
-                
               </Tabs>
             </>
           ) : (
