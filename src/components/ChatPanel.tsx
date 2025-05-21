@@ -169,7 +169,7 @@ const ChatPanel: React.FC = () => {
               {feedbackAndIssues.some(item => item.type === 'issue') && (
                 <div className="mb-1 mt-2">
                   <h3 className="text-sm font-medium text-amber-600 flex items-center">
-                    <AlertTriangle className="h-3.5 w-3.5 mr-1" />
+                    <span className="mr-1">📘</span>
                     Miscommunication Detected
                   </h3>
                 </div>
