@@ -257,48 +257,46 @@ const VideoCallPage: React.FC = () => {
         </div>
       </div>
       
-      {/* Agenda Overlay */}
+      {/* Agenda Overlay - removing the div with className="p-3" */}
       {showAgenda && (
         <div className="absolute top-16 left-4 z-30 w-72 bg-white/90 backdrop-blur-sm rounded-lg shadow-md border border-gray-200/50">
-          <div className="p-3">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium flex items-center">
-                <ClipboardList className="h-4 w-4 mr-1.5 text-blue-600" />
-                Agenda
-              </h3>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={toggleAgenda}
-                className="h-6 w-6 p-0"
-              >
-                <EyeOff className="h-3.5 w-3.5 text-gray-500" />
-              </Button>
-            </div>
-            <Separator className="mb-2" />
-            <ul className="space-y-1.5 text-sm">
-              <li className="flex items-center">
-                <span className="mr-2">Introduction and rapport building</span>
-                <span className="text-green-500">✅</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">Overview of their business challenges</span>
-                <span className="text-green-500">✅</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">Discussion of pain points and needs</span>
-                <span className="text-red-500">❌</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">Brief introduction to your solution</span>
-                <span className="text-green-500">✅</span>
-              </li>
-              <li className="flex items-center">
-                <span className="mr-2">Next steps and scheduling follow-up</span>
-                <span className="text-green-500">✅</span>
-              </li>
-            </ul>
+          <div className="flex items-center justify-between mb-2 p-3">
+            <h3 className="text-sm font-medium flex items-center">
+              <ClipboardList className="h-4 w-4 mr-1.5 text-blue-600" />
+              Agenda
+            </h3>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={toggleAgenda}
+              className="h-6 w-6 p-0"
+            >
+              <EyeOff className="h-3.5 w-3.5 text-gray-500" />
+            </Button>
           </div>
+          <Separator className="mb-2" />
+          <ul className="space-y-1.5 text-sm p-3">
+            <li className="flex items-center">
+              <span className="mr-2">Introduction and rapport building</span>
+              <span className="text-green-500">✅</span>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2">Overview of their business challenges</span>
+              <span className="text-green-500">✅</span>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2">Discussion of pain points and needs</span>
+              <span className="text-red-500">❌</span>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2">Brief introduction to your solution</span>
+              <span className="text-green-500">✅</span>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2">Next steps and scheduling follow-up</span>
+              <span className="text-green-500">✅</span>
+            </li>
+          </ul>
         </div>
       )}
       
