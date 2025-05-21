@@ -595,6 +595,7 @@ const Landing: React.FC = () => {
             <div>
               <h3 className="text-xl font-semibold text-blue-700 mb-3">Before the Meeting</h3>
               <div className="space-y-4">
+                {/* Memory Whisperer section */}
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-blue-100 p-2 rounded-lg">
@@ -614,6 +615,7 @@ const Landing: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* Meeting Agenda Assistant section */}
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-blue-100 p-2 rounded-lg">
@@ -640,6 +642,7 @@ const Landing: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* Practice Calls section */}
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-blue-100 p-2 rounded-lg">
@@ -658,6 +661,7 @@ const Landing: React.FC = () => {
             <div>
               <h3 className="text-xl font-semibold text-indigo-700 mb-3">After the Meeting</h3>
               <div className="space-y-4">
+                {/* Post-Meeting Influence Map section */}
                 <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-indigo-100 p-2 rounded-lg">
@@ -679,6 +683,7 @@ const Landing: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* Action Summary Generator section */}
                 <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-indigo-100 p-2 rounded-lg">
@@ -696,6 +701,31 @@ const Landing: React.FC = () => {
                             <li>Anna to send product brief by Tuesday</li>
                             <li>Raj to confirm ad budget by Thursday</li>
                             <li>Team to reconvene on June 2 at 3 PM"</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Skills Progress section - NEW */}
+                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-indigo-100 p-2 rounded-lg">
+                      <span className="text-xl">📈</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo-900">Skills Progress</h4>
+                      <p className="text-gray-600">Track and visualize your language and communication improvements over time.</p>
+                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                        <p className="italic text-indigo-800">After several client meetings this month.</p>
+                        <div className="mt-2">
+                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
+                          <p className="text-indigo-800">"Your skills have improved this month:</p>
+                          <ul className="list-disc pl-5 mt-2 text-indigo-800">
+                            <li>Negotiation skills: +12%</li>
+                            <li>Pronunciation clarity: +8%</li>
+                            <li>Persuasive techniques: +15%</li>
                           </ul>
                         </div>
                       </div>
