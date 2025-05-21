@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, Check, Info } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, Check, Info, PhoneCall } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -290,6 +291,45 @@ const CallPreparation: React.FC = () => {
       audienceLevel: "intermediate"
     }
   });
+
+  // Add the missing handler functions
+  const handleUpload = (type: string) => {
+    toast({
+      title: "Upload initiated",
+      description: `Uploading documents for ${type}...`
+    });
+  };
+
+  const handleUrlSubmit = (type: string, e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const url = new FormData(form).get('url') as string;
+    
+    toast({
+      title: "URL submitted",
+      description: `Analyzing ${url} for ${type}...`
+    });
+  };
+
+  const handleObjectiveChange = (value: string) => {
+    if (value === "custom") {
+      // Handle custom objective
+      setSelectedObjective({
+        id: "custom",
+        name: "Custom Objective",
+        description: "Your custom call objective",
+        agendaItems: ["Define your agenda items..."],
+        keyPhrases: [{ category: "Custom", phrases: ["Add your key phrases..."] }]
+      });
+    } else {
+      // Find and set the selected objective template
+      const objective = callObjectiveTemplates.find(obj => obj.id === value) || callObjectiveTemplates[0];
+      setSelectedObjective(objective);
+    }
+    
+    // Update the form value
+    form.setValue("objective", value);
+  };
 
   // Simulate organization data status - in a real app, this would come from an API
   const [orgDataStatus] = useState({
