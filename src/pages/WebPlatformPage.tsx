@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,8 @@ import { Badge } from '@/components/ui/badge';
 
 const WebPlatformPage: React.FC = () => {
   const [showLinkDialog, setShowLinkDialog] = useState(false);
+  const [showPracticeCallDialog, setShowPracticeCallDialog] = useState(false);
+  const [selectedScenario, setSelectedScenario] = useState('client');
   const { toast } = useToast();
   
   const handleLinkAccount = () => {
@@ -65,6 +68,43 @@ const WebPlatformPage: React.FC = () => {
       updatedBy: "Admin (Sarah Chen)"
     }
   };
+
+  // Practice call scenarios
+  const scenarios = [
+    {
+      id: 'client',
+      title: 'Client Presentation',
+      description: 'Practice delivering a sales pitch or product demonstration to a client.',
+      checklist: [
+        'Prepare your key talking points',
+        'Rehearse product demo sequence',
+        'Practice handling objections',
+        'Time your presentation to stay within limits'
+      ]
+    },
+    {
+      id: 'interview',
+      title: 'Job Interview',
+      description: 'Practice answering common interview questions and presenting your experience.',
+      checklist: [
+        'Research company background',
+        'Prepare your elevator pitch',
+        'Practice answering behavioral questions',
+        'Prepare questions to ask the interviewer'
+      ]
+    },
+    {
+      id: 'team',
+      title: 'Team Meeting',
+      description: 'Practice leading a team meeting or presenting project updates to colleagues.',
+      checklist: [
+        'Create clear meeting agenda',
+        'Prepare project status updates',
+        'Anticipate team questions',
+        'Practice time management techniques'
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -152,6 +192,28 @@ const WebPlatformPage: React.FC = () => {
                     </div>
                   </Card>
                 </div>
+
+                {/* Practice Calls Card */}
+                <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
+                  <div className="p-6 border-b border-gray-100">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-lg font-medium">Practice Calls</h3>
+                      <FileText className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Rehearse important conversations and get AI feedback on your language skills.
+                    </p>
+                  </div>
+                  <div className="p-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => setShowPracticeCallDialog(true)}
+                    >
+                      Start Practice Call
+                    </Button>
+                  </div>
+                </Card>
               </TabsContent>
             </Tabs>
           </div>
@@ -207,6 +269,55 @@ const WebPlatformPage: React.FC = () => {
           <DialogFooter className="flex justify-between">
             <Button variant="ghost" onClick={() => setShowLinkDialog(false)}>Cancel</Button>
             <div className="text-sm text-gray-500">Your data is secure and private</div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      {/* Practice Call Dialog */}
+      <Dialog open={showPracticeCallDialog} onOpenChange={setShowPracticeCallDialog}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Practice Call</DialogTitle>
+            <DialogDescription>
+              Choose a scenario and practice your speaking skills with ELSA's AI assistance.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-6 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {scenarios.map(scenario => (
+                <Card 
+                  key={scenario.id} 
+                  className={`cursor-pointer transition-all ${selectedScenario === scenario.id 
+                    ? 'border-blue-500 shadow-md' 
+                    : 'border-gray-200 hover:border-blue-300'}`}
+                  onClick={() => setSelectedScenario(scenario.id)}
+                >
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">{scenario.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-2">{scenario.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+              <h4 className="font-semibold mb-2">Before you start:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm">
+                {scenarios.find(s => s.id === selectedScenario)?.checklist.map((item, index) => (
+                  <li key={index} className="text-gray-700">{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setShowPracticeCallDialog(false)}>Cancel</Button>
+            <Button>
+              Start Practice
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
