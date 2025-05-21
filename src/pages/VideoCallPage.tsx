@@ -307,7 +307,7 @@ const VideoCallPage: React.FC = () => {
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg px-4 py-2">
           <Alert variant="default" className="bg-white/90 backdrop-blur-sm border-blue-200/40 text-gray-700 shadow-sm">
             <Bell className="h-4 w-4 text-blue-500" />
-            <AlertTitle>Unanswered Question</AlertTitle>
+            <AlertTitle>Agenda</AlertTitle>
             <AlertDescription className="text-gray-600">
               There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
             </AlertDescription>
@@ -323,7 +323,7 @@ const VideoCallPage: React.FC = () => {
           >
             <Bell className={`h-4 w-4 ${facilitatorVisibleToAll ? 'text-white' : 'text-blue-500'}`} />
             <AlertTitle>
-              Unanswered Question {facilitatorVisibleToAll && <span className="text-xs font-normal ml-2">(Visible to everyone)</span>}
+              Agenda {facilitatorVisibleToAll && <span className="text-xs font-normal ml-2">(Visible to everyone)</span>}
             </AlertTitle>
             <AlertDescription className={facilitatorVisibleToAll ? '' : 'text-gray-600'}>
               There is one question which remained unanswered from Michael: "Who else is involved in the decision-making process?"
