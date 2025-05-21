@@ -178,21 +178,55 @@ const Landing: React.FC = () => {
                 
                 <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* ELSA Web Platform Card - Updated with new bullet points */}
+                    {/* ELSA Web Platform Card - Updated with improved visual distinction */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-blue-800 p-6">
                         <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
                         <p className="text-blue-100">Track your progress, review past calls, and get ready to shine.</p>
                       </div>
                       <div className="p-6">
-                        <ul className="text-gray-600 mb-8 space-y-2">
-                          <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>Before the meeting: ✨ Memory Whisperer, 📍 Meeting Agenda Assistant, 🌀 Practice Calls</span>
+                        <ul className="text-gray-600 mb-8 space-y-6">
+                          <li>
+                            <div className="bg-blue-50 p-3 rounded-md border-l-4 border-blue-500">
+                              <h4 className="font-bold text-blue-800 mb-2">Before the meeting:</h4>
+                              <div className="pl-2 space-y-1">
+                                <div className="flex items-start">
+                                  <span className="mr-2">✨</span>
+                                  <span>Memory Whisperer</span>
+                                </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">📍</span>
+                                  <span>Meeting Agenda Assistant</span>
+                                </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">🌀</span>
+                                  <span>Practice Calls</span>
+                                </div>
+                              </div>
+                            </div>
                           </li>
-                          <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span>After the meeting: 🗺️ Post-Meeting Influence Map, ✅ Action Summary Generator, Skills Assessment, 📈 Skills Progress</span>
+                          <li>
+                            <div className="bg-indigo-50 p-3 rounded-md border-l-4 border-indigo-500">
+                              <h4 className="font-bold text-indigo-800 mb-2">After the meeting:</h4>
+                              <div className="pl-2 space-y-1">
+                                <div className="flex items-start">
+                                  <span className="mr-2">🗺️</span>
+                                  <span>Post-Meeting Influence Map</span>
+                                </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">✅</span>
+                                  <span>Action Summary Generator</span>
+                                </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">📊</span>
+                                  <span>Skills Assessment</span>
+                                </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">📈</span>
+                                  <span>Skills Progress</span>
+                                </div>
+                              </div>
+                            </div>
                           </li>
                         </ul>
                         <Link to="/web-platform">
