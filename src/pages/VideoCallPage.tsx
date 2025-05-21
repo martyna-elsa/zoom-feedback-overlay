@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { Button } from '@/components/ui/button';
-import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users, Home, HelpCircle } from 'lucide-react';
+import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users, Home, HelpCircle, ClipboardList } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
 
 const VideoCallPage: React.FC = () => {
   const [facilitatorMode, setFacilitatorMode] = useState(false);
@@ -19,6 +20,7 @@ const VideoCallPage: React.FC = () => {
   const [showFacilitatorHint, setShowFacilitatorHint] = useState(false);
   const [facilitatorVisibleToAll, setFacilitatorVisibleToAll] = useState(false);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
+  const [showAgenda, setShowAgenda] = useState(true);
   const { toast } = useToast();
   
   // Effect to listen to screen sharing state from VideoConference component
@@ -107,6 +109,14 @@ const VideoCallPage: React.FC = () => {
     });
   };
 
+  const toggleAgenda = () => {
+    setShowAgenda(!showAgenda);
+    toast({
+      title: showAgenda ? "Agenda Hidden" : "Agenda Visible",
+      description: showAgenda ? "The agenda has been hidden." : "The agenda is now visible.",
+    });
+  };
+
   // Don't render UI elements when screen sharing is active
   if (isScreenSharing) {
     return (
@@ -154,7 +164,7 @@ const VideoCallPage: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-2">
-              {/* New Help button with popover */}
+              {/* Help button with popover */}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -185,6 +195,16 @@ const VideoCallPage: React.FC = () => {
               >
                 {chatVisible ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                 {chatVisible ? "Hide Chat" : "Show Chat"}
+              </Button>
+              
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={toggleAgenda}
+                className="text-gray-500 hover:text-gray-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
+              >
+                <ClipboardList className="h-3.5 w-3.5" />
+                {showAgenda ? "Hide Agenda" : "Show Agenda"}
               </Button>
               
               <Button 
@@ -237,6 +257,51 @@ const VideoCallPage: React.FC = () => {
           </span>
         </div>
       </div>
+      
+      {/* Agenda Overlay */}
+      {showAgenda && (
+        <div className="absolute top-16 left-4 z-30 w-72 bg-white/90 backdrop-blur-sm rounded-lg shadow-md border border-gray-200/50">
+          <div className="p-3">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-medium flex items-center">
+                <ClipboardList className="h-4 w-4 mr-1.5 text-blue-600" />
+                Agenda
+              </h3>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={toggleAgenda}
+                className="h-6 w-6 p-0"
+              >
+                <EyeOff className="h-3.5 w-3.5 text-gray-500" />
+              </Button>
+            </div>
+            <Separator className="mb-2" />
+            <ul className="space-y-1.5 text-sm">
+              <li className="flex items-center">
+                <span className="mr-2">Introduction and rapport building</span>
+                <span className="text-green-500">✅</span>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Overview of their business challenges</span>
+                <span className="text-green-500">✅</span>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Discussion of pain points and needs</span>
+                <span className="text-red-500">❌</span>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Brief introduction to your solution</span>
+                <span className="text-green-500">✅</span>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Next steps and scheduling follow-up</span>
+                <span className="text-green-500">✅</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
       
       {showNotification && headerVisible && (
         <div className="absolute top-16 left-1/2 transform -translate-x-1/2 z-30 w-auto max-w-lg px-4 py-2">
