@@ -144,7 +144,7 @@ const ChatPanel: React.FC = () => {
               {feedbackAndIssues.some(item => item.type === 'recommendedReply') && (
                 <div className="mb-1 mt-1">
                   <h3 className="text-sm font-medium text-purple-700 flex items-center">
-                    <MessageCircle className="h-3.5 w-3.5 mr-1" />
+                    <span className="mr-1">🧠</span>
                     Recommended Reply
                   </h3>
                 </div>
