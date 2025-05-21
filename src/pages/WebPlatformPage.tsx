@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -210,6 +209,14 @@ const WebPlatformPage: React.FC = () => {
                         <p className="text-sm text-gray-600 mb-4">
                           Review past calls, analyze feedback, and track improvement over time.
                         </p>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700">
+                            🗺️ Post-Meeting Influence Map
+                          </Badge>
+                          <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700">
+                            ✅ Action Summary Generator
+                          </Badge>
+                        </div>
                       </div>
                       <div className="p-4">
                         <Link to="/call-history">
