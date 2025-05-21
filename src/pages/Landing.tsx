@@ -387,19 +387,19 @@ const Landing: React.FC = () => {
                       <div className="p-6">
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            
                             <span>🧠 Strategic Presence Engine</span>
                           </li>
                           <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            
                             <span>🔍 Real-Time Intelligence</span>
                           </li>
                           <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            
                             <span>💡 On-Demand Ideation</span>
                           </li>
                           <li className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                            
                             <span>📘 English Communication Coach</span>
                           </li>
                         </ul>
