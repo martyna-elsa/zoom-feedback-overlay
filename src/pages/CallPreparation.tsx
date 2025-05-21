@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info, PhoneCall } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, MapPin, Calendar, MessageSquareText, ListTodo, Flag, Check, Info, PhoneCall } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -388,7 +388,7 @@ const CallPreparation: React.FC = () => {
               Participant Profiles
             </TabsTrigger>
             <TabsTrigger value="call-objective" className="flex items-center gap-1">
-              <TargetIcon className="h-4 w-4" />
+              <MapPin className="h-4 w-4" />
               Meeting Agenda
             </TabsTrigger>
           </TabsList>
