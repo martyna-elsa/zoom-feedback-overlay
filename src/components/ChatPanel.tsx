@@ -95,7 +95,7 @@ const ChatPanel: React.FC = () => {
 
   const getMessageStyle = (message) => {
     if (message.type === 'recommendedReply') {
-      return 'bg-purple-50 border-l-4 border-purple-400 px-3';
+      return 'bg-pink-50 border-l-4 border-pink-400 px-3';
     } else if (message.type === 'issue') {
       return 'bg-amber-50 border-l-4 border-amber-400 px-3';
     } else if (message.type === 'rep') {
@@ -140,9 +140,9 @@ const ChatPanel: React.FC = () => {
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           <ScrollArea className="flex-grow p-2">
             <div className="space-y-2">
-              {/* Recommended Reply heading - Changed text color from purple-700 to pink-500 */}
+              {/* Recommended Reply heading - Changed background to pink */}
               {feedbackAndIssues.some(item => item.type === 'recommendedReply') && (
-                <div className="mb-1 mt-1">
+                <div className="mb-1 mt-1 bg-pink-100 p-1 rounded">
                   <h3 className="text-sm font-medium text-pink-500 flex items-center">
                     <span className="mr-1">🧠</span>
                     Recommended Reply
