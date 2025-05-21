@@ -97,7 +97,7 @@ const ChatPanel: React.FC = () => {
     if (message.type === 'recommendedReply') {
       return 'bg-pink-50 border-l-4 border-pink-400 px-3';
     } else if (message.type === 'issue') {
-      return 'bg-amber-50 border-l-4 border-amber-400 px-3';
+      return 'bg-blue-50 border-l-4 border-blue-400 px-3';
     } else if (message.type === 'rep') {
       return 'bg-blue-100 rounded-tl-lg rounded-bl-lg rounded-br-lg';
     } else {
@@ -122,7 +122,7 @@ const ChatPanel: React.FC = () => {
     if (message.type === 'recommendedReply') {
       return <MessageCircle className="h-4 w-4 text-purple-600" />;
     } else if (message.type === 'issue') {
-      return <AlertTriangle className="h-4 w-4 text-amber-600" />;
+      return <AlertTriangle className="h-4 w-4 text-blue-600" />;
     }
     return null;
   };
@@ -165,10 +165,10 @@ const ChatPanel: React.FC = () => {
                   </div>
                 ))}
               
-              {/* Miscommunication Detected heading */}
+              {/* Miscommunication Detected heading - Changed from amber to dark blue */}
               {feedbackAndIssues.some(item => item.type === 'issue') && (
                 <div className="mb-1 mt-2">
-                  <h3 className="text-sm font-medium text-amber-600 flex items-center">
+                  <h3 className="text-sm font-medium text-blue-600 flex items-center">
                     <span className="mr-1">📘</span>
                     Miscommunication Detected
                   </h3>
