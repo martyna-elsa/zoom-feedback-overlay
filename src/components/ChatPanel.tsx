@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Input } from '@/components/ui/input';
@@ -9,114 +8,38 @@ import { MessageSquare, Send, AlertTriangle, Bell, Users, Check, Star, Award, In
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-// Sample sales conversation data from the screenshots
-const sampleConversation = [
-  { 
-    id: 1, 
-    sender: 'Customer', 
-    message: "Hi, I'm interested in your product, but I need to understand your pricing options.", 
-    time: '10:02 AM',
-    type: 'customer'
-  },
-  { 
-    id: 2, 
-    sender: 'Sales Rep', 
-    message: "Hello! Thanks for your interest. Our pricing is designed to scale with your needs. Can I ask about your use case to recommend the best option?", 
-    time: '10:03 AM',
-    type: 'rep'
-  },
-  { 
-    id: 3, 
-    sender: 'Customer', 
-    message: "We're a team of 25 people looking for a video conferencing solution with good security features.", 
-    time: '10:05 AM',
-    type: 'customer'
-  },
-  { 
-    id: 4, 
-    sender: 'Sales Rep', 
-    message: "Perfect! For a team your size, our Business plan at $15/user/month would be ideal. It includes end-to-end encryption, SSO, and 24/7 support.", 
-    time: '10:07 AM',
-    type: 'rep'
-  },
-  { 
-    id: 5, 
-    sender: 'Customer', 
-    message: "That sounds promising. Do you offer any discounts for annual payments?", 
-    time: '10:08 AM',
-    type: 'customer'
-  },
-  { 
-    id: 6, 
-    sender: 'Sales Rep', 
-    message: "Yes, we offer a 20% discount for annual commitments! That would bring it down to $12/user/month.", 
-    time: '10:10 AM',
-    type: 'rep'
-  }
-];
-
-// Feedback and communication issues
-const feedbackAndIssues = [
-  { 
-    id: 1, 
-    type: 'recommendedReply', 
-    message: "Our pricing is designed to scale with your needs—can I ask a few questions to recommend the best option for you?",
-  },
-  {
-    id: 2,
-    type: 'issue',
-    message: "Sarah did not understand your question. Rephrase it as: What goals are you trying to achieve this quarter?",
-  }
+const initialMessages = [
+  { id: 1, sender: 'Michael Chen', content: "Hey Sarah, great progress on the sales deck! Just a heads up, the client asked about our long-term support—can we add a slide?", time: '10:30 AM' },
+  { id: 2, sender: 'Sarah Johnson', content: "Good catch, Michael! I'll add the support details. Also, I think we should highlight the ROI more—what do you think?", time: '10:35 AM' },
+  { id: 3, sender: 'Alex Rodriguez', content: "Agreed on the ROI, Sarah. I have some data points from our last campaign that could help. I'll send them over.", time: '10:40 AM' },
+  { id: 4, sender: 'You', content: "Thanks Alex, that would be great! I'm also wondering if we should bring up the new partnership program?", time: '10:45 AM' },
+  { id: 5, sender: 'Recommended Reply', content: "Great idea!", type: 'recommendedReply' },
+  { id: 6, sender: 'Recommended Reply', content: "I'm not sure that's relevant.", type: 'recommendedReply' },
+  { id: 7, sender: 'Recommended Reply', content: "Let's hold off on that.", type: 'recommendedReply' },
+  { id: 8, sender: 'System Alert', content: "Potential issue: Competitor X is offering a similar service at a lower price.", type: 'issue' },
 ];
 
 const ChatPanel: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('conversation');
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState(sampleConversation);
-  const [recipient, setRecipient] = useState('everyone');
+  const [messages, setMessages] = useState(initialMessages);
+  const [newMessage, setNewMessage] = useState('');
 
-  const handleSendMessage = () => {
-    if (!message.trim()) return;
-    
-    // Add the user message
-    setMessages([
-      ...messages,
-      { 
-        id: messages.length + 1, 
-        sender: 'Sales Rep', 
-        message: message, 
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        type: 'rep'
-      }
-    ]);
-    
-    setMessage('');
-  };
-
-  const getMessageStyle = (message) => {
-    if (message.type === 'recommendedReply') {
-      return 'bg-purple-50 border-l-4 border-purple-400 px-3';
-    } else if (message.type === 'issue') {
-      return 'bg-amber-50 border-l-4 border-amber-400 px-3';
-    } else if (message.type === 'rep') {
-      return 'bg-blue-100 rounded-tl-lg rounded-bl-lg rounded-br-lg';
-    } else {
-      return 'bg-gray-100 rounded-tr-lg rounded-bl-lg rounded-br-lg';
+  const sendMessage = () => {
+    if (newMessage.trim() !== '') {
+      const newId = messages.length > 0 ? Math.max(...messages.map(m => m.id)) + 1 : 1;
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const youMessage = { id: newId, sender: 'You', content: newMessage, time: currentTime };
+      setMessages([...messages, youMessage]);
+      setNewMessage('');
     }
   };
 
-  const getAvatar = (sender) => {
-    const colors = {
-      'Customer': 'bg-gray-200',
-      'Sales Rep': 'bg-blue-200',
-    };
-    
-    return (
-      <Avatar className={`h-8 w-8 ${colors[sender] || 'bg-gray-200'}`}>
-        <AvatarFallback>{sender.charAt(0)}</AvatarFallback>
-      </Avatar>
-    );
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
   };
 
   const getMessageIcon = (message) => {
@@ -125,313 +48,153 @@ const ChatPanel: React.FC = () => {
     } else if (message.type === 'issue') {
       return <AlertTriangle className="h-4 w-4 text-amber-600" />;
     }
-    return null;
+    return <MessageSquare className="h-4 w-4 text-gray-500" />;
+  };
+
+  const renderMessageContent = (message) => {
+    if (message.type === 'recommendedReply') {
+      return (
+        <Button variant="secondary" size="sm" className="w-full justify-start rounded-md hover:bg-secondary/80">
+          {message.content}
+        </Button>
+      );
+    } else {
+      return message.content;
+    }
   };
 
   return (
-    <div className="h-full flex flex-col bg-white/80 backdrop-blur-md rounded-lg border border-gray-200/50 shadow-lg">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
-        <div className="p-2 border-b border-gray-200/50 flex justify-between items-center">
-          <TabsList className="w-full bg-gray-100/80">
-            <TabsTrigger value="conversation" className="flex-1 text-gray-700">Conversation</TabsTrigger>
-            <TabsTrigger value="summary" className="flex-1 text-gray-700">Summary</TabsTrigger>
-          </TabsList>
-        </div>
+    <Tabs defaultValue="chat" className="w-full h-full flex flex-col">
+      <TabsList className="bg-secondary text-secondary-foreground rounded-t-lg">
+        <TabsTrigger value="chat" className="data-[state=active]:bg-secondary-foreground data-[state=active]:text-secondary rounded-none flex items-center gap-1"><MessageSquare className="h-3.5 w-3.5" /> Chat</TabsTrigger>
+        <TabsTrigger value="alerts" className="data-[state=active]:bg-secondary-foreground data-[state=active]:text-secondary rounded-none flex items-center gap-1"><Bell className="h-3.5 w-3.5" /> Alerts</TabsTrigger>
+        <TabsTrigger value="insights" className="data-[state=active]:bg-secondary-foreground data-[state=active]:text-secondary rounded-none flex items-center gap-1"><Info className="h-3.5 w-3.5" /> Insights</TabsTrigger>
+      </TabsList>
 
-        <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
-          <ScrollArea className="flex-grow p-2">
-            <div className="space-y-2">
-              {/* Recommended Reply heading - Changed text color from purple-700 to pink-500 */}
-              {feedbackAndIssues.some(item => item.type === 'recommendedReply') && (
-                <div className="mb-1 mt-1">
-                  <h3 className="text-sm font-medium text-pink-500 flex items-center">
-                    <span className="mr-1">🧠</span>
-                    Recommended Reply
-                  </h3>
-                </div>
-              )}
-              
-              {/* Recommended Reply items */}
-              {feedbackAndIssues
-                .filter(item => item.type === 'recommendedReply')
-                .map((item) => (
-                  <div key={item.id} className="flex items-start gap-1 mb-2">
-                    {getMessageIcon(item)}
-                    
-                    <div className="flex-grow">
-                      <div className={`p-1.5 ${getMessageStyle(item)}`}>
-                        <p className="text-sm">{item.message}</p>
-                      </div>
-                    </div>
+      <div className="flex-grow flex flex-col">
+        <TabsContent value="chat" className="h-full p-2 flex flex-col">
+          <ScrollArea className="flex-grow">
+            <div className="flex flex-col space-y-2">
+              {messages.map((message) => (
+                <div key={message.id} className="flex items-start space-x-2">
+                  {getMessageIcon(message)}
+                  <div>
+                    <div className="text-xs font-bold">{message.sender} <span className="font-normal text-gray-500">- {message.time}</span></div>
+                    <div className="text-sm">{renderMessageContent(message)}</div>
                   </div>
-                ))}
-              
-              {/* Miscommunication Detected heading */}
-              {feedbackAndIssues.some(item => item.type === 'issue') && (
-                <div className="mb-1 mt-2">
-                  <h3 className="text-sm font-medium text-amber-600 flex items-center">
-                    <span className="mr-1">📘</span>
-                    Miscommunication Detected
-                  </h3>
-                </div>
-              )}
-              
-              {/* Communication issues items */}
-              {feedbackAndIssues
-                .filter(item => item.type === 'issue')
-                .map((item) => (
-                  <div key={item.id} className="flex items-start gap-1 mb-2">
-                    {getMessageIcon(item)}
-                    
-                    <div className="flex-grow">
-                      <div className={`p-1.5 ${getMessageStyle(item)}`}>
-                        <p className="text-sm">{item.message}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-              {/* Regular conversation messages */}
-              {messages.map((msg) => (
-                <div key={msg.id} className="flex items-start gap-1.5 mb-1.5">
-                  {msg.type === 'customer' && getAvatar(msg.sender)}
-                  
-                  <div className="flex-grow">
-                    <div className="flex text-xs text-gray-500 mb-0.5">
-                      <span className="font-medium">{msg.sender}</span>
-                      <span className="ml-auto">{msg.time}</span>
-                    </div>
-                    
-                    <div className={`p-1.5 ${getMessageStyle(msg)}`}>
-                      <p className="text-sm">{msg.message}</p>
-                    </div>
-                  </div>
-                  
-                  {msg.type === 'rep' && getAvatar(msg.sender)}
                 </div>
               ))}
             </div>
           </ScrollArea>
-
-          <div className="p-2 mt-1 border-t border-gray-200/50">
-            <div className="relative">
-              <Input 
-                placeholder="Ask about this conversation..."
-                value={message} 
-                onChange={(e) => setMessage(e.target.value)} 
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="bg-gray-100/80 border-gray-200/50 text-gray-700 pr-10 rounded-full"
+          <div className="mt-3">
+            <div className="flex items-center space-x-2">
+              <Input
+                type="text"
+                placeholder="Type your message..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="flex-grow rounded-md"
               />
-              <Button
-                size="icon"
-                onClick={handleSendMessage}
-                className="absolute right-1 top-1 bottom-1 text-blue-500 hover:text-blue-700 hover:bg-transparent p-1"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
+              <Button onClick={sendMessage}><Send className="h-4 w-4 mr-1.5" /> Send</Button>
             </div>
           </div>
         </TabsContent>
 
-        <TabsContent value="summary" className="flex-grow mt-0 p-3 overflow-auto h-full">
-          <div className="grid gap-4">
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <div className="flex items-center mb-4">
-                <MessageSquare className="h-5 w-5 text-blue-500 mr-2" />
-                <h3 className="font-medium text-lg">Conversation Summary</h3>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-sm">Customer Need:</h4>
-                  <p className="text-sm">Video conferencing for 25-person team with security features</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-sm">Solution Offered:</h4>
-                  <p className="text-sm">Business plan ($15/user/month)</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-sm">Key Features Highlighted:</h4>
-                  <p className="text-sm">End-to-end encryption, SSO, 24/7 support</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-sm">Special Offer:</h4>
-                  <p className="text-sm">20% discount for annual payment ($12/user/month)</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-sm">Next Steps:</h4>
-                  <p className="text-sm">Schedule product demo, send formal quote</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Measurable Results Card */}
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <div className="flex items-center mb-4">
-                <Award className="h-5 w-5 text-blue-500 mr-2" />
-                <h3 className="font-medium text-lg text-blue-600">Measurable Results</h3>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-700">87%</div>
-                  <div className="text-sm font-medium text-gray-600">Overall Effectiveness</div>
-                </div>
-                
-                <div className="bg-green-50 p-3 rounded-lg">
-                  <div className="text-3xl font-bold text-green-600">+20%</div>
-                  <div className="text-sm font-medium text-gray-600">Value Added (Annual Discount)</div>
-                </div>
-                
-                <div className="bg-purple-50 p-3 rounded-lg">
-                  <div className="text-3xl font-bold text-purple-600">3/4</div>
-                  <div className="text-sm font-medium text-gray-600">Key Points Addressed</div>
-                </div>
-                
-                <div className="bg-amber-50 p-3 rounded-lg">
-                  <div className="text-3xl font-bold text-amber-600">100%</div>
-                  <div className="text-sm font-medium text-gray-600">Customer Questions Answered</div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Communication Skills Card */}
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <div className="flex items-center mb-4">
-                <MessageCircle className="h-5 w-5 text-blue-500 mr-2" />
-                <h3 className="font-medium text-lg text-blue-600">Communication Skills</h3>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Negotiation Skills</h4>
-                    <span>82%</span>
-                  </div>
-                  <Progress value={82} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Effectively presented value proposition. Could improve by proactively addressing potential objections before they arise.
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Persuasion Effectiveness</h4>
-                    <span>78%</span>
-                  </div>
-                  <Progress value={78} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Good use of social proof and value-based selling. Example: "For a team your size, our Business plan would be ideal."
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Customer Understanding</h4>
-                    <span>95%</span>
-                  </div>
-                  <Progress value={95} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Excellent at identifying customer needs and matching solutions. Quickly recognized security as a key priority.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Soft Skills Card */}
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <div className="flex items-center mb-4">
-                <Star className="h-5 w-5 text-blue-500 mr-2" />
-                <h3 className="font-medium text-lg text-blue-600">Soft Skills</h3>
-              </div>
-              
-              <div className="space-y-6">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Active Listening</h4>
-                    <span>88%</span>
-                  </div>
-                  <Progress value={88} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Demonstrated excellent comprehension by addressing the specific team size and security concerns mentioned by the customer.
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Empathy</h4>
-                    <span>82%</span>
-                  </div>
-                  <Progress value={82} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Showed understanding of customer's budget concerns by proactively offering the annual discount option.
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Problem Solving</h4>
-                    <span>90%</span>
-                  </div>
-                  <Progress value={90} className="h-2 mb-1" />
-                  <p className="text-sm text-gray-600">
-                    Quickly identified the appropriate plan based on team size and security requirements without unnecessary upselling.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4 bg-white border-gray-200/50 text-gray-700">
-              <h3 className="font-medium mb-2 text-blue-600">Language Proficiency Assessment</h3>
-              <div className="space-y-6">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Pronunciation</h4>
-                    <span>85%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "85%"}}></div>
-                  </div>
-                  <p className="text-sm mt-1 text-gray-600">
-                    Clear articulation with minimal accent interference. Properly emphasized key terms like "annual commitments" and "end-to-end encryption".
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Grammar & Vocabulary</h4>
-                    <span>90%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "90%"}}></div>
-                  </div>
-                  <p className="text-sm mt-1 text-gray-600">
-                    Strong command of technical vocabulary. Correctly used conditional structures: "That would bring it down to $12/user/month."
-                  </p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <h4 className="font-medium">Confidence & Fluency</h4>
-                    <span>88%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div className="bg-blue-600 h-2.5 rounded-full" style={{width: "88%"}}></div>
-                  </div>
-                  <p className="text-sm mt-1 text-gray-600">
-                    Spoke without hesitation. Maintained conversational flow even when discussing technical features.
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
+        <TabsContent value="alerts" className="h-full p-4 flex flex-col">
+          <ScrollArea className="rounded-md border flex-grow">
+            <div className="p-3">
+              <div className="text-sm font-medium leading-none">Team Progress</div>
+              <p className="text-sm text-muted-foreground">
+                Track overall team performance and identify areas for improvement.
+              </p>
+              <ul className="mt-2 space-y-2">
+                <li>
+                  <Card className="bg-white shadow-sm border">
+                    <div className="flex items-center justify-between p-3">
+                      <div className="flex items-center space-x-4">
+                        <Avatar>
+                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="text-sm font-medium">Sarah Johnson</div>
+                          <div className="text-xs text-muted-foreground">sarah.johnson@example.com</div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">Admin</Badge>
+                    </div>
+                  </Card>
+                </li>
+                <li>
+                  <Card className="bg-white shadow-sm border">
+                    <div className="flex items-center justify-between p-3">
+                      <div className="flex items-center space-x-4">
+                        <Avatar>
+                          <AvatarImage src="https://github.com/sadmann7.png" />
+                          <AvatarFallback>IN</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="text-sm font-medium">Irshad Nazeer</div>
+                          <div className="text-xs text-muted-foreground">irshad.nazeer@example.com</div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">Editor</Badge>
+                    </div>
+                  </Card>
+                </li>
+                <li>
+                  <Card className="bg-white shadow-sm border">
+                    <div className="flex items-center justify-between p-3">
+                      <div className="flex items-center space-x-4">
+                        <Avatar>
+                          <AvatarImage src="https://github.com/peduarte.png" />
+                          <AvatarFallback>PD</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="text-sm font-medium">Pedro Duarte</div>
+                          <div className="text-xs text-muted-foreground">pedro.duarte@example.com</div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">Editor</Badge>
+                    </div>
+                  </Card>
+                </li>
+              </ul>
+            </div>
+          </ScrollArea>
         </TabsContent>
-      </Tabs>
-    </div>
+
+        <TabsContent value="insights" className="h-full p-4 flex flex-col">
+          <ScrollArea className="rounded-md border flex-grow">
+            <div className="p-3">
+              <div className="text-sm font-medium leading-none">Sales Performance</div>
+              <p className="text-sm text-muted-foreground">
+                Track individual sales and identify top performers.
+              </p>
+              <ul className="mt-4 space-y-4">
+                <li className="border rounded-md p-4 bg-white shadow-sm">
+                  <div className="font-bold text-lg flex items-center gap-1"><Users className="h-4 w-4 text-gray-500" /> Team Engagement <Star className="h-4 w-4 text-yellow-500" /></div>
+                  <p className="text-sm text-gray-500">Overall team participation in meetings and training sessions.</p>
+                  <div className="mt-2">
+                    <Progress value={85} />
+                    <div className="text-xs text-gray-500 mt-1">85% Completion</div>
+                  </div>
+                </li>
+                <li className="border rounded-md p-4 bg-white shadow-sm">
+                  <div className="font-bold text-lg flex items-center gap-1"><Award className="h-4 w-4 text-gray-500" /> Individual Achievements <Check className="h-4 w-4 text-green-500" /></div>
+                  <p className="text-sm text-gray-500">Recognition of milestones and successful deals closed by team members.</p>
+                  <div className="mt-2">
+                    <Progress value={60} />
+                    <div className="text-xs text-gray-500 mt-1">60% Target Achieved</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </ScrollArea>
+        </TabsContent>
+      </div>
+    </Tabs>
   );
 };
 
