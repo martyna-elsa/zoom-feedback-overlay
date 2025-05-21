@@ -1,13 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VideoConference from '@/components/VideoConference';
 import ChatPanel from '@/components/ChatPanel';
 import { Button } from '@/components/ui/button';
-import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users, Home } from 'lucide-react';
+import { Bell, Square, ChevronUp, ChevronDown, MessageSquare, Settings, Eye, EyeOff, Users, Home, HelpCircle } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Toggle } from '@/components/ui/toggle';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 
 const VideoCallPage: React.FC = () => {
   const [facilitatorMode, setFacilitatorMode] = useState(false);
@@ -152,6 +154,29 @@ const VideoCallPage: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-2">
+              {/* New Help button with popover */}
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-500 hover:text-blue-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
+                  >
+                    <HelpCircle className="h-3.5 w-3.5" />
+                    Help
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-64 text-xs p-3">
+                  <h4 className="font-medium mb-1">Quick Help</h4>
+                  <ul className="space-y-1">
+                    <li><span className="font-medium">Facilitator:</span> Enable/disable facilitator mode</li>
+                    <li><span className="font-medium">Chat:</span> Show/hide the chat panel</li>
+                    <li><span className="font-medium">Settings:</span> Access call settings</li>
+                    <li><span className="font-medium">Elsa:</span> Return to Elsa platform</li>
+                  </ul>
+                </PopoverContent>
+              </Popover>
+              
               <Button
                 variant="ghost"
                 size="sm"
