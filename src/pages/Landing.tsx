@@ -189,11 +189,13 @@ const topLearners = [{
   improvement: '+10%',
   calls: 22
 }, {
+  id: 3,
   name: 'James Wilson',
   progress: 87,
   improvement: '+8%',
   calls: 20
 }, {
+  id: 4,
   name: 'David Thompson',
   progress: 85,
   improvement: '+9%',
@@ -857,6 +859,26 @@ const Landing: React.FC = () => {
                     <div className="mt-2">
                       <p className="font-medium text-indigo-800">ELSA suggests:</p>
                       <p className="text-indigo-800">"Run a YouTube Shorts pronunciation challenge with regional influencers—mirrors our Vietnam success."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* New English Communication Coach section */}
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <span className="text-xl">📘</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-indigo-900">English Communication Coach</h4>
+                  <p className="text-gray-600">Boost confidence and clarity in real-time.</p>
+                  <div className="mt-2 bg-indigo-100 p-3 rounded-md">
+                    <p className="italic text-indigo-800">"You say: "We might can do that next week.""</p>
+                    <div className="mt-2">
+                      <p className="font-medium text-indigo-800">ELSA suggests:</p>
+                      <p className="text-indigo-800">"Say 'We might be able to do that next week' — clearer and more professional."</p>
                     </div>
                   </div>
                 </div>
