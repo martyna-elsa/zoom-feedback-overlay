@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -390,10 +391,6 @@ const CallPreparation: React.FC = () => {
               <TargetIcon className="h-4 w-4" />
               Call Objective
             </TabsTrigger>
-            <TabsTrigger value="practice-calls" className="flex items-center gap-1">
-              <PhoneCall className="h-4 w-4" />
-              Practice Calls
-            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="company-info" className="space-y-6">
@@ -612,8 +609,7 @@ const CallPreparation: React.FC = () => {
                               Your Notes
                             </TabsTrigger>
                             <TabsTrigger value="calls" className="flex items-center gap-1">
-                              <PhoneCall className="h-4 w-4" />
-                              Previous Calls
+                              Calls
                             </TabsTrigger>
                           </TabsList>
                           
@@ -807,100 +803,6 @@ const CallPreparation: React.FC = () => {
               </CardContent>
               <CardFooter>
                 <Button>Save Call Objective</Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="practice-calls" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Practice Sales Call Scenarios</CardTitle>
-                <CardDescription>
-                  Select a scenario to practice specific sales call situations and skills
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <FormLabel className="mb-2 inline-block">Select Scenario</FormLabel>
-                    <Select 
-                      defaultValue={selectedScenario.id} 
-                      onValueChange={handleScenarioChange}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Choose a scenario" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {practiceCallScenarios.map((scenario) => (
-                          <SelectItem key={scenario.id} value={scenario.id}>
-                            {scenario.title}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <FormLabel className="mb-2 inline-block">Difficulty Level</FormLabel>
-                    <div className="flex items-center h-10 px-4 border border-input rounded-md bg-background">
-                      <Badge variant={
-                        selectedScenario.difficulty === "beginner" ? "default" :
-                        selectedScenario.difficulty === "intermediate" ? "secondary" : 
-                        selectedScenario.difficulty === "advanced" ? "outline" : "destructive"
-                      }>
-                        {selectedScenario.difficulty.charAt(0).toUpperCase() + selectedScenario.difficulty.slice(1)}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border-t pt-6">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <div>
-                      <h3 className="font-medium flex items-center gap-2 mb-3">
-                        <TargetIcon className="h-4 w-4 text-blue-600" />
-                        Call Goal
-                      </h3>
-                      <p className="text-sm text-gray-700 mb-4">{selectedScenario.goal}</p>
-                      
-                      <h3 className="font-medium flex items-center gap-2 mb-3">
-                        <FileText className="h-4 w-4 text-blue-600" />
-                        Scenario Description
-                      </h3>
-                      <p className="text-sm text-gray-700">{selectedScenario.description}</p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium flex items-center gap-2 mb-3">
-                        <ListTodo className="h-4 w-4 text-green-600" />
-                        Call Checklist
-                      </h3>
-                      <div className="space-y-3">
-                        {selectedScenario.tasks.map((task) => (
-                          <div key={task.id} className="flex items-start space-x-2">
-                            <Checkbox 
-                              id={task.id} 
-                              checked={task.completed}
-                              onCheckedChange={() => toggleTaskCompletion(task.id)}
-                            />
-                            <label
-                              htmlFor={task.id}
-                              className={`text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${task.completed ? 'text-gray-500 line-through' : 'text-gray-700'}`}
-                            >
-                              {task.label}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button onClick={startPracticeCall} className="gap-2">
-                  <Flag className="h-4 w-4" />
-                  Start Practice Call
-                </Button>
               </CardFooter>
             </Card>
           </TabsContent>
