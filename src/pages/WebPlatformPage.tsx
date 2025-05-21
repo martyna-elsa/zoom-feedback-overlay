@@ -130,7 +130,7 @@ const WebPlatformPage: React.FC = () => {
                     </div>
                     <div className="p-4">
                       <Link to="/call-preparation">
-                        <Button variant="outline" className="w-full">Prepare for Call</Button>
+                        <Button variant="outline" className="w-full">Set up Call</Button>
                       </Link>
                     </div>
                   </Card>
