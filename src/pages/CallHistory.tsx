@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -9,7 +8,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, History, FileText, Headphones, TrendingUp, X, Users } from 'lucide-react';
+import { ChevronLeft, History, FileText, Headphones, TrendingUp, X, Users, Share, Copy, Mail, Link as LinkIcon } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
@@ -30,6 +29,14 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { toast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 // Sample call history data
 const callHistoryData = [
@@ -184,6 +191,73 @@ const callSummaryData = {
 
 const CallHistory: React.FC = () => {
   const [activeTab, setActiveTab] = useState("summary");
+  const [activeCallId, setActiveCallId] = useState<number | null>(null);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "Copied to clipboard",
+        description: "Summary has been copied to your clipboard",
+      });
+    });
+  };
+
+  const generateSummaryText = (callId: number) => {
+    const call = callHistoryData.find(c => c.id === callId);
+    if (!call) return "";
+    
+    let summaryText = `Call Summary: ${call.topic}\n`;
+    summaryText += `Date: ${call.date} at ${call.time} (${call.duration})\n`;
+    summaryText += `Participants: ${call.participants.join(', ')}\n\n`;
+    
+    summaryText += "KEY POINTS:\n";
+    callSummaryData[callId].sections.forEach(section => {
+      summaryText += `${section.title}:\n`;
+      section.points.forEach(point => {
+        summaryText += `- ${point}\n`;
+      });
+      summaryText += '\n';
+    });
+    
+    summaryText += "STAKEHOLDERS:\n";
+    callSummaryData[callId].influenceMap.forEach(stakeholder => {
+      summaryText += `- ${stakeholder.name} (${stakeholder.title}): ${stakeholder.stance}, Influence: ${stakeholder.influence}\n`;
+    });
+    summaryText += '\n';
+    
+    summaryText += "ACTION ITEMS:\n";
+    callSummaryData[callId].actionItems.forEach(item => {
+      summaryText += `- ${item.description} (${item.assignee}) by ${item.dueDate}\n`;
+    });
+    
+    return summaryText;
+  };
+
+  const handleShareEmail = (callId: number) => {
+    const call = callHistoryData.find(c => c.id === callId);
+    if (!call) return;
+    
+    const subject = encodeURIComponent(`Call Summary: ${call.topic}`);
+    const body = encodeURIComponent(generateSummaryText(callId));
+    window.open(`mailto:?subject=${subject}&body=${body}`);
+    
+    toast({
+      title: "Email client opened",
+      description: "Summary is ready to be emailed",
+    });
+  };
+
+  const handleShareLink = (callId: number) => {
+    // In a real app, this would generate a shareable link
+    // For now, we'll just simulate it
+    toast({
+      title: "Shareable link created",
+      description: "Link has been copied to your clipboard",
+    });
+    
+    // Copy a simulated link to clipboard
+    copyToClipboard(`https://example.com/call-summary/${callId}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
@@ -247,6 +321,7 @@ const CallHistory: React.FC = () => {
                       <Button 
                         variant="outline" 
                         className="flex items-center gap-2"
+                        onClick={() => setActiveCallId(call.id)}
                       >
                         <FileText className="h-4 w-4" />
                         Summary
@@ -255,9 +330,56 @@ const CallHistory: React.FC = () => {
                     <PopoverContent className="w-[800px] max-w-[95vw] p-0" align="center">
                       <div className="p-4 border-b flex justify-between items-center">
                         <h3 className="text-lg font-semibold">{call.topic}</h3>
-                        <PopoverClose className="rounded-full p-1 hover:bg-gray-100">
-                          <X className="h-4 w-4" />
-                        </PopoverClose>
+                        <div className="flex items-center gap-2">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="flex items-center gap-2"
+                              >
+                                <Share className="h-4 w-4" />
+                                Share
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-md">
+                              <DialogHeader>
+                                <DialogTitle>Share Call Summary</DialogTitle>
+                              </DialogHeader>
+                              <div className="grid gap-4 py-4">
+                                <div className="flex flex-col gap-4">
+                                  <Button
+                                    variant="outline"
+                                    className="flex items-center justify-start gap-2"
+                                    onClick={() => handleShareEmail(call.id)}
+                                  >
+                                    <Mail className="h-4 w-4" />
+                                    <span>Email to Participants</span>
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    className="flex items-center justify-start gap-2"
+                                    onClick={() => copyToClipboard(generateSummaryText(call.id))}
+                                  >
+                                    <Copy className="h-4 w-4" />
+                                    <span>Copy to Clipboard</span>
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    className="flex items-center justify-start gap-2"
+                                    onClick={() => handleShareLink(call.id)}
+                                  >
+                                    <LinkIcon className="h-4 w-4" />
+                                    <span>Generate Shareable Link</span>
+                                  </Button>
+                                </div>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                          <PopoverClose className="rounded-full p-1 hover:bg-gray-100">
+                            <X className="h-4 w-4" />
+                          </PopoverClose>
+                        </div>
                       </div>
                       <div className="p-4">
                         <Tabs defaultValue="summary" value={activeTab} onValueChange={setActiveTab}>
