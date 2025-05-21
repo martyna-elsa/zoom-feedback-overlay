@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,13 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, Check, Info, PhoneCall } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, PhoneCall, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Sample participants data
@@ -284,6 +284,7 @@ const CallPreparation: React.FC = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("company-info");
   const [selectedObjective, setSelectedObjective] = useState(callObjectiveTemplates[0]);
+  const [selectedScenario, setSelectedScenario] = useState(practiceCallScenarios[0]);
   
   const form = useForm<FormValues>({
     defaultValues: {
@@ -292,43 +293,61 @@ const CallPreparation: React.FC = () => {
     }
   });
 
-  // Add the missing handler functions
   const handleUpload = (type: string) => {
     toast({
       title: "Upload initiated",
-      description: `Uploading documents for ${type}...`
+      description: `You'll soon be able to upload documents for ${type}.`
     });
   };
 
-  const handleUrlSubmit = (type: string, e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const handleUrlSubmit = (type: string, event: React.FormEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
     const url = new FormData(form).get('url') as string;
     
+    if (url) {
+      toast({
+        title: "URL received",
+        description: `We'll analyze this URL for ${type}.`
+      });
+      form.reset();
+    }
+  };
+  
+  const handleObjectiveChange = (value: string) => {
+    const objective = callObjectiveTemplates.find(o => o.id === value);
+    if (objective) {
+      setSelectedObjective(objective);
+    }
+    form.setValue("objective", value);
+  };
+
+  const handleScenarioChange = (value: string) => {
+    const scenario = practiceCallScenarios.find(s => s.id === value);
+    if (scenario) {
+      setSelectedScenario(scenario);
+    }
+  };
+
+  const toggleTaskCompletion = (taskId: string) => {
+    setSelectedScenario(prevScenario => {
+      const updatedTasks = prevScenario.tasks.map(task => 
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      );
+      return { ...prevScenario, tasks: updatedTasks };
+    });
+
     toast({
-      title: "URL submitted",
-      description: `Analyzing ${url} for ${type}...`
+      title: "Task status updated",
+      description: "Your progress has been saved."
     });
   };
 
-  const handleObjectiveChange = (value: string) => {
-    if (value === "custom") {
-      // Handle custom objective
-      setSelectedObjective({
-        id: "custom",
-        name: "Custom Objective",
-        description: "Your custom call objective",
-        agendaItems: ["Define your agenda items..."],
-        keyPhrases: [{ category: "Custom", phrases: ["Add your key phrases..."] }]
-      });
-    } else {
-      // Find and set the selected objective template
-      const objective = callObjectiveTemplates.find(obj => obj.id === value) || callObjectiveTemplates[0];
-      setSelectedObjective(objective);
-    }
-    
-    // Update the form value
-    form.setValue("objective", value);
+  const startPracticeCall = () => {
+    toast({
+      title: "Practice call initiated",
+      description: "Setting up your practice environment..."
+    });
   };
 
   // Simulate organization data status - in a real app, this would come from an API
@@ -355,7 +374,7 @@ const CallPreparation: React.FC = () => {
           </Link>
         </div>
 
-        <h1 className="text-2xl font-bold mb-6">Call Setup</h1>
+        <h1 className="text-2xl font-bold mb-6">Call Preparation</h1>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="mb-6 w-full justify-start">
@@ -370,6 +389,10 @@ const CallPreparation: React.FC = () => {
             <TabsTrigger value="call-objective" className="flex items-center gap-1">
               <TargetIcon className="h-4 w-4" />
               Call Objective
+            </TabsTrigger>
+            <TabsTrigger value="practice-calls" className="flex items-center gap-1">
+              <PhoneCall className="h-4 w-4" />
+              Practice Calls
             </TabsTrigger>
           </TabsList>
           
@@ -784,6 +807,100 @@ const CallPreparation: React.FC = () => {
               </CardContent>
               <CardFooter>
                 <Button>Save Call Objective</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="practice-calls" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Practice Sales Call Scenarios</CardTitle>
+                <CardDescription>
+                  Select a scenario to practice specific sales call situations and skills
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <FormLabel className="mb-2 inline-block">Select Scenario</FormLabel>
+                    <Select 
+                      defaultValue={selectedScenario.id} 
+                      onValueChange={handleScenarioChange}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choose a scenario" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {practiceCallScenarios.map((scenario) => (
+                          <SelectItem key={scenario.id} value={scenario.id}>
+                            {scenario.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <FormLabel className="mb-2 inline-block">Difficulty Level</FormLabel>
+                    <div className="flex items-center h-10 px-4 border border-input rounded-md bg-background">
+                      <Badge variant={
+                        selectedScenario.difficulty === "beginner" ? "default" :
+                        selectedScenario.difficulty === "intermediate" ? "secondary" : 
+                        selectedScenario.difficulty === "advanced" ? "outline" : "destructive"
+                      }>
+                        {selectedScenario.difficulty.charAt(0).toUpperCase() + selectedScenario.difficulty.slice(1)}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t pt-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <TargetIcon className="h-4 w-4 text-blue-600" />
+                        Call Goal
+                      </h3>
+                      <p className="text-sm text-gray-700 mb-4">{selectedScenario.goal}</p>
+                      
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <FileText className="h-4 w-4 text-blue-600" />
+                        Scenario Description
+                      </h3>
+                      <p className="text-sm text-gray-700">{selectedScenario.description}</p>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-medium flex items-center gap-2 mb-3">
+                        <ListTodo className="h-4 w-4 text-green-600" />
+                        Call Checklist
+                      </h3>
+                      <div className="space-y-3">
+                        {selectedScenario.tasks.map((task) => (
+                          <div key={task.id} className="flex items-start space-x-2">
+                            <Checkbox 
+                              id={task.id} 
+                              checked={task.completed}
+                              onCheckedChange={() => toggleTaskCompletion(task.id)}
+                            />
+                            <label
+                              htmlFor={task.id}
+                              className={`text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${task.completed ? 'text-gray-500 line-through' : 'text-gray-700'}`}
+                            >
+                              {task.label}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={startPracticeCall} className="gap-2">
+                  <Flag className="h-4 w-4" />
+                  Start Practice Call
+                </Button>
               </CardFooter>
             </Card>
           </TabsContent>
