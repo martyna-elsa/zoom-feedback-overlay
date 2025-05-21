@@ -246,6 +246,10 @@ const Landing: React.FC = () => {
                                   <span className="mr-2">✅</span>
                                   <span>Action Summary Generator</span>
                                 </div>
+                                <div className="flex items-start">
+                                  <span className="mr-2">📈</span>
+                                  <span>Skills Progress</span>
+                                </div>
                               </div>
                             </div>
                           </li>
