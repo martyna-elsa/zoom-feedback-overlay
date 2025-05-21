@@ -9,7 +9,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, History, FileText, Headphones, TrendingUp, ListChecks } from 'lucide-react';
+import { ChevronLeft, History, FileText, Headphones, TrendingUp } from 'lucide-react';
 
 // Sample call history data
 const callHistoryData = [
@@ -128,13 +128,6 @@ const CallHistory: React.FC = () => {
                   >
                     <FileText className="h-4 w-4" />
                     Summary
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="flex items-center gap-2"
-                  >
-                    <ListChecks className="h-4 w-4" />
-                    Action Items
                   </Button>
                   <Link to="/skills-progress" className="ml-auto">
                     <Button variant="default" className="flex items-center gap-2">
