@@ -140,10 +140,10 @@ const ChatPanel: React.FC = () => {
         <TabsContent value="conversation" className="flex-grow flex flex-col mt-0 p-0 h-full overflow-hidden">
           <ScrollArea className="flex-grow p-2">
             <div className="space-y-2">
-              {/* Recommended Reply heading */}
+              {/* Recommended Reply heading - Changed text color from purple-700 to pink-500 */}
               {feedbackAndIssues.some(item => item.type === 'recommendedReply') && (
                 <div className="mb-1 mt-1">
-                  <h3 className="text-sm font-medium text-purple-700 flex items-center">
+                  <h3 className="text-sm font-medium text-pink-500 flex items-center">
                     <span className="mr-1">🧠</span>
                     Recommended Reply
                   </h3>
