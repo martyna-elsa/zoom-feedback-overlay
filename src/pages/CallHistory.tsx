@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -8,7 +9,7 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, History, FileText, Headphones, TrendingUp, Map, ListChecks } from 'lucide-react';
+import { ChevronLeft, History, FileText, Headphones, TrendingUp, ListChecks } from 'lucide-react';
 
 // Sample call history data
 const callHistoryData = [
@@ -127,13 +128,6 @@ const CallHistory: React.FC = () => {
                   >
                     <FileText className="h-4 w-4" />
                     Summary
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="flex items-center gap-2"
-                  >
-                    <Map className="h-4 w-4" />
-                    Call Influence Map
                   </Button>
                   <Button 
                     variant="outline" 
