@@ -616,7 +616,7 @@ const Landing: React.FC = () => {
                       <h4 className="font-semibold text-blue-900">Meeting Agenda Assistant (New)</h4>
                       <p className="text-gray-600">Start focused. Arrive prepared.</p>
                       <div className="mt-2 bg-blue-100 p-3 rounded-md">
-                        <p className="font-medium text-blue-800">Whispr suggests agenda items based on past meetings, Slack threads, and calendar invites.</p>
+                        <p className="font-medium text-blue-800">ELSA suggests agenda items based on past meetings, Slack threads, and calendar invites.</p>
                       </div>
                     </div>
                   </div>
@@ -661,7 +661,7 @@ const Landing: React.FC = () => {
                       <h4 className="font-semibold text-indigo-900">Action Summary Generator (New)</h4>
                       <p className="text-gray-600">Auto-generate clear next steps from any meeting.</p>
                       <div className="mt-2 bg-indigo-100 p-3 rounded-md">
-                        <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                        <p className="font-medium text-indigo-800">ELSA suggests:</p>
                         <ul className="list-disc pl-5 mt-2 text-indigo-800">
                           <li>Anna to share pricing model by Tuesday</li>
                           <li>Team to review campaign brief by Friday</li>
@@ -698,7 +698,7 @@ const Landing: React.FC = () => {
                   <div className="mt-2 bg-indigo-100 p-3 rounded-md">
                     <p className="italic text-indigo-800">"Discussion turns contentious over budget allocation."</p>
                     <div className="mt-2">
-                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="font-medium text-indigo-800">ELSA suggests:</p>
                       <p className="text-indigo-800">"Pause now — your boss just took a strong stance. Suggest a bridging statement instead of pushing back."</p>
                     </div>
                   </div>
@@ -717,7 +717,7 @@ const Landing: React.FC = () => {
                   <div className="mt-2 bg-indigo-100 p-3 rounded-md">
                     <p className="italic text-indigo-800">"Your boss asks, "What's our churn rate in Vietnam last quarter?""</p>
                     <div className="mt-2">
-                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="font-medium text-indigo-800">ELSA suggests:</p>
                       <p className="text-indigo-800">"Churn dropped to 5.3%, mostly due to the March voice feedback launch."</p>
                     </div>
                   </div>
@@ -736,7 +736,7 @@ const Landing: React.FC = () => {
                   <div className="mt-2 bg-indigo-100 p-3 rounded-md">
                     <p className="italic text-indigo-800">"The CMO says, "Any campaign ideas for India?""</p>
                     <div className="mt-2">
-                      <p className="font-medium text-indigo-800">Whispr suggests:</p>
+                      <p className="font-medium text-indigo-800">ELSA suggests:</p>
                       <p className="text-indigo-800">"Run a YouTube Shorts pronunciation challenge with regional influencers—mirrors our Vietnam success."</p>
                     </div>
                   </div>
