@@ -178,7 +178,7 @@ const Landing: React.FC = () => {
                 
                 <TabsContent value="general" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* ELSA Web Platform Card - Updated with improved visual distinction */}
+                    {/* ELSA Web Platform Card */}
                     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-blue-100 hover:shadow-xl transition-shadow">
                       <div className="bg-blue-800 p-6">
                         <h3 className="text-2xl font-semibold text-white mb-2">ELSA Web Platform</h3>
@@ -243,15 +243,15 @@ const Landing: React.FC = () => {
                         <ul className="text-gray-600 mb-8 space-y-2">
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>🧠 Strategic Presence Engine: Helps navigate live discussions.</span>
+                            <span>🧠 Strategic Presence Engine</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>🔍 Real-Time Intelligence: Surfaces company knowledge on demand.</span>
+                            <span>🔍 Real-Time Intelligence</span>
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                            <span>💡 On-Demand Ideation: Boosts creativity under pressure.</span>
+                            <span>💡 On-Demand Ideation</span>
                           </li>
                         </ul>
                         <Link to="/video-call">
