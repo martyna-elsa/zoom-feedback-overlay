@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -172,11 +173,11 @@ const Landing: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex-grow flex items-center justify-center pt-8 pb-16">
+      <div className="flex-grow flex items-center justify-center pt-4 pb-16">
         <div className="max-w-6xl w-full px-4">
           {!showAdminSection ? (
             <>
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <div className="flex justify-center mb-2">
                   <img 
                     src="/lovable-uploads/ac25a11a-4252-4d7c-9f4b-5bad76e27357.png" 
@@ -187,8 +188,8 @@ const Landing: React.FC = () => {
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
               
-              <Tabs defaultValue="general" className="w-full mb-6">
-                <TabsList className="mb-6">
+              <Tabs defaultValue="general" className="w-full mb-4">
+                <TabsList className="mb-4">
                   {/* General tab button removed as requested */}
                 </TabsList>
                 
