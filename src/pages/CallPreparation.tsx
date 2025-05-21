@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info } from 'lucide-react';
+import { ChevronLeft, FileText, Linkedin, BookUser, Upload, Link as LinkIcon, TargetIcon, Calendar, MessageSquareText, ListTodo, Flag, Check, Info, PhoneCall } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
@@ -390,6 +389,10 @@ const CallPreparation: React.FC = () => {
             <TabsTrigger value="call-objective" className="flex items-center gap-1">
               <TargetIcon className="h-4 w-4" />
               Call Objective
+            </TabsTrigger>
+            <TabsTrigger value="practice-calls" className="flex items-center gap-1">
+              <PhoneCall className="h-4 w-4" />
+              Practice Calls
             </TabsTrigger>
           </TabsList>
           
@@ -803,6 +806,94 @@ const CallPreparation: React.FC = () => {
               </CardContent>
               <CardFooter>
                 <Button>Save Call Objective</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="practice-calls" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Practice Sales Call Scenarios</CardTitle>
+                <CardDescription>
+                  Select a scenario to practice specific sales call situations and skills
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <FormLabel>Select Scenario</FormLabel>
+                    <Select 
+                      onValueChange={handleScenarioChange} 
+                      defaultValue={selectedScenario.id}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a scenario" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {practiceCallScenarios.map((scenario) => (
+                          <SelectItem key={scenario.id} value={scenario.id}>
+                            {scenario.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <FormLabel>Difficulty Level</FormLabel>
+                    <div>
+                      <Badge variant="outline" className="bg-gray-800 text-white">
+                        {selectedScenario.difficulty.charAt(0).toUpperCase() + selectedScenario.difficulty.slice(1)}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <TargetIcon className="h-5 w-5 text-blue-600" />
+                      <h3 className="font-medium">Call Goal</h3>
+                    </div>
+                    <p>{selectedScenario.goal}</p>
+                    
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-5 w-5 text-green-600" />
+                      <h3 className="font-medium">Scenario Description</h3>
+                    </div>
+                    <p>{selectedScenario.description}</p>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <ListTodo className="h-5 w-5 text-purple-600" />
+                      <h3 className="font-medium">Call Checklist</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {selectedScenario.tasks.map((task) => (
+                        <div className="flex items-start gap-2" key={task.id}>
+                          <Checkbox 
+                            id={task.id} 
+                            checked={task.completed}
+                            onCheckedChange={() => toggleTaskCompletion(task.id)}
+                          />
+                          <label 
+                            htmlFor={task.id}
+                            className={`text-sm ${task.completed ? 'text-gray-500 line-through' : ''}`}
+                          >
+                            {task.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={startPracticeCall} className="flex items-center gap-2">
+                  <PhoneCall className="h-4 w-4" />
+                  Start Practice Call
+                </Button>
               </CardFooter>
             </Card>
           </TabsContent>
