@@ -12,7 +12,6 @@ import NotFound from "./pages/NotFound";
 import CallPreparation from "./pages/CallPreparation";
 import CallHistory from "./pages/CallHistory";
 import AdminDashboard from "./pages/AdminDashboard";
-import PracticeCalls from "./pages/PracticeCalls";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +29,6 @@ const App = () => (
           <Route path="/call-preparation" element={<CallPreparation />} />
           <Route path="/call-history" element={<CallHistory />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/practice-calls" element={<PracticeCalls />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

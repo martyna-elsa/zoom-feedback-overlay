@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChartBar, FileText, History, Home, Settings, Upload, Link as LinkIcon, Info, PhoneCall } from 'lucide-react';
+import { ChartBar, FileText, History, Home, Settings, Upload, Link as LinkIcon, Info } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -101,7 +100,7 @@ const WebPlatformPage: React.FC = () => {
               </TabsList>
               
               <TabsContent value="insights" className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
                   <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
                     <div className="p-6 border-b border-gray-100">
                       <div className="flex justify-between items-start mb-4">
@@ -132,23 +131,6 @@ const WebPlatformPage: React.FC = () => {
                     <div className="p-4">
                       <Link to="/call-preparation">
                         <Button variant="outline" className="w-full">Set up Call</Button>
-                      </Link>
-                    </div>
-                  </Card>
-                  
-                  <Card className="shadow-sm border-gray-200 hover:shadow-md transition-shadow">
-                    <div className="p-6 border-b border-gray-100">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg font-medium">Practice Calls</h3>
-                        <PhoneCall className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <p className="text-sm text-gray-600 mb-4">
-                        Practice sales scenarios with interactive checklists to improve skills.
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <Link to="/practice-calls">
-                        <Button variant="outline" className="w-full">Practice Calls</Button>
                       </Link>
                     </div>
                   </Card>
