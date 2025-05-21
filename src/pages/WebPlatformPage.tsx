@@ -234,6 +234,11 @@ const WebPlatformPage: React.FC = () => {
                         <p className="text-sm text-gray-600 mb-4">
                           Track improvement in pronunciation, grammar, confidence, and more.
                         </p>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700">
+                            📈 Skills Progress
+                          </Badge>
+                        </div>
                       </div>
                       <div className="p-4">
                         <Link to="/skills-progress">
