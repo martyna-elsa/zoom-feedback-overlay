@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -388,7 +389,7 @@ const CallPreparation: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger value="call-objective" className="flex items-center gap-1">
               <TargetIcon className="h-4 w-4" />
-              Call Objective
+              Call Agenda
             </TabsTrigger>
           </TabsList>
           
@@ -676,7 +677,7 @@ const CallPreparation: React.FC = () => {
           <TabsContent value="call-objective" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Call Objective</CardTitle>
+                <CardTitle>Call Agenda</CardTitle>
                 <CardDescription>
                   Define your call objective and get a suggested agenda and key phrases
                 </CardDescription>
