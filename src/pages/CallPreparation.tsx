@@ -389,7 +389,7 @@ const CallPreparation: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger value="call-objective" className="flex items-center gap-1">
               <TargetIcon className="h-4 w-4" />
-              Call Agenda
+              Meeting Agenda
             </TabsTrigger>
           </TabsList>
           
@@ -677,7 +677,7 @@ const CallPreparation: React.FC = () => {
           <TabsContent value="call-objective" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Call Agenda</CardTitle>
+                <CardTitle>Meeting Agenda</CardTitle>
                 <CardDescription>
                   Define your call objective and get a suggested agenda and key phrases
                 </CardDescription>
