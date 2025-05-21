@@ -177,7 +177,13 @@ const Landing: React.FC = () => {
           {!showAdminSection ? (
             <>
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-blue-800 mb-2">Welcome to ELSA</h2>
+                <div className="flex justify-center mb-2">
+                  <img 
+                    src="/lovable-uploads/ac25a11a-4252-4d7c-9f4b-5bad76e27357.png" 
+                    alt="ELSA Logo" 
+                    className="h-24" 
+                  />
+                </div>
                 <p className="text-lg text-gray-600">English Language Speech Assistant for professional development</p>
               </div>
               
