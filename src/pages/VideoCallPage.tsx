@@ -198,16 +198,6 @@ const VideoCallPage: React.FC = () => {
               
               <Button 
                 variant="ghost" 
-                size="sm"
-                onClick={toggleAgenda}
-                className="text-gray-500 hover:text-gray-700 font-normal text-xs h-7 px-1.5 flex items-center gap-1"
-              >
-                <ClipboardList className="h-3.5 w-3.5" />
-                {showAgenda ? "Hide Agenda" : "Show Agenda"}
-              </Button>
-              
-              <Button 
-                variant="ghost" 
                 size="icon" 
                 onClick={toggleHeader}
                 className="text-gray-500 hover:text-gray-700 h-6 w-6"
