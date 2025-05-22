@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { MicOff, VideoOff } from 'lucide-react';
+import { MicOff, VideoOff, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface VideoParticipantProps {
   name: string;
@@ -23,6 +24,10 @@ const VideoParticipant: React.FC<VideoParticipantProps> = ({
   // Generate a random hue for the background
   const hue = React.useMemo(() => Math.floor(Math.random() * 360), []);
   
+  // Generate a pastel color palette for avatar backgrounds
+  const backgroundColor = `hsla(${hue}, 70%, ${isVideoOff ? '30%' : '85%'}, 1)`;
+  const textColor = isVideoOff ? 'white' : 'hsla(${hue}, 70%, 20%, 1)';
+  
   return (
     <div className={cn(
       "relative rounded-lg overflow-hidden shadow-md bg-gray-800",
@@ -34,10 +39,10 @@ const VideoParticipant: React.FC<VideoParticipantProps> = ({
       {isVideoOff ? (
         <div 
           className="absolute inset-0 flex items-center justify-center"
-          style={{ backgroundColor: `hsla(${hue}, 70%, 30%, 1)` }}
+          style={{ backgroundColor }}
         >
           <div className={cn(
-            "rounded-full bg-gray-700 flex items-center justify-center",
+            "flex items-center justify-center",
             isSmall ? "h-12 w-12" : "h-24 w-24"
           )}>
             <span className={cn(
@@ -50,12 +55,20 @@ const VideoParticipant: React.FC<VideoParticipantProps> = ({
         </div>
       ) : (
         <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundColor: `hsla(${hue}, 70%, 30%, 0.3)`,
-            backgroundImage: 'url(https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=512&h=512)'
-          }}
-        />
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ backgroundColor }}
+        >
+          <Avatar className={isSmall ? "h-16 w-16" : "h-32 w-32"}>
+            <AvatarFallback style={{ backgroundColor: `hsla(${hue}, 70%, 65%, 1)` }}>
+              <span className={cn(
+                "font-semibold",
+                isSmall ? "text-xl" : "text-4xl"
+              )}>
+                {name.split(' ').map(part => part[0]).join('')}
+              </span>
+            </AvatarFallback>
+          </Avatar>
+        </div>
       )}
       
       <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 px-3 py-1.5 flex justify-between items-center">
