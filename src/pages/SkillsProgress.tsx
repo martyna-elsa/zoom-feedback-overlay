@@ -266,35 +266,6 @@ const SkillsProgress: React.FC = () => {
             )}
           </div>
           
-          {/* Sales Skills Insights Section - Show when Soft Skills is selected */}
-          {selectedCategory === CATEGORIES.SOFT && (
-            <Card className="shadow-sm mb-8 border-green-100">
-              <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-2">Sales Skills Insights</h2>
-                <p className="text-sm text-gray-500 mb-6">Analysis of your sales performance metrics over time</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {Object.values(salesSkillsInsights).map((insight, index) => {
-                    const Icon = insight.icon;
-                    return (
-                      <div key={index} className="flex flex-col p-4 rounded-lg bg-white border border-gray-100 shadow-sm">
-                        <div className="flex items-center mb-3">
-                          <div className={`p-2 rounded-full ${insight.color.replace('text', 'bg').replace('600', '100')}`}>
-                            <Icon className={`h-5 w-5 ${insight.color}`} />
-                          </div>
-                          <h3 className="text-lg font-semibold ml-2">{insight.title}</h3>
-                        </div>
-                        <div className={`text-lg font-bold mb-2 ${insight.color}`}>
-                          {insight.trend}
-                        </div>
-                        <p className="text-sm text-gray-600">{insight.description}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          )}
 
           {activeTab === 'overview' && (
             <>
@@ -327,19 +298,19 @@ const SkillsProgress: React.FC = () => {
                     <p className="text-sm text-gray-500 mb-4">Skill with highest growth</p>
                     
                     <div className="flex items-baseline mb-2">
-                      <span className="text-2xl font-bold">Confidence</span>
-                      <span className="ml-auto text-lg font-medium text-green-600">+25%</span>
+                      <span className="text-2xl font-bold">Negotiation</span>
+                      <span className="ml-auto text-lg font-medium text-green-600">+5%</span>
                     </div>
                     
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: '85%' }}
+                        style={{ width: '75%' }}
                       />
                     </div>
                     
-                    <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
-                      Communication Competency
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
+                      Soft Skills
                     </Badge>
                   </CardContent>
                 </Card>
@@ -351,19 +322,19 @@ const SkillsProgress: React.FC = () => {
                     <p className="text-sm text-gray-500 mb-4">Suggested skill to improve</p>
                     
                     <div className="flex items-baseline mb-2">
-                      <span className="text-2xl font-bold">Intonation</span>
-                      <span className="ml-auto text-lg font-medium text-green-600">+20%</span>
+                      <span className="text-2xl font-bold">Persuasion</span>
+                      <span className="ml-auto text-lg font-medium text-green-600">+15%</span>
                     </div>
                     
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: '55%' }}
+                        style={{ width: '70%' }}
                       />
                     </div>
                     
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
-                      English Proficiency
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
+                      Soft Skills
                     </Badge>
                   </CardContent>
                 </Card>
