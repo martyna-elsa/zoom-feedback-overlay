@@ -298,20 +298,35 @@ const SkillsProgress: React.FC = () => {
                     <p className="text-sm text-gray-500 mb-4">Skill with highest growth</p>
                     
                     <div className="flex items-baseline mb-2">
-                      <span className="text-2xl font-bold">Negotiation</span>
-                      <span className="ml-auto text-lg font-medium text-green-600">+5%</span>
+                      {selectedCategory === CATEGORIES.COMMUNICATION ? (
+                        <>
+                          <span className="text-2xl font-bold">Understanding</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+7%</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-2xl font-bold">Negotiation</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+5%</span>
+                        </>
+                      )}
                     </div>
                     
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: '75%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '80%' : '75%' }}
                       />
                     </div>
                     
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
-                      Soft Skills
-                    </Badge>
+                    {selectedCategory === CATEGORIES.COMMUNICATION ? (
+                      <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
+                        Communication Competency
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
+                        Soft Skills
+                      </Badge>
+                    )}
                   </CardContent>
                 </Card>
                 
@@ -322,20 +337,35 @@ const SkillsProgress: React.FC = () => {
                     <p className="text-sm text-gray-500 mb-4">Suggested skill to improve</p>
                     
                     <div className="flex items-baseline mb-2">
-                      <span className="text-2xl font-bold">Persuasion</span>
-                      <span className="ml-auto text-lg font-medium text-green-600">+15%</span>
+                      {selectedCategory === CATEGORIES.COMMUNICATION ? (
+                        <>
+                          <span className="text-2xl font-bold">Confidence</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+25%</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-2xl font-bold">Persuasion</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+15%</span>
+                        </>
+                      )}
                     </div>
                     
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: '70%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '85%' : '70%' }}
                       />
                     </div>
                     
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
-                      Soft Skills
-                    </Badge>
+                    {selectedCategory === CATEGORIES.COMMUNICATION ? (
+                      <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
+                        Communication Competency
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
+                        Soft Skills
+                      </Badge>
+                    )}
                   </CardContent>
                 </Card>
               </div>
