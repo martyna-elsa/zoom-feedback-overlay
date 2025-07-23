@@ -303,6 +303,11 @@ const SkillsProgress: React.FC = () => {
                           <span className="text-2xl font-bold">Understanding</span>
                           <span className="ml-auto text-lg font-medium text-green-600">+7%</span>
                         </>
+                      ) : selectedCategory === CATEGORIES.ENGLISH ? (
+                        <>
+                          <span className="text-2xl font-bold">Pronunciation</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+15%</span>
+                        </>
                       ) : (
                         <>
                           <span className="text-2xl font-bold">Negotiation</span>
@@ -314,13 +319,17 @@ const SkillsProgress: React.FC = () => {
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '80%' : '75%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '80%' : selectedCategory === CATEGORIES.ENGLISH ? '65%' : '75%' }}
                       />
                     </div>
                     
                     {selectedCategory === CATEGORIES.COMMUNICATION ? (
                       <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
                         Communication Competency
+                      </Badge>
+                    ) : selectedCategory === CATEGORIES.ENGLISH ? (
+                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
+                        English Proficiency
                       </Badge>
                     ) : (
                       <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
@@ -342,6 +351,11 @@ const SkillsProgress: React.FC = () => {
                           <span className="text-2xl font-bold">Confidence</span>
                           <span className="ml-auto text-lg font-medium text-green-600">+25%</span>
                         </>
+                      ) : selectedCategory === CATEGORIES.ENGLISH ? (
+                        <>
+                          <span className="text-2xl font-bold">Fluency</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+10%</span>
+                        </>
                       ) : (
                         <>
                           <span className="text-2xl font-bold">Persuasion</span>
@@ -353,13 +367,17 @@ const SkillsProgress: React.FC = () => {
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '85%' : '70%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '85%' : selectedCategory === CATEGORIES.ENGLISH ? '60%' : '70%' }}
                       />
                     </div>
                     
                     {selectedCategory === CATEGORIES.COMMUNICATION ? (
                       <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">
                         Communication Competency
+                      </Badge>
+                    ) : selectedCategory === CATEGORIES.ENGLISH ? (
+                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
+                        English Proficiency
                       </Badge>
                     ) : (
                       <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
