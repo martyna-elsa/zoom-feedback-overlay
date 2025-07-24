@@ -153,6 +153,64 @@ const englishProficiencyData = {
   level: "Upper Intermediate",
   description: "You're moving up in the world!",
   explanation: "Ever wonder how your Overall Speaking Score relates to other scoring systems? The collapsible section below has all the answers you're looking for! Our English Speaking Score Predictor helps you compare your performance with other recognised scoring systems for English proficiency. Check it out!",
+  skillDetails: {
+    pronunciation: {
+      score: 61,
+      level: "Intermediate",
+      description: "Onwards and upwards!",
+      advice: "Check out the 'How to Improve' section below to get hints and advice on the pronunciation of specific sounds. You can use this feedback to raise your Pronunciation Score in your next recording!",
+      errors: [
+        {
+          sound: "/k/",
+          title: "Words with Mistakes",
+          forgot: [{ word: "background", phonetic: "/bæk.graʊnd/" }],
+          mispronounced: [
+            { word: "can", phonetic: "/kən/" },
+            { word: "keep", phonetic: "/kip/" }
+          ],
+          improvement: "This is a /k/ sound. Raise the back of your tongue up against the roof of your mouth to stop the air from coming out, and then release it."
+        },
+        {
+          sound: "/l/",
+          title: "Words with Mistakes",
+          saidInstead: [{ word: "looking", phonetic: "/lʊk.ɪŋ/", said: "/b/" }],
+          mispronounced: [{ word: "slow", phonetic: "/sloʊ/" }],
+          improvement: "This is a /l/ sound. Press the tip of your tongue against your upper front gums or teeth."
+        },
+        {
+          sound: "/n/",
+          title: "Words with Mistakes",
+          forgot: [{ word: "and", phonetic: "/ænd/" }],
+          saidInstead: [{ word: "on", phonetic: "/ɒn/", said: "/r/" }],
+          improvement: "This is a /n/ sound. Press your tongue against you upper gums and teeth and vibrate your vocal cords."
+        }
+      ]
+    },
+    grammar: {
+      score: 68,
+      level: "Upper Intermediate",
+      description: "Strong grammatical foundation with room for refinement",
+      advice: "Focus on complex sentence structures and advanced tenses to reach the next level."
+    },
+    vocabulary: {
+      score: 72,
+      level: "Upper Intermediate",
+      description: "Good range of vocabulary with effective usage",
+      advice: "Expand business and technical vocabulary for professional contexts."
+    },
+    intonation: {
+      score: 55,
+      level: "Intermediate",
+      description: "Developing natural speech patterns",
+      advice: "Practice rising and falling intonation in questions and statements."
+    },
+    fluency: {
+      score: 60,
+      level: "Intermediate",
+      description: "Good pace with occasional hesitation",
+      advice: "Work on reducing filler words and maintaining consistent speaking rhythm."
+    }
+  },
   testComparisons: [
     {
       name: "IELTS",
@@ -200,6 +258,7 @@ const SkillsProgress: React.FC = () => {
   const [selectedCall, setSelectedCall] = useState("call-1");
   const [selectedView, setSelectedView] = useState("timeframe");
   const [showEnglishPredictors, setShowEnglishPredictors] = useState(false);
+  const [selectedSkillDetail, setSelectedSkillDetail] = useState<string | null>(null);
   
   // Filter skills by selected category
   const filteredSkills = selectedCategory === CATEGORIES.ALL 
@@ -525,14 +584,181 @@ const SkillsProgress: React.FC = () => {
                               {test.level}
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                         ))}
+                       </div>
+                       
+                       {/* Skill Details Section */}
+                       <div className="mt-12 border-t border-gray-200 pt-8">
+                         <h3 className="text-xl font-semibold mb-6">Detailed Analysis for Each Skill</h3>
+                         
+                         {/* Skill Navigation */}
+                         <div className="flex flex-wrap gap-3 mb-6">
+                           {['pronunciation', 'grammar', 'vocabulary', 'intonation', 'fluency'].map((skill) => (
+                             <button
+                               key={skill}
+                               onClick={() => setSelectedSkillDetail(selectedSkillDetail === skill ? null : skill)}
+                               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                 selectedSkillDetail === skill
+                                   ? 'bg-blue-600 text-white'
+                                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                               }`}
+                             >
+                               {skill.charAt(0).toUpperCase() + skill.slice(1)}
+                             </button>
+                           ))}
+                         </div>
+                         
+                         {/* Skill Detail Views */}
+                         {selectedSkillDetail && (
+                           <Card className="mt-6">
+                             <CardContent className="p-6">
+                               {selectedSkillDetail === 'pronunciation' ? (
+                                 // Pronunciation Detail View
+                                 <div>
+                                   <div className="flex items-center space-x-6 mb-6">
+                                     <div className="relative">
+                                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                                         <circle
+                                           cx="50"
+                                           cy="50"
+                                           r="35"
+                                           stroke="#fbbf24"
+                                           strokeWidth="8"
+                                           fill="none"
+                                           strokeDasharray={`${2 * Math.PI * 35}`}
+                                           strokeDashoffset={`${2 * Math.PI * 35 * (1 - englishProficiencyData.skillDetails.pronunciation.score / 100)}`}
+                                           strokeLinecap="round"
+                                         />
+                                       </svg>
+                                       <div className="absolute inset-0 flex items-center justify-center">
+                                         <div className="text-center">
+                                           <div className="text-2xl font-bold text-orange-600">{englishProficiencyData.skillDetails.pronunciation.score}%</div>
+                                           <div className="text-xs text-gray-500">{englishProficiencyData.skillDetails.pronunciation.level}</div>
+                                         </div>
+                                       </div>
+                                     </div>
+                                     <div>
+                                       <h4 className="text-2xl font-bold mb-2">Pronunciation Score</h4>
+                                       <p className="text-gray-600 mb-2">
+                                         Your pronunciation level is <span className="font-semibold">{englishProficiencyData.skillDetails.pronunciation.level}</span>. {englishProficiencyData.skillDetails.pronunciation.description}
+                                       </p>
+                                       <p className="text-sm text-gray-500">
+                                         {englishProficiencyData.skillDetails.pronunciation.advice}
+                                       </p>
+                                     </div>
+                                   </div>
+                                   
+                                   <h5 className="text-xl font-semibold mb-6">Your Top Errors and Suggestions for Improvement</h5>
+                                   
+                                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                     {englishProficiencyData.skillDetails.pronunciation.errors.map((error, index) => (
+                                       <Card key={index} className="border-gray-200">
+                                         <CardContent className="p-4">
+                                           <h6 className="text-lg font-semibold mb-3">Sound {error.sound}</h6>
+                                           
+                                           <div className="mb-4">
+                                             <div className="font-medium text-gray-800 mb-2">{error.title}</div>
+                                             
+                                             {error.forgot && (
+                                               <div className="mb-2">
+                                                 <p className="text-sm text-gray-600 mb-1">You forgot to pronounce {error.sound}</p>
+                                                 {error.forgot.map((item, idx) => (
+                                                   <div key={idx} className="flex items-center space-x-2">
+                                                     <span className="text-sm">•</span>
+                                                     <span className="text-sm font-medium">{item.word}</span>
+                                                     <span className="text-sm text-gray-500">{item.phonetic}</span>
+                                                   </div>
+                                                 ))}
+                                               </div>
+                                             )}
+                                             
+                                             {error.mispronounced && (
+                                               <div className="mb-2">
+                                                 <p className="text-sm text-gray-600 mb-1">You mispronounced {error.sound}</p>
+                                                 {error.mispronounced.map((item, idx) => (
+                                                   <div key={idx} className="flex items-center space-x-2">
+                                                     <span className="text-sm">•</span>
+                                                     <span className="text-sm font-medium">{item.word}</span>
+                                                     <span className="text-sm text-gray-500">{item.phonetic}</span>
+                                                   </div>
+                                                 ))}
+                                               </div>
+                                             )}
+                                             
+                                             {error.saidInstead && (
+                                               <div className="mb-2">
+                                                 <p className="text-sm text-gray-600 mb-1">You said {error.saidInstead[0]?.said} instead of {error.sound}</p>
+                                                 {error.saidInstead.map((item, idx) => (
+                                                   <div key={idx} className="flex items-center space-x-2">
+                                                     <span className="text-sm">•</span>
+                                                     <span className="text-sm font-medium">{item.word}</span>
+                                                     <span className="text-sm text-gray-500">{item.phonetic}</span>
+                                                   </div>
+                                                 ))}
+                                               </div>
+                                             )}
+                                           </div>
+                                           
+                                           <div className="border-t border-gray-200 pt-3">
+                                             <div className="font-medium text-gray-800 mb-2">How to Improve</div>
+                                             <p className="text-sm text-gray-600">{error.improvement}</p>
+                                           </div>
+                                         </CardContent>
+                                       </Card>
+                                     ))}
+                                   </div>
+                                 </div>
+                               ) : (
+                                 // Other Skills Detail View
+                                 <div>
+                                   <div className="flex items-center space-x-6 mb-6">
+                                     <div className="relative">
+                                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                                         <circle
+                                           cx="50"
+                                           cy="50"
+                                           r="35"
+                                           stroke="#3b82f6"
+                                           strokeWidth="8"
+                                           fill="none"
+                                           strokeDasharray={`${2 * Math.PI * 35}`}
+                                           strokeDashoffset={`${2 * Math.PI * 35 * (1 - englishProficiencyData.skillDetails[selectedSkillDetail as keyof typeof englishProficiencyData.skillDetails].score / 100)}`}
+                                           strokeLinecap="round"
+                                         />
+                                       </svg>
+                                       <div className="absolute inset-0 flex items-center justify-center">
+                                         <div className="text-center">
+                                           <div className="text-2xl font-bold text-blue-600">
+                                             {englishProficiencyData.skillDetails[selectedSkillDetail as keyof typeof englishProficiencyData.skillDetails].score}%
+                                           </div>
+                                           <div className="text-xs text-gray-500">
+                                             {englishProficiencyData.skillDetails[selectedSkillDetail as keyof typeof englishProficiencyData.skillDetails].level}
+                                           </div>
+                                         </div>
+                                       </div>
+                                     </div>
+                                     <div>
+                                       <h4 className="text-2xl font-bold mb-2 capitalize">{selectedSkillDetail} Score</h4>
+                                       <p className="text-gray-600 mb-2">
+                                         {englishProficiencyData.skillDetails[selectedSkillDetail as keyof typeof englishProficiencyData.skillDetails].description}
+                                       </p>
+                                       <p className="text-sm text-gray-500">
+                                         {englishProficiencyData.skillDetails[selectedSkillDetail as keyof typeof englishProficiencyData.skillDetails].advice}
+                                       </p>
+                                     </div>
+                                   </div>
+                                 </div>
+                               )}
+                             </CardContent>
+                           </Card>
+                         )}
+                       </div>
+                     </div>
+                   )}
+                 </div>
+               </CardContent>
+             </Card>
+           )}
 
           {activeTab === 'overview' && (
             <>
