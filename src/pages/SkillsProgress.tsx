@@ -434,7 +434,7 @@ const SkillsProgress: React.FC = () => {
 
                     {/* Content */}
                     <div className="flex-1">
-                      <h2 className="text-3xl font-bold mb-2">Overall Speaking Score</h2>
+                      <h2 className="text-3xl font-bold mb-2">English Score</h2>
                       <p className="text-lg mb-1">
                         Your level is <span className="text-orange-500 font-semibold">{englishProficiencyData.level}</span>. {englishProficiencyData.description}
                       </p>
