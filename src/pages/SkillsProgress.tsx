@@ -247,24 +247,7 @@ const SkillsProgress: React.FC = () => {
             </ToggleGroup>
           </div>
           
-          {/* Display context information based on selection */}
-          <div className="mb-4 text-center">
-            {selectedView === "timeframe" ? (
-              <p className="text-sm text-gray-600">
-                Showing skills progress for: <span className="font-medium">{
-                  timeframeOptions.find(option => option.value === selectedTimeframe)?.label
-                }</span>
-              </p>
-            ) : (
-              <p className="text-sm text-gray-600">
-                Showing skills assessment for call: <span className="font-medium">{
-                  callOptions.find(option => option.value === selectedCall)?.label
-                }</span> on <span className="font-medium">{
-                  callOptions.find(option => option.value === selectedCall)?.date
-                }</span>
-              </p>
-            )}
-          </div>
+          
           
 
           {activeTab === 'overview' && (
