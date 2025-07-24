@@ -30,6 +30,7 @@ const CATEGORIES = {
   ENGLISH: "english-proficiency",
   SOFT: "soft-skills",
   COMMUNICATION: "communication-competency",
+  BODY_LANGUAGE: "body-language",
   ALL: "all"
 };
 
@@ -44,7 +45,12 @@ const radarData = [
   { name: "Persuasion", value: 70, category: CATEGORIES.SOFT, improvement: "+15%" },
   { name: "Understanding", value: 80, category: CATEGORIES.COMMUNICATION, improvement: "+7%" },
   { name: "Confidence", value: 85, category: CATEGORIES.COMMUNICATION, improvement: "+25%" },
-  { name: "Coherence", value: 78, category: CATEGORIES.COMMUNICATION, improvement: "+18%" }
+  { name: "Coherence", value: 78, category: CATEGORIES.COMMUNICATION, improvement: "+18%" },
+  { name: "Eye Contact", value: 72, category: CATEGORIES.BODY_LANGUAGE, improvement: "+12%" },
+  { name: "Posture", value: 68, category: CATEGORIES.BODY_LANGUAGE, improvement: "+8%" },
+  { name: "Hand Gestures", value: 65, category: CATEGORIES.BODY_LANGUAGE, improvement: "+10%" },
+  { name: "Fidgeting", value: 45, category: CATEGORIES.BODY_LANGUAGE, improvement: "+18%" },
+  { name: "Arm Position", value: 62, category: CATEGORIES.BODY_LANGUAGE, improvement: "+15%" }
 ];
 
 // Sales skills insight data
@@ -77,6 +83,7 @@ const categoryLabels = {
   [CATEGORIES.ENGLISH]: "English Proficiency",
   [CATEGORIES.SOFT]: "Soft Skills",
   [CATEGORIES.COMMUNICATION]: "Communication Competency",
+  [CATEGORIES.BODY_LANGUAGE]: "Body Language",
   [CATEGORIES.ALL]: "All Categories"
 };
 
@@ -85,6 +92,7 @@ const categoryColors = {
   [CATEGORIES.ENGLISH]: "blue",
   [CATEGORIES.SOFT]: "green",
   [CATEGORIES.COMMUNICATION]: "purple",
+  [CATEGORIES.BODY_LANGUAGE]: "orange",
 };
 
 // Timeframe options
@@ -244,6 +252,12 @@ const SkillsProgress: React.FC = () => {
               >
                 Communication Competency
               </ToggleGroupItem>
+              <ToggleGroupItem 
+                value={CATEGORIES.BODY_LANGUAGE}
+                className={`${selectedCategory === CATEGORIES.BODY_LANGUAGE ? "bg-orange-100" : ""} text-orange-700 hover:text-orange-900 hover:bg-orange-50 border-orange-200`}
+              >
+                Body Language
+              </ToggleGroupItem>
             </ToggleGroup>
           </div>
           
@@ -340,6 +354,11 @@ const SkillsProgress: React.FC = () => {
                           <span className="text-2xl font-bold">Pronunciation</span>
                           <span className="ml-auto text-lg font-medium text-green-600">+15%</span>
                         </>
+                      ) : selectedCategory === CATEGORIES.BODY_LANGUAGE ? (
+                        <>
+                          <span className="text-2xl font-bold">Fidgeting</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+18%</span>
+                        </>
                       ) : (
                         <>
                           <span className="text-2xl font-bold">Negotiation</span>
@@ -351,7 +370,7 @@ const SkillsProgress: React.FC = () => {
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '80%' : selectedCategory === CATEGORIES.ENGLISH ? '65%' : '75%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '80%' : selectedCategory === CATEGORIES.ENGLISH ? '65%' : selectedCategory === CATEGORIES.BODY_LANGUAGE ? '45%' : '75%' }}
                       />
                     </div>
                     
@@ -362,6 +381,10 @@ const SkillsProgress: React.FC = () => {
                     ) : selectedCategory === CATEGORIES.ENGLISH ? (
                       <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
                         English Proficiency
+                      </Badge>
+                    ) : selectedCategory === CATEGORIES.BODY_LANGUAGE ? (
+                      <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                        Body Language
                       </Badge>
                     ) : (
                       <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
@@ -388,6 +411,11 @@ const SkillsProgress: React.FC = () => {
                           <span className="text-2xl font-bold">Fluency</span>
                           <span className="ml-auto text-lg font-medium text-green-600">+10%</span>
                         </>
+                      ) : selectedCategory === CATEGORIES.BODY_LANGUAGE ? (
+                        <>
+                          <span className="text-2xl font-bold">Eye Contact</span>
+                          <span className="ml-auto text-lg font-medium text-green-600">+12%</span>
+                        </>
                       ) : (
                         <>
                           <span className="text-2xl font-bold">Persuasion</span>
@@ -399,7 +427,7 @@ const SkillsProgress: React.FC = () => {
                     <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                       <div 
                         className="bg-black h-2 rounded-full" 
-                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '85%' : selectedCategory === CATEGORIES.ENGLISH ? '60%' : '70%' }}
+                        style={{ width: selectedCategory === CATEGORIES.COMMUNICATION ? '85%' : selectedCategory === CATEGORIES.ENGLISH ? '60%' : selectedCategory === CATEGORIES.BODY_LANGUAGE ? '72%' : '70%' }}
                       />
                     </div>
                     
@@ -410,6 +438,10 @@ const SkillsProgress: React.FC = () => {
                     ) : selectedCategory === CATEGORIES.ENGLISH ? (
                       <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
                         English Proficiency
+                      </Badge>
+                    ) : selectedCategory === CATEGORIES.BODY_LANGUAGE ? (
+                      <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">
+                        Body Language
                       </Badge>
                     ) : (
                       <Badge className="bg-green-100 text-green-800 hover:bg-green-200">
