@@ -231,6 +231,55 @@ const SkillsProgress: React.FC = () => {
           </Tabs>
         </div>
         
+        {/* Summary Feedback Section */}
+        <Card className="shadow-sm mb-8">
+          <CardContent className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Performance Summary</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Strengths */}
+              <div>
+                <h4 className="text-md font-medium text-green-700 mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  Strengths
+                </h4>
+                <div className="space-y-3">
+                  <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                    <p className="text-sm text-green-800">
+                      <strong>Exceptional listening skills:</strong> You demonstrate strong active listening, allowing customers to fully express concerns before responding. This builds trust and shows genuine interest in their needs.
+                    </p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                    <p className="text-sm text-green-800">
+                      <strong>Clear value articulation:</strong> You excel at connecting product features to specific customer benefits, making it easy for prospects to understand the ROI and business impact.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Areas for Improvement */}
+              <div>
+                <h4 className="text-md font-medium text-orange-700 mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
+                  Areas for Improvement
+                </h4>
+                <div className="space-y-3">
+                  <div className="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-400">
+                    <p className="text-sm text-orange-800">
+                      <strong>Objection handling timing:</strong> Consider addressing objections earlier in conversations rather than waiting until the end. This prevents concerns from building up and shows proactive problem-solving.
+                    </p>
+                  </div>
+                  <div className="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-400">
+                    <p className="text-sm text-orange-800">
+                      <strong>Follow-up question depth:</strong> While you ask good initial questions, deeper follow-up questions could uncover additional pain points and create stronger urgency for your solution.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
         <div className="mb-8">
           <div className="flex justify-center space-x-4 mb-8 overflow-x-auto">
             <ToggleGroup type="single" value={selectedCategory} onValueChange={(value) => setSelectedCategory(value || CATEGORIES.ALL)}>
@@ -266,55 +315,6 @@ const SkillsProgress: React.FC = () => {
 
           {activeTab === 'overview' && (
             <>
-              {/* Summary Feedback Section */}
-              <Card className="shadow-sm mb-8">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Performance Summary</h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Strengths */}
-                    <div>
-                      <h4 className="text-md font-medium text-green-700 mb-3 flex items-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                        Strengths
-                      </h4>
-                      <div className="space-y-3">
-                        <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
-                          <p className="text-sm text-green-800">
-                            <strong>Exceptional listening skills:</strong> You demonstrate strong active listening, allowing customers to fully express concerns before responding. This builds trust and shows genuine interest in their needs.
-                          </p>
-                        </div>
-                        <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
-                          <p className="text-sm text-green-800">
-                            <strong>Clear value articulation:</strong> You excel at connecting product features to specific customer benefits, making it easy for prospects to understand the ROI and business impact.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Areas for Improvement */}
-                    <div>
-                      <h4 className="text-md font-medium text-orange-700 mb-3 flex items-center">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
-                        Areas for Improvement
-                      </h4>
-                      <div className="space-y-3">
-                        <div className="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-400">
-                          <p className="text-sm text-orange-800">
-                            <strong>Objection handling timing:</strong> Consider addressing objections earlier in conversations rather than waiting until the end. This prevents concerns from building up and shows proactive problem-solving.
-                          </p>
-                        </div>
-                        <div className="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-400">
-                          <p className="text-sm text-orange-800">
-                            <strong>Follow-up question depth:</strong> While you ask good initial questions, deeper follow-up questions could uncover additional pain points and create stronger urgency for your solution.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Overall Proficiency Card */}
                 <Card className="shadow-sm">
