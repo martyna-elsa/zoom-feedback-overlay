@@ -884,6 +884,60 @@ const Landing: React.FC = () => {
                 </div>
               </div>
             </div>
+            
+            {/* Platform Integration section */}
+            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+              <div className="flex items-start gap-3">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <span className="text-xl">🔗</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-indigo-900">Platform Connections</h4>
+                  <p className="text-gray-600">Connect ELSA to your favorite video conferencing platforms.</p>
+                  
+                  <div className="mt-4 space-y-4">
+                    {/* Google Meet */}
+                    <div className="bg-white p-3 rounded-md border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-xs font-bold">G</div>
+                        <h5 className="font-medium text-gray-900">Google Meet</h5>
+                      </div>
+                      <div className="text-sm text-gray-600 space-y-1">
+                        <div><strong>Audio Export:</strong> Record meetings (MP4), no direct audio export</div>
+                        <div><strong>Transcript Access:</strong> Automatic captions (not full transcripts)</div>
+                        <div><strong>API/Integration:</strong> Google Workspace API (No direct transcript export)</div>
+                      </div>
+                    </div>
+                    
+                    {/* Zoom */}
+                    <div className="bg-white p-3 rounded-md border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">Z</div>
+                        <h5 className="font-medium text-gray-900">Zoom</h5>
+                      </div>
+                      <div className="text-sm text-gray-600 space-y-1">
+                        <div><strong>Audio Export:</strong> Record meetings (M4A for audio)</div>
+                        <div><strong>Transcript Access:</strong> Automatic transcription for recorded meetings</div>
+                        <div><strong>API/Integration:</strong> Zoom API, Recording API, Transcription API</div>
+                      </div>
+                    </div>
+                    
+                    {/* Microsoft Teams */}
+                    <div className="bg-white p-3 rounded-md border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-6 h-6 bg-purple-600 rounded flex items-center justify-center text-white text-xs font-bold">T</div>
+                        <h5 className="font-medium text-gray-900">Microsoft Teams</h5>
+                      </div>
+                      <div className="text-sm text-gray-600 space-y-1">
+                        <div><strong>Audio Export:</strong> Record meetings, accessible via Graph API</div>
+                        <div><strong>Transcript Access:</strong> Automatic transcription for recorded meetings</div>
+                        <div><strong>API/Integration:</strong> Microsoft Graph API, Teams API, Transcription API</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
