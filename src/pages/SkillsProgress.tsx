@@ -6,7 +6,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronDown, TrendingUp, Award, Handshake } from 'lucide-react';
 import {
-  RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer
+  RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer,
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import {
   Select,
@@ -116,6 +117,34 @@ const callOptions = [
   { label: "Feature Walkthrough - Small Business", value: "call-3", date: "May 8, 2025" },
   { label: "Annual Contract Renewal - Healthcare", value: "call-4", date: "May 3, 2025" },
   { label: "Technical Support Follow-up", value: "call-5", date: "April 28, 2025" },
+];
+
+// Time series data for competency progression
+const competencyTimeData = [
+  { 
+    period: "Week 1", 
+    Pronunciation: 50, Grammar: 56, Vocabulary: 64, Intonation: 35, Fluency: 50,
+    Negotiation: 70, Persuasion: 55, Understanding: 73, Confidence: 60, Coherence: 60,
+    "Eye Contact": 60, Posture: 60, "Hand Gestures": 55, Fidgeting: 27, "Arm Position": 47
+  },
+  { 
+    period: "Week 2", 
+    Pronunciation: 52, Grammar: 58, Vocabulary: 66, Intonation: 38, Fluency: 52,
+    Negotiation: 71, Persuasion: 58, Understanding: 75, Confidence: 65, Coherence: 63,
+    "Eye Contact": 63, Posture: 61, "Hand Gestures": 57, Fidgeting: 30, "Arm Position": 50
+  },
+  { 
+    period: "Week 3", 
+    Pronunciation: 58, Grammar: 62, Vocabulary: 68, Intonation: 45, Fluency: 55,
+    Negotiation: 73, Persuasion: 62, Understanding: 77, Confidence: 72, Coherence: 68,
+    "Eye Contact": 66, Posture: 63, "Hand Gestures": 60, Fidgeting: 35, "Arm Position": 55
+  },
+  { 
+    period: "Week 4", 
+    Pronunciation: 65, Grammar: 68, Vocabulary: 72, Intonation: 55, Fluency: 60,
+    Negotiation: 75, Persuasion: 70, Understanding: 80, Confidence: 85, Coherence: 78,
+    "Eye Contact": 72, Posture: 68, "Hand Gestures": 65, Fidgeting: 45, "Arm Position": 62
+  }
 ];
 
 const SkillsProgress: React.FC = () => {
@@ -528,6 +557,58 @@ const SkillsProgress: React.FC = () => {
                     );
                   })}
                 </div>
+                
+                {/* Competency Progression Chart */}
+                <Card className="shadow-sm mt-8">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-1">Competency Progression Over Time</h3>
+                    <p className="text-sm text-gray-500 mb-6">Track how your skills have improved week by week</p>
+                    
+                    <div className="h-[400px] w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={competencyTimeData}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                          <XAxis 
+                            dataKey="period" 
+                            tick={{ fill: '#64748b', fontSize: 12 }}
+                            axisLine={{ stroke: '#e2e8f0' }}
+                          />
+                          <YAxis 
+                            domain={[0, 100]}
+                            tick={{ fill: '#64748b', fontSize: 12 }}
+                            axisLine={{ stroke: '#e2e8f0' }}
+                          />
+                          <Tooltip 
+                            contentStyle={{
+                              backgroundColor: 'white',
+                              border: '1px solid #e2e8f0',
+                              borderRadius: '8px',
+                              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                            }}
+                          />
+                          <Legend />
+                          {filteredSkills.map((skill, index) => {
+                            const colors = [
+                              '#3b82f6', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444',
+                              '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#6366f1'
+                            ];
+                            return (
+                              <Line
+                                key={skill.name}
+                                type="monotone"
+                                dataKey={skill.name}
+                                stroke={colors[index % colors.length]}
+                                strokeWidth={2}
+                                dot={{ fill: colors[index % colors.length], strokeWidth: 2, r: 4 }}
+                                activeDot={{ r: 6 }}
+                              />
+                            );
+                          })}
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
               </CardContent>
             </Card>
           )}
