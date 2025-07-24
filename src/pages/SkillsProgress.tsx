@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, ChevronDown, TrendingUp, Award, Handshake } from 'lucide-react';
+import { ChevronLeft, ChevronDown, ChevronUp, TrendingUp, Award, Handshake } from 'lucide-react';
 import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer,
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
@@ -147,12 +147,59 @@ const competencyTimeData = [
   }
 ];
 
+// English proficiency overall data
+const englishProficiencyData = {
+  overallScore: 71,
+  level: "Upper Intermediate",
+  description: "You're moving up in the world!",
+  explanation: "Ever wonder how your Overall Speaking Score relates to other scoring systems? The collapsible section below has all the answers you're looking for! Our English Speaking Score Predictor helps you compare your performance with other recognised scoring systems for English proficiency. Check it out!",
+  testComparisons: [
+    {
+      name: "IELTS",
+      score: 6,
+      range: { min: 0, max: 9 },
+      level: "Competent",
+      color: "#dc2626"
+    },
+    {
+      name: "TOEFL",
+      score: 19,
+      range: { min: 0, max: 30 },
+      level: "Lower-Intermediate",
+      color: "#0891b2"
+    },
+    {
+      name: "CEFR",
+      score: "B2",
+      numericScore: 75,
+      range: { min: 30, max: 100 },
+      level: "Independent",
+      color: "#2563eb"
+    },
+    {
+      name: "Pearson PTE",
+      score: 49,
+      range: { min: 10, max: 90 },
+      level: "Level Not Provided",
+      color: "#0891b2"
+    },
+    {
+      name: "TOEIC",
+      score: 170,
+      range: { min: 0, max: 200 },
+      level: "Level Not Provided",
+      color: "#2563eb"
+    }
+  ]
+};
+
 const SkillsProgress: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [selectedCategory, setSelectedCategory] = useState<string>(CATEGORIES.ALL);
   const [selectedTimeframe, setSelectedTimeframe] = useState("last-month");
   const [selectedCall, setSelectedCall] = useState("call-1");
   const [selectedView, setSelectedView] = useState("timeframe");
+  const [showEnglishPredictors, setShowEnglishPredictors] = useState(false);
   
   // Filter skills by selected category
   const filteredSkills = selectedCategory === CATEGORIES.ALL 
@@ -341,6 +388,151 @@ const SkillsProgress: React.FC = () => {
           
           
           
+
+          {/* English Proficiency Overall Score - Only show when English category is selected */}
+          {selectedCategory === CATEGORIES.ENGLISH && (
+            <Card className="shadow-sm mb-8">
+              <CardContent className="p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center space-x-8">
+                    {/* Circular Progress */}
+                    <div className="relative">
+                      <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke="#e5e7eb"
+                          strokeWidth="8"
+                          fill="none"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          stroke="url(#englishGradient)"
+                          strokeWidth="8"
+                          fill="none"
+                          strokeDasharray={`${2 * Math.PI * 40}`}
+                          strokeDashoffset={`${2 * Math.PI * 40 * (1 - englishProficiencyData.overallScore / 100)}`}
+                          strokeLinecap="round"
+                        />
+                        <defs>
+                          <linearGradient id="englishGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#06b6d4" />
+                            <stop offset="100%" stopColor="#3b82f6" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-blue-600">{englishProficiencyData.overallScore}%</div>
+                          <div className="text-sm text-gray-500 mt-1">{englishProficiencyData.level}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <h2 className="text-3xl font-bold mb-2">Overall Speaking Score</h2>
+                      <p className="text-lg mb-1">
+                        Your level is <span className="text-orange-500 font-semibold">{englishProficiencyData.level}</span>. {englishProficiencyData.description}
+                      </p>
+                      <p className="text-gray-600 text-sm mb-6">
+                        {englishProficiencyData.explanation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Collapsible Section */}
+                <div className="border border-blue-200 rounded-lg">
+                  <button
+                    onClick={() => setShowEnglishPredictors(!showEnglishPredictors)}
+                    className="w-full flex items-center justify-center p-4 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  >
+                    <span className="text-sm font-medium">
+                      Click to collapse your English speaking score predictors
+                    </span>
+                    {showEnglishPredictors ? (
+                      <ChevronUp className="h-4 w-4 ml-2" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 ml-2" />
+                    )}
+                  </button>
+                  
+                  {showEnglishPredictors && (
+                    <div className="border-t border-blue-200 p-6">
+                      <h3 className="text-xl font-semibold mb-6">Compare your score with other international tests</h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                        {englishProficiencyData.testComparisons.map((test, index) => (
+                          <div key={test.name} className="text-center">
+                            <h4 className="font-semibold text-lg mb-4 flex items-center justify-center">
+                              {test.name === "IELTS" && <span className="text-red-600 font-bold mr-2">IELTS</span>}
+                              {test.name === "TOEFL" && (
+                                <div className="flex items-center">
+                                  <span className="bg-teal-600 text-white px-2 py-1 rounded text-xs mr-2">ETS</span>
+                                  <span>TOEFL</span>
+                                </div>
+                              )}
+                              {test.name === "CEFR" && (
+                                <div className="flex items-center">
+                                  <span className="text-blue-600 mr-2">🇪🇺</span>
+                                  <span>CEFR</span>
+                                </div>
+                              )}
+                              {test.name === "Pearson PTE" && (
+                                <div className="flex items-center">
+                                  <span className="bg-teal-600 text-white px-1 py-0.5 rounded text-xs mr-2">Pearson</span>
+                                  <span>PTE</span>
+                                </div>
+                              )}
+                              {test.name === "TOEIC" && (
+                                <div className="flex items-center">
+                                  <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs mr-2">ETS</span>
+                                  <span>TOEIC</span>
+                                </div>
+                              )}
+                            </h4>
+                            
+                            <div className="text-center mb-4">
+                              <div className="text-3xl font-bold" style={{ color: test.color }}>
+                                {test.score}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-1">
+                                Speaking Score<br />Predictor
+                              </div>
+                            </div>
+                            
+                            <div className="mb-4">
+                              <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+                                <div 
+                                  className="h-2 rounded-full"
+                                  style={{ 
+                                    backgroundColor: test.color,
+                                    width: `${((typeof test.score === 'number' ? test.score : test.numericScore || 0) - test.range.min) / (test.range.max - test.range.min) * 100}%`
+                                  }}
+                                />
+                              </div>
+                              <div className="flex justify-between text-xs text-gray-500">
+                                <span>{test.range.min}</span>
+                                <span>{test.range.max}</span>
+                              </div>
+                            </div>
+                            
+                            <div className="text-sm font-medium text-gray-700">
+                              {test.level}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {activeTab === 'overview' && (
             <>
