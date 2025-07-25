@@ -266,7 +266,8 @@ const Landing: React.FC = () => {
 
   // Calculate total proficiency score
   const totalProficiency = Math.round(radarData.reduce((sum, item) => sum + item.value, 0) / radarData.length);
-  return <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
       
       
       <div className="bg-white p-3 shadow-sm">
@@ -642,6 +643,23 @@ const Landing: React.FC = () => {
             </div>}
         </div>
       </div>
+
+      {/* Web Platform Information Dialog */}
+      <Dialog open={webPlatformDialogOpen} onOpenChange={setWebPlatformDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-blue-800">ELSA Web Platform</DialogTitle>
+            <DialogDescription>
+              Your comprehensive learning dashboard and preparation center
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-gray-600 mb-4">
+              The ELSA Web Platform provides you with all the tools you need to prepare for meetings and track your progress over time.
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Copilot Connection Journey Dialog */}
       <Dialog open={copilotDialogOpen} onOpenChange={setCopilotDialogOpen}>
