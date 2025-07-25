@@ -267,6 +267,8 @@ const Landing: React.FC = () => {
   // Calculate total proficiency score
   const totalProficiency = Math.round(radarData.reduce((sum, item) => sum + item.value, 0) / radarData.length);
   return <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex flex-col">
+      
+      
       <div className="bg-white p-3 shadow-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold">ELSA Platform</h1>
@@ -640,333 +642,58 @@ const Landing: React.FC = () => {
             </div>}
         </div>
       </div>
-      
-      {/* Web Platform Info Dialog */}
-      <Dialog open={webPlatformDialogOpen} onOpenChange={setWebPlatformDialogOpen}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-blue-800">ELSA Web Platform Features</DialogTitle>
-            <DialogDescription>
-              Enhance your meeting preparation and follow-up with these powerful tools
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-6 py-4">
-            {/* Before the meeting section */}
-            <div>
-              <h3 className="text-xl font-semibold text-blue-700 mb-3">Before the Meeting</h3>
-              <div className="space-y-4">
-                {/* Memory Whisperer section */}
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-lg">
-                      <span className="text-xl">✨</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Memory Whisperer</h4>
-                      <p className="text-gray-600">Never forget important details from past meetings and conversations.</p>
-                      <div className="mt-2 bg-blue-100 p-3 rounded-md">
-                        <p className="italic text-blue-800">PM asks, "Didn't we commit to that change last week?"</p>
-                        <div className="mt-2">
-                          <p className="font-medium text-blue-800">ELSA suggests:</p>
-                          <p className="text-blue-800">"Yes — you agreed to update the onboarding flow by this Friday."</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Meeting Agenda Assistant section */}
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-lg">
-                      <span className="text-xl">📍</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Meeting Agenda Assistant (New)</h4>
-                      <p className="text-gray-600">Start focused. Arrive prepared.</p>
-                      <div className="mt-2 bg-blue-100 p-3 rounded-md">
-                        <p className="italic text-blue-800">Calendar invite says: "Weekly Ops Review"</p>
-                        <p className="italic text-blue-800">Recent Slack mentions: "Bring up the API delay and vendor issue."</p>
-                        <div className="mt-2">
-                          <p className="font-medium text-blue-800">ELSA suggests:</p>
-                          <p className="text-blue-800">"Suggested agenda:</p>
-                          <ul className="list-disc pl-5 mt-2 text-blue-800">
-                            <li>Review team KPIs</li>
-                            <li>Address vendor delay</li>
-                            <li>Update on API progress</li>
-                            <li>Hiring status"</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Practice Calls section */}
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-blue-100 p-2 rounded-lg">
-                      <span className="text-xl">🌀</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Practice Calls</h4>
-                      <p className="text-gray-600">Rehearse important conversations and get AI feedback on your language skills.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* After the meeting section */}
-            <div>
-              <h3 className="text-xl font-semibold text-indigo-700 mb-3">After the Meeting</h3>
-              <div className="space-y-4">
-                {/* Post-Meeting Influence Map section */}
-                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-indigo-100 p-2 rounded-lg">
-                      <span className="text-xl">🗺️</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-900">Post-Meeting Influence Map</h4>
-                      <p className="text-gray-600">Get clear action items and insights about stakeholder positions.</p>
-                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
-                        <p className="italic text-indigo-800">During discussion: "James pushed back hard on the pricing model."</p>
-                        <div className="mt-2">
-                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
-                          <p className="text-indigo-800">"James is not aligned on the pricing — flag for follow-up.<br />
-                          Sandra remained neutral.<br />
-                          Ling showed early support."</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Action Summary Generator section */}
-                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-indigo-100 p-2 rounded-lg">
-                      <span className="text-xl">✅</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-900">Action Summary Generator (New)</h4>
-                      <p className="text-gray-600">Auto-generate next steps and responsibilities.</p>
-                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
-                        <p className="italic text-indigo-800">Meeting ends with several unresolved threads.</p>
-                        <div className="mt-2">
-                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
-                          <p className="text-indigo-800">"Next Steps:</p>
-                          <ul className="list-disc pl-5 mt-2 text-indigo-800">
-                            <li>Anna to send product brief by Tuesday</li>
-                            <li>Raj to confirm ad budget by Thursday</li>
-                            <li>Team to reconvene on June 2 at 3 PM"</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Skills Progress section - NEW */}
-                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-indigo-100 p-2 rounded-lg">
-                      <span className="text-xl">📈</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-indigo-900">Skills Progress</h4>
-                      <p className="text-gray-600">Track and visualize your language and communication improvements over time.</p>
-                      <div className="mt-2 bg-indigo-100 p-3 rounded-md">
-                        <p className="italic text-indigo-800">After several client meetings this month.</p>
-                        <div className="mt-2">
-                          <p className="font-medium text-indigo-800">ELSA suggests:</p>
-                          <p className="text-indigo-800">"Your skills have improved this month:</p>
-                          <ul className="list-disc pl-5 mt-2 text-indigo-800">
-                            <li>Negotiation skills: +12%</li>
-                            <li>Pronunciation clarity: +8%</li>
-                            <li>Persuasive techniques: +15%</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-      
+
       {/* Copilot Connection Journey Dialog */}
       <Dialog open={copilotDialogOpen} onOpenChange={setCopilotDialogOpen}>
         <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-indigo-800">Connect ELSA Copilot</DialogTitle>
             <DialogDescription>
-              Set up ELSA Copilot with your video conferencing platform in 3 simple steps
+              Complete authorization journey for Google Meet, Zoom, and Microsoft Teams
             </DialogDescription>
           </DialogHeader>
           
           <Tabs defaultValue="google-meet" className="w-full py-4">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="google-meet" className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-500 rounded flex items-center justify-center text-white text-xs font-bold">G</div>
-                Google Meet
-              </TabsTrigger>
-              <TabsTrigger value="zoom" className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-600 rounded flex items-center justify-center text-white text-xs font-bold">Z</div>
-                Zoom
-              </TabsTrigger>
-              <TabsTrigger value="teams" className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-purple-600 rounded flex items-center justify-center text-white text-xs font-bold">T</div>
-                Teams
-              </TabsTrigger>
+              <TabsTrigger value="google-meet">Google Meet</TabsTrigger>
+              <TabsTrigger value="zoom">Zoom</TabsTrigger>
+              <TabsTrigger value="teams">Teams</TabsTrigger>
             </TabsList>
 
             {/* Google Meet Setup */}
             <TabsContent value="google-meet" className="space-y-6 mt-6">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="text-lg font-semibold text-blue-900 mb-4">Google Meet Authentication Journey</h3>
+              <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                <h3 className="text-lg font-semibold text-red-900 mb-4">Google Meet Authorization Journey</h3>
                 
-                {/* Step 1 */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                    <h4 className="font-semibold text-blue-900">Install ELSA Copilot Extension</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">Download and install the ELSA Copilot browser extension for Chrome.</p>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                      <Download className="mr-2 h-4 w-4" />
-                      Install Chrome Extension
-                    </Button>
+                <div className="mb-6 bg-orange-50 p-4 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-900 mb-2">⚠️ Admin Prerequisites Required</h4>
+                  <div className="text-sm text-orange-700 space-y-1">
+                    <div>• Google admin must create dedicated shadow account</div>
+                    <div>• Account format: gong.for.google.meet@company.com</div>
+                    <div>• Must enable Google Calendar and Meet access</div>
                   </div>
                 </div>
 
-                {/* Step 2 - OAuth Consent */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                    <h4 className="font-semibold text-blue-900">Google OAuth Consent</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Click "Connect Google Account" to begin the authentication flow.</p>
-                    <div className="bg-blue-50 p-3 rounded-md border border-blue-200">
-                      <h5 className="font-medium text-blue-900 mb-2">🔐 OAuth Permission Screen</h5>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span className="text-gray-700">"ELSA wants to access your Google Account"</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-gray-700">Read your Google Meet captions</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-gray-700">Access microphone during meetings</span>
-                        </div>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                      <LinkIcon className="mr-2 h-4 w-4" />
-                      Start OAuth Flow
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Step 3 - Permission Grant */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                    <h4 className="font-semibold text-blue-900">Grant Specific Permissions</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Review and grant the required permissions for optimal coaching experience.</p>
-                    <div className="grid grid-cols-1 gap-3">
-                      <div className="bg-green-50 p-3 rounded border border-green-200">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <p className="font-medium text-green-800">Microphone Access</p>
-                        </div>
-                        <p className="text-sm text-green-700 ml-6">Real-time pronunciation analysis and feedback</p>
-                      </div>
-                      <div className="bg-green-50 p-3 rounded border border-green-200">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <p className="font-medium text-green-800">Caption Reading</p>
-                        </div>
-                        <p className="text-sm text-green-700 ml-6">Context understanding for intelligent suggestions</p>
-                      </div>
-                      <div className="bg-green-50 p-3 rounded border border-green-200">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <p className="font-medium text-green-800">Meeting Participation</p>
-                        </div>
-                        <p className="text-sm text-green-700 ml-6">Overlay coaching interface during calls</p>
-                      </div>
-                    </div>
-                    <Alert>
-                      <AlertDescription className="text-sm">
-                        🔒 <strong>Privacy Note:</strong> ELSA processes audio locally. No recordings are stored on our servers.
-                      </AlertDescription>
-                    </Alert>
-                  </div>
-                </div>
-
-                {/* Step 4 - Account Linking */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
-                    <h4 className="font-semibold text-blue-900">Link ELSA Account</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Connect your ELSA learning profile for personalized coaching.</p>
-                    <div className="bg-indigo-50 p-3 rounded-md border border-indigo-200">
-                      <h5 className="font-medium text-indigo-900 mb-2">📊 Account Sync Benefits</h5>
-                      <div className="space-y-1 text-sm text-indigo-700">
-                        <div>• Personalized coaching based on your skill level</div>
-                        <div>• Progress tracking across all meetings</div>
-                        <div>• Sync with ELSA Web Platform insights</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Input placeholder="Enter your ELSA email" className="flex-1" />
-                      <Button className="bg-indigo-600 hover:bg-indigo-700">Link Account</Button>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
+                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                    <div>
+                      <h4 className="font-semibold text-red-900">Admin Creates Shadow Account</h4>
+                      <p className="text-sm text-gray-600">Google admin sets up dedicated account</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Step 3 */}
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                    <h4 className="font-semibold text-blue-900">Start Your Meeting</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">ELSA Copilot will automatically activate when you join a Google Meet call.</p>
-                    <div className="bg-green-50 p-3 rounded-md border border-green-200">
-                      <p className="text-green-800 font-medium">🎉 You're all set!</p>
-                      <p className="text-green-700 text-sm">ELSA will provide real-time suggestions during your meetings.</p>
+                  
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
+                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                    <div>
+                      <h4 className="font-semibold text-red-900">Connect as Admin</h4>
+                      <p className="text-sm text-gray-600">Use shadow account in incognito mode</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Technical Details */}
-                <div className="mt-6 bg-gray-50 p-4 rounded-md">
-                  <h5 className="font-medium text-gray-900 mb-2">Technical Integration Details</h5>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <div><strong>Audio Export:</strong> Real-time audio stream processing (no recording)</div>
-                    <div><strong>Transcript Access:</strong> Live captions via Google Meet API</div>
-                    <div><strong>Integration:</strong> Chrome Extension + Google Workspace API</div>
-                  </div>
+                  
+                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+                    Connect as Admin
+                  </Button>
                 </div>
               </div>
             </TabsContent>
@@ -974,155 +701,65 @@ const Landing: React.FC = () => {
             {/* Zoom Setup */}
             <TabsContent value="zoom" className="space-y-6 mt-6">
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="text-lg font-semibold text-blue-900 mb-4">Zoom Connection Journey</h3>
+                <h3 className="text-lg font-semibold text-blue-900 mb-4">Zoom Authorization Journey</h3>
                 
-                {/* Step 1 */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
                     <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                    <h4 className="font-semibold text-blue-900">Install ELSA Zoom App</h4>
+                    <div>
+                      <h4 className="font-semibold text-blue-900">Choose Integration Method</h4>
+                      <p className="text-sm text-gray-600">Native recording or ELSA bot</p>
+                    </div>
                   </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">Install the ELSA Copilot app from the Zoom App Marketplace.</p>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                      <Download className="mr-2 h-4 w-4" />
-                      Install Zoom App
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Step 2 */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
+                  
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
                     <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                    <h4 className="font-semibold text-blue-900">Authorize ELSA Access</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Grant permissions for ELSA to access your Zoom meetings.</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Meeting Audio</p>
-                        <p className="text-sm text-gray-600">Live pronunciation analysis</p>
-                      </div>
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Auto Transcription</p>
-                        <p className="text-sm text-gray-600">Content understanding</p>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                      <LinkIcon className="mr-2 h-4 w-4" />
-                      Authorize Zoom Access
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                    <h4 className="font-semibold text-blue-900">Activate in Meeting</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">Click the ELSA Copilot button in your Zoom toolbar to start coaching.</p>
-                    <div className="bg-green-50 p-3 rounded-md border border-green-200">
-                      <p className="text-green-800 font-medium">🎉 Ready to coach!</p>
-                      <p className="text-green-700 text-sm">ELSA is now active and will provide live feedback.</p>
+                    <div>
+                      <h4 className="font-semibold text-blue-900">Connect Zoom Account</h4>
+                      <p className="text-sm text-gray-600">Authorize meeting and recording access</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Technical Details */}
-                <div className="mt-6 bg-gray-50 p-4 rounded-md">
-                  <h5 className="font-medium text-gray-900 mb-2">Technical Integration Details</h5>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <div><strong>Audio Export:</strong> Live audio stream (M4A format for analysis)</div>
-                    <div><strong>Transcript Access:</strong> Real-time transcription via Zoom API</div>
-                    <div><strong>Integration:</strong> Zoom App SDK + Recording API + Transcription API</div>
-                  </div>
+                  
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    Connect Zoom Account
+                  </Button>
                 </div>
               </div>
             </TabsContent>
 
             {/* Teams Setup */}
             <TabsContent value="teams" className="space-y-6 mt-6">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="text-lg font-semibold text-blue-900 mb-4">Microsoft Teams Connection Journey</h3>
+              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                <h3 className="text-lg font-semibold text-purple-900 mb-4">Microsoft Teams Authorization Journey</h3>
                 
-                {/* Step 1 */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                    <h4 className="font-semibold text-blue-900">Install ELSA Teams App</h4>
+                    <div>
+                      <h4 className="font-semibold text-purple-900">Download Calendar Add-in</h4>
+                      <p className="text-sm text-gray-600">Install ELSA for Outlook or Google Workspace</p>
+                    </div>
                   </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">Add ELSA Copilot from the Microsoft Teams App Store.</p>
-                    <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-                      <Download className="mr-2 h-4 w-4" />
-                      Install Teams App
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Step 2 */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
+                  
+                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg border">
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                    <h4 className="font-semibold text-blue-900">Configure Microsoft Graph</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Connect ELSA with Microsoft Graph for meeting access.</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Meeting Recording</p>
-                        <p className="text-sm text-gray-600">Post-meeting analysis</p>
-                      </div>
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Live Transcription</p>
-                        <p className="text-sm text-gray-600">Real-time context</p>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-50">
-                      <LinkIcon className="mr-2 h-4 w-4" />
-                      Connect Microsoft Account
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                    <h4 className="font-semibold text-blue-900">Enable in Meeting</h4>
-                  </div>
-                  <div className="bg-white p-4 rounded-md border ml-11">
-                    <p className="text-gray-700 mb-3">Launch ELSA Copilot from the Teams app panel during your meeting.</p>
-                    <div className="bg-green-50 p-3 rounded-md border border-green-200">
-                      <p className="text-green-800 font-medium">🎉 All connected!</p>
-                      <p className="text-green-700 text-sm">ELSA will provide intelligent coaching throughout your meeting.</p>
+                    <div>
+                      <h4 className="font-semibold text-purple-900">Sign in via Add-in</h4>
+                      <p className="text-sm text-gray-600">Authenticate through calendar integration</p>
                     </div>
                   </div>
-                </div>
-
-                {/* Technical Details */}
-                <div className="mt-6 bg-gray-50 p-4 rounded-md">
-                  <h5 className="font-medium text-gray-900 mb-2">Technical Integration Details</h5>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <div><strong>Audio Export:</strong> Meeting recordings via Microsoft Graph API</div>
-                    <div><strong>Transcript Access:</strong> Automatic transcription for recorded meetings</div>
-                    <div><strong>Integration:</strong> Teams App + Microsoft Graph API + Transcription API</div>
-                  </div>
+                  
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                    Install Calendar Add-in
+                  </Button>
                 </div>
               </div>
             </TabsContent>
           </Tabs>
         </DialogContent>
       </Dialog>
-      
-      <div className="bg-white py-4">
-        <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
-          &copy; 2025 ELSA Platform. All rights reserved.
-        </div>
-      </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Landing;
