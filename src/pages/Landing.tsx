@@ -827,7 +827,7 @@ const Landing: React.FC = () => {
             {/* Google Meet Setup */}
             <TabsContent value="google-meet" className="space-y-6 mt-6">
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="text-lg font-semibold text-blue-900 mb-4">Google Meet Connection Journey</h3>
+                <h3 className="text-lg font-semibold text-blue-900 mb-4">Google Meet Authentication Journey</h3>
                 
                 {/* Step 1 */}
                 <div className="mb-6">
@@ -844,28 +844,103 @@ const Landing: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Step 2 */}
+                {/* Step 2 - OAuth Consent */}
                 <div className="mb-6">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                    <h4 className="font-semibold text-blue-900">Connect Google Workspace</h4>
+                    <h4 className="font-semibold text-blue-900">Google OAuth Consent</h4>
                   </div>
                   <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
-                    <p className="text-gray-700">Grant ELSA access to your Google Meet sessions for real-time coaching.</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Audio Access</p>
-                        <p className="text-sm text-gray-600">For pronunciation feedback</p>
-                      </div>
-                      <div className="bg-gray-50 p-3 rounded">
-                        <p className="font-medium text-gray-800">✅ Caption Access</p>
-                        <p className="text-sm text-gray-600">For context understanding</p>
+                    <p className="text-gray-700">Click "Connect Google Account" to begin the authentication flow.</p>
+                    <div className="bg-blue-50 p-3 rounded-md border border-blue-200">
+                      <h5 className="font-medium text-blue-900 mb-2">🔐 OAuth Permission Screen</h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="text-gray-700">"ELSA wants to access your Google Account"</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="text-gray-700">Read your Google Meet captions</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="text-gray-700">Access microphone during meetings</span>
+                        </div>
                       </div>
                     </div>
                     <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
                       <LinkIcon className="mr-2 h-4 w-4" />
-                      Connect Google Account
+                      Start OAuth Flow
                     </Button>
+                  </div>
+                </div>
+
+                {/* Step 3 - Permission Grant */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                    <h4 className="font-semibold text-blue-900">Grant Specific Permissions</h4>
+                  </div>
+                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
+                    <p className="text-gray-700">Review and grant the required permissions for optimal coaching experience.</p>
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="bg-green-50 p-3 rounded border border-green-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                          <p className="font-medium text-green-800">Microphone Access</p>
+                        </div>
+                        <p className="text-sm text-green-700 ml-6">Real-time pronunciation analysis and feedback</p>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded border border-green-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                          <p className="font-medium text-green-800">Caption Reading</p>
+                        </div>
+                        <p className="text-sm text-green-700 ml-6">Context understanding for intelligent suggestions</p>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded border border-green-200">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                          <p className="font-medium text-green-800">Meeting Participation</p>
+                        </div>
+                        <p className="text-sm text-green-700 ml-6">Overlay coaching interface during calls</p>
+                      </div>
+                    </div>
+                    <Alert>
+                      <AlertDescription className="text-sm">
+                        🔒 <strong>Privacy Note:</strong> ELSA processes audio locally. No recordings are stored on our servers.
+                      </AlertDescription>
+                    </Alert>
+                  </div>
+                </div>
+
+                {/* Step 4 - Account Linking */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
+                    <h4 className="font-semibold text-blue-900">Link ELSA Account</h4>
+                  </div>
+                  <div className="bg-white p-4 rounded-md border ml-11 space-y-3">
+                    <p className="text-gray-700">Connect your ELSA learning profile for personalized coaching.</p>
+                    <div className="bg-indigo-50 p-3 rounded-md border border-indigo-200">
+                      <h5 className="font-medium text-indigo-900 mb-2">📊 Account Sync Benefits</h5>
+                      <div className="space-y-1 text-sm text-indigo-700">
+                        <div>• Personalized coaching based on your skill level</div>
+                        <div>• Progress tracking across all meetings</div>
+                        <div>• Sync with ELSA Web Platform insights</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Input placeholder="Enter your ELSA email" className="flex-1" />
+                      <Button className="bg-indigo-600 hover:bg-indigo-700">Link Account</Button>
+                    </div>
                   </div>
                 </div>
 
