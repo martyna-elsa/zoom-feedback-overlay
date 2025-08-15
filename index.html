@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zoom-feedback-overlay</title>
-  <meta name="description" content="Lovable Generated Project" />
-  <meta name="author" content="Lovable" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lovable Prototype Maze Test</title>
+    <meta name="description" content="Lovable Generated Project" />
+    <meta name="author" content="Lovable" />
 
-  <meta property="og:title" content="zoom-feedback-overlay" />
-  <meta property="og:description" content="Lovable Generated Project" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Open Graph / Twitter metadata (optional) -->
+    <meta property="og:title" content="Lovable Prototype" />
+    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@lovable_dev" />
-  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-</head>
-<body>
-  <div id="root"></div>
-  <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-  <script type="module" src="/src/main.tsx"></script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-  <!-- Maze snippet -->
-  <script>
-  (function (m, a, z, e) {
-    var s, t;
-    try {
-      t = m.sessionStorage.getItem('maze-us');
-    } catch (err) {}
+    <!-- Maze Snippet -->
+    <script>
+      (function (m, a, z, e) {
+        var s, t;
+        try {
+          t = m.sessionStorage.getItem('maze-us');
+        } catch (err) {}
 
-    if (!t) {
-      t = new Date().getTime();
-      try {
-        m.sessionStorage.setItem('maze-us', t);
-      } catch (err) {}
-    }
+        if (!t) {
+          t = new Date().getTime();
+          try {
+            m.sessionStorage.setItem('maze-us', t);
+          } catch (err) {}
+        }
 
-    s = a.createElement('script');
-    s.src = z + '?apiKey=' + e;
-    s.async = true;
-    a.getElementsByTagName('body')[0].appendChild(s);
-    m.mazeUniversalSnippetApiKey = e;
-  })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '1f1186a0-adcd-4d5b-b524-6bf6b6074901');
-  </script>
-</body>
+        s = a.createElement('script');
+        s.src = z + '?apiKey=' + e;
+        s.async = true;
+        a.getElementsByTagName('head')[0].appendChild(s);
+        m.mazeUniversalSnippetApiKey = e;
+      })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '1f1186a0-adcd-4d5b-b524-6bf6b6074901');
+    </script>
+
+    <!-- Force smaller viewport for Maze -->
+    <script>
+      // Run before the app mounts
+      if (navigator.userAgent.includes("Maze")) {
+        document.addEventListener("DOMContentLoaded", function () {
+          const root = document.getElementById("root");
+          root.style.maxWidth = "1200px";   // Width Maze will see
+          root.style.maxHeight = "800px";   // Height Maze will see
+          root.style.margin = "0 auto";     // Center content
+        });
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- Lovable app scripts -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
