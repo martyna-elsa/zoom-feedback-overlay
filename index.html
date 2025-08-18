@@ -45,8 +45,8 @@
       // Maze checks the actual window size, so we scale the page
       if (navigator.userAgent.includes("Maze")) {
         document.addEventListener("DOMContentLoaded", function () {
-          const maxWidth = 1199; // Custom max width
-          const maxHeight = 799; // Custom max height
+          const maxWidth = "100vw"; // Custom max width
+          const maxHeight = "100vh"; // Custom max height
 
           const scaleWidth = maxWidth / window.innerWidth;
           const scaleHeight = maxHeight / window.innerHeight;
