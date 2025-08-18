@@ -40,39 +40,12 @@
       })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '1f1186a0-adcd-4d5b-b524-6bf6b6074901');
     </script>
 
-    <!-- Force smaller viewport for Maze -->
+    <!-- Window size guidance for Maze users -->
     <script>
-      // Maze checks the actual window size, so we scale the page
-      {/* if (navigator.userAgent.includes("Maze")) {
+      // Display helpful message for Maze users with oversized windows
+      if (navigator.userAgent.includes("Maze") && window.innerWidth > 1380) {
         document.addEventListener("DOMContentLoaded", function () {
-          const maxWidth = "100vw"; // Custom max width
-          const maxHeight = "100vh"; // Custom max height
-
-          const scaleWidth = maxWidth / window.innerWidth;
-          const scaleHeight = maxHeight / window.innerHeight;
-          const scale = Math.min(scaleWidth, scaleHeight, 1); // never scale up
-
-          document.body.style.transformOrigin = "top left";
-          document.body.style.transform = `scale(${scale})`;
-          document.body.style.width = `${window.innerWidth / scale}px`;
-          document.body.style.height = `${window.innerHeight / scale}px`;
-          document.body.style.margin = "0 auto";
-        });
-      } */
-      if (navigator.userAgent.includes("Maze")) {
-        document.addEventListener("DOMContentLoaded", function () {
-          // Force viewport to standard size that Maze accepts
-          const targetWidth = 1200;
-          const targetHeight = 800;
-          const scaleX = targetWidth / window.innerWidth;
-          const scaleY = targetHeight / window.innerHeight;
-          const scale = Math.min(scaleX, scaleY, 1);
-          
-          document.body.style.transformOrigin = "top left";
-          document.body.style.transform = `scale(${scale})`;
-          document.body.style.width = `${window.innerWidth}px`;
-          document.body.style.height = `${window.innerHeight}px`;
-          document.body.style.overflow = "hidden";
+          console.log("Maze detected: Please resize your browser window to between 1180-1380px width for optimal testing.");
         });
       }
     </script>
@@ -84,9 +57,5 @@
     <!-- Lovable prototype scripts -->
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Optional: debug indicator -->
-    <div style="position:fixed;bottom:10px;right:10px;background:#ff0;padding:5px;font-size:12px;z-index:9999;">
-      Maze snippet active
-    </div>
   </body>
 </html>
